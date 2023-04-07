@@ -18,8 +18,7 @@
   (check-equal? (factor-engine stryker) 1)
   (check-equal? (factor-contact-pressure stryker) 9 17/99)
   (check-equal? (factor-clearance stryker) 2 1/10)
-  (check-equal? (calculate-mobility-index stryker) 3.531569664)
-  )
+  (check-equal? (calculate-mobility-index stryker) 3.531569664))
 
 (define (calculate-mobility-index vehicle)
   #|
