@@ -30,7 +30,6 @@
            (factor-wheel-load vehicle))
         (factor-clearance vehicle))
      (* (factor-engine vehicle) (factor-transmission vehicle))))
-   (* (factor-engine vehicle) (factor-transmission vehicle))))
 
 (define (factor-weight vehicle)
   (local ((define lbs/axle (/ (hash-ref vehicle "weight") (hash-ref vehicle "axles")))
