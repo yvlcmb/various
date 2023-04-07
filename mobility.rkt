@@ -158,6 +158,3 @@ Vehicle specs from https://en.wikipedia.org/
   (/
    (/ (hash-ref vehicle "weight") 10)
    (* (hash-ref vehicle "bogies") (hash-ref vehicle "shoe-area"))))
-
-
-(tests)
