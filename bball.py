@@ -81,11 +81,7 @@ def clean_names(frame: pd.DataFrame,) -> None:
 def prep_data(in_dir: str) -> list:
     """"Read files into memory, clean the Player's names
     then return as a list of dataframes."""
-    files = glob(in_dir)
-    frames = [pd.read_csv(data) for data in files]
-    for frame in frames:
-        clean_names(frame)
-    return frames
+    return [clean_names(pd.read_csv(data)) for data in glob(in_dir)]
 
 
 def process(in_dir: str) -> list:
