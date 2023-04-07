@@ -26,13 +26,11 @@
   :param vehicle: hash table of vehicle properties
   :return: a number reflecting the vehicle's mobility index
   |#
-  (*
-   (-
-    (+
-     (/ (* (factor-contact-pressure vehicle) (factor-weight vehicle))
-        (* (factor-tire vehicle) (factor-grouser vehicle)))
-     (factor-wheel-load vehicle))
-   (factor-clearance vehicle))
+  (* (- (+ (/ (* (factor-contact-pressure vehicle) (factor-weight vehicle))
+              (* (factor-tire vehicle) (factor-grouser vehicle)))
+           (factor-wheel-load vehicle))
+        (factor-clearance vehicle))
+     (* (factor-engine vehicle) (factor-transmission vehicle))))
    (* (factor-engine vehicle) (factor-transmission vehicle))))
 
 (define (factor-weight vehicle)
