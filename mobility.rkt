@@ -1,5 +1,5 @@
 #lang racket
-#| Calculate mobility index and one pass vehicle cone index for wheeled vehicles
+#| Calculate mobility index and one pass vehicle cone index for wheeled and tracked vehicles
 Sources:
   Wong J.Y., Jayakumar P., Toma E., & Preston-Thomas, J. (2020).
      A review of mobility metrics for next generation vehicle mobility models.
