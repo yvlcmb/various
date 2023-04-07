@@ -61,6 +61,7 @@ Vehicle specs from https://en.wikipedia.org/
   |#
   (- (+ 7 (* 0.2 mi)) (/ 39.2 (+ mi 5.6))))
 
+
 (define (wheel-calculate-vci-1 mi)
   #|
   :param vehicle: a mobility index
