@@ -12,52 +12,63 @@ Sources:
 Vehicle specs from https://en.wikipedia.org/
 |#
 
-(require rackunit)
+;; use the below as a template for wheeled vehicles
+(define stryker (hash "weight" 36320  ;lbs
+                      "clearance" 21  ;inches
+                      "axles" 4
+                      "wheel#" 8
+                      "tire-width" 22  ;inches
+                      "hydraulic" #t
+                      "tire-diameter" 45  ;inches
+                      "tire#" 8
+                      "hp" 350))
+
+;; use the below as a template for tracked vehicles
+(define abrams (hash "weight" 136000  ;lbs
+                     "clearance" 19  ;inches
+                     "length" 384.5  ;inches
+                     "track-width" 25  ;inches
+                     "shoe-area" 190  ;inches
+                     "hydraulic" #t
+                     "bogies" 7
+                     "hp" 1500))
+
 
 (define (test-wheeled)
-  (define stryker (hash "weight" 36320  ;lbs
-                        "clearance" 21  ;inches
-                        "axles" 4
-                        "wheel#" 8
-                        "tire-width" 22  ;inches
-                        "hydraulic" #t
-                        "tire-diameter" 45  ;inches
-                        "tire#" 8
-                        "hp" 350))
   (check-equal? (wheel-factor-weight stryker) 0.314622)
-  (check-equal? (exact->inexact(factor-wheel-load stryker)) 4.54)
+  (check-equal? (exact->inexact(factor-wheel-load stryker)) 4.54)  ;github can't render fractions like Dr. Racket
   (check-equal? (wheel-factor-grouser stryker) 1)
-  (check-equal? (exact->inexact (factor-tire stryker)) 3.125)
+  (check-equal? (exact->inexact (factor-tire stryker)) 3.125) 
   (check-equal? (factor-transmission stryker) 1)
-  (check-equal? (factor-engine stryker) 1.05)
+  (check-equal? (factor-engine stryker) 1)
   (check-equal? (exact->inexact (wheel-factor-contact-pressure stryker)) 9.171717171717171)
-  (check-equal? (exact->inexact (factor-clearance stryker)) 2.1)
-  (check-equal? (wheel-calculate-mobility-index stryker) 3.531569664)
-  (check-equal? (calculate-vci-1
-                 (wheel-calculate-mobility-index stryker)) -11.999113686005717))
-                 
-                 
+  (check-equal? (exact->inexact (factor-clearance stryker)) 2.1) 
+  (check-equal? (wheel-calculate-mobility-index stryker) 3.36339968)
+  (check-equal? (wheel-calculate-vci-1
+                (wheel-calculate-mobility-index stryker)) 6.634195581195963))
+
+
 (define (test-tracked)
-  (define abrams (hash "weight" 136000  ;lbs
-                       "clearance" 19  ;inches
-                       "length" 384.5  ;inches
-                       "track-width" 25  ;inches
-                       "shoe-area" 190  ;inches
-                       "hydraulic" #t
-                       "bogies" 7
-                       "hp" 1500))
   (define mi (track-calculate-mobility-index abrams))
-  (display (track-calculate-mobility-index abrams))
-  (display "\n")
-  (display (calculate-vci-1 mi)))
+  (displayln (format "Abrams mobility index: ~a" mi))
+  (displayln (format "Abrams one-pass VCI: ~a" (track-calculate-vci-1 mi))))
 
 
-(define (calculate-vci-1 mi)
+(define (track-calculate-vci-1 mi)
   #|
-  :param mi: a mobility index
+  :param vehicle: a mobility index
   :return: the one-pass vehicle cone index for fine-grained soils
   |#
-  (- (+ 7 (* 0.2 mi) (/ 39.2 (+ mi 5.6)))))
+  (- (+ 7 (* 0.2 mi)) (/ 39.2 (+ mi 5.6))))
+
+(define (wheel-calculate-vci-1 mi)
+  #|
+  :param vehicle: a mobility index
+  :return: the one-pass vehicle cone index for fine-grained soils
+  |#
+  (if (< mi 115)
+      (- (+ 11.48 (* 0.2 mi)) (/ 39.2 (+ mi 3.74)))
+      (* 4.1 (expt mi 0.446))))
 
 
 (define (wheel-calculate-mobility-index vehicle)
@@ -118,7 +129,7 @@ Vehicle specs from https://en.wikipedia.org/
 
 (define (factor-engine vehicle)
   (let ([hp/ton (/ (hash-ref vehicle "hp") 2000)])
-    (if (<= hp/ton 10)  1.05 1)))  
+    (if (<= hp/ton 10)  1 1.05)))  
 
 
 (define (wheel-factor-contact-pressure vehicle)
@@ -158,3 +169,6 @@ Vehicle specs from https://en.wikipedia.org/
   (/
    (/ (hash-ref vehicle "weight") 10)
    (* (hash-ref vehicle "bogies") (hash-ref vehicle "shoe-area"))))
+
+(test-wheeled)
+(test-tracked)
