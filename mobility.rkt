@@ -130,7 +130,7 @@ Vehicle specs from https://en.wikipedia.org/
 
 
 (define (factor-track vehicle)
-  (/ 100 (hash-ref vehicle "track-width")))
+  (/ (hash-ref vehicle "track-width") 100))
 
 
 (define (factor-grouser vehicle)
