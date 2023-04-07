@@ -13,7 +13,7 @@ Vehicle specs from https://en.wikipedia.org/wiki/Stryker
 |#
 (require rackunit)
 
-(define (test-factors)
+(define (tests)
   (define stryker (hash "weight" 36320  ;lbs
                         "clearance" 21  ;inches
                         "axles" 4
@@ -30,7 +30,8 @@ Vehicle specs from https://en.wikipedia.org/wiki/Stryker
   (check-equal? (factor-engine stryker) 1)
   (check-equal? (exact->inexact (factor-contact-pressure stryker)) 9.171717171717171)
   (check-equal? (exact->inexact (factor-clearance stryker)) 2.1)
-  (check-equal? (calculate-mobility-index stryker) 3.531569664))
+  (check-equal? (calculate-mobility-index stryker) 3.531569664)
+  (check-equal? (calculate-vci-1 stryker) -11.999113686005717))
 
 (define (calculate-vci-1 vehicle)
   #|
@@ -87,4 +88,4 @@ Vehicle specs from https://en.wikipedia.org/wiki/Stryker
         (hash-ref vehicle "tire#") 
         (/ (hash-ref vehicle "tire-diameter") 2))))
 
-(test-factors)
+(tests)
