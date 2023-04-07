@@ -14,7 +14,7 @@ Vehicle specs from https://en.wikipedia.org/
 
 (require rackunit)
 
-(define (tests)
+(define (test-wheeled)
   (define stryker (hash "weight" 36320  ;lbs
                         "clearance" 21  ;inches
                         "axles" 4
@@ -24,14 +24,6 @@ Vehicle specs from https://en.wikipedia.org/
                         "tire-diameter" 45  ;inches
                         "tire#" 8
                         "hp" 350))
-  (define abrams (hash "weight" 136000  ;lbs
-                       "clearance" 19  ;inches
-                       "length" 384.5  ;inches
-                       "track-width" 25  ;inches
-                       "shoe-area" 190  ;inches
-                       "hydraulic" #t
-                       "bogies" 7
-                       "hp" 1500))
   (check-equal? (wheel-factor-weight stryker) 0.314622)
   (check-equal? (exact->inexact(factor-wheel-load stryker)) 4.54)
   (check-equal? (wheel-factor-grouser stryker) 1)
@@ -43,6 +35,21 @@ Vehicle specs from https://en.wikipedia.org/
   (check-equal? (wheel-calculate-mobility-index stryker) 3.531569664)
   (check-equal? (calculate-vci-1
                  (wheel-calculate-mobility-index stryker)) -11.999113686005717))
+                 
+                 
+(define (test-tracked)
+  (define abrams (hash "weight" 136000  ;lbs
+                       "clearance" 19  ;inches
+                       "length" 384.5  ;inches
+                       "track-width" 25  ;inches
+                       "shoe-area" 190  ;inches
+                       "hydraulic" #t
+                       "bogies" 7
+                       "hp" 1500))
+  (define mi (track-calculate-mobility-index abrams))
+  (display (track-calculate-mobility-index abrams))
+  (display "\n")
+  (display (calculate-vci-1 mi)))
 
 
 (define (calculate-vci-1 mi)
