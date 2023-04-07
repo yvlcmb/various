@@ -4,6 +4,7 @@ Sources:
   Wong J.Y., Jayakumar P., Toma E., & Preston-Thomas, J. (2020).
      A review of mobility metrics for next generation vehicle mobility models.
      Journal of Terramechanics (87). 11 -20.
+     https://doi.org/10.1016/j.jterra.2019.10.003.
   U.S. Department of the Army. (1994). Planning and design of roads, airfields,
      and heliports in the theater of operations -- airfield and heliport design:
      FM 5-430-00-1/AFPAM 32-8013, Vol 1.
