@@ -136,7 +136,7 @@ Vehicle specs from https://en.wikipedia.org/
 (define (factor-grouser vehicle)
   (if
    (and (hash-has-key? vehicle "grouser-ht")
-        (> (hash-ref "key") 1.5))
+        (> (hash-ref "grouser-ht") 1.5))
    1.1 1))
 
 
