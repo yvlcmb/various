@@ -46,7 +46,7 @@ Vehicle specs from https://en.wikipedia.org/
 
 (define (calculate-vci-1 mi)
   #|
-  :param vehicle: a mobility index
+  :param mi: a mobility index
   :return: the one-pass vehicle cone index for fine-grained soils
   |#
   (- (+ 7 (* 0.2 mi) (/ 39.2 (+ mi 5.6)))))
