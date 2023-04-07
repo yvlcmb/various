@@ -1,4 +1,16 @@
 #lang racket
+#| Calculate mobility index and one pass vehicle cone index for wheeled vehicles
+
+Sources:
+  
+  Wong J.Y., Jayakumar P., Toma E., & Preston-Thomas, J. (2020).
+     A review of mobility metrics for next generation vehicle mobility models.
+     Journal of Terramechanics (87). 11 -20.
+
+  U.S. Department of the Army. (1994). Planning and design of roads, airfields,
+     and heliports in the theater of operations --airfield and heliport design:
+     FM 5-430-00-1/AFPAM 32-8013, Vol 1.
+|#
 (require rackunit)
 
 (define (test-factors)
