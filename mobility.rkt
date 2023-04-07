@@ -26,8 +26,7 @@
   :return: the one-pass vehicle cone index for fine-grained soils
   |#
   (define mi (calculate-mobility-index vehicle))
-  (- (+ 7 (* 0.2 mi)
-     (/ 39.2 (+ mi 5.6)))))
+  (- (+ 7 (* 0.2 mi) (/ 39.2 (+ mi 5.6)))))
 
 (define (calculate-mobility-index vehicle)
   #|
