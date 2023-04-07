@@ -6,7 +6,7 @@ Sources:
      A review of mobility metrics for next generation vehicle mobility models.
      Journal of Terramechanics (87). 11 -20.
   U.S. Department of the Army. (1994). Planning and design of roads, airfields,
-     and heliports in the theater of operations --airfield and heliport design:
+     and heliports in the theater of operations -- airfield and heliport design:
      FM 5-430-00-1/AFPAM 32-8013, Vol 1.
      
 Vehicle specs from https://en.wikipedia.org/wiki/Stryker
