@@ -11,14 +11,23 @@
                         "tire-diameter" 45  ;inches
                         "tire#" 8))
   (check-equal? (factor-weight stryker) 0.314622)
-  (check-equal? (factor-wheel-load stryker )4 27/50)
+  (check-equal? (exact->inexact(factor-wheel-load stryker)) 4.54)
   (check-equal? (factor-grouser stryker) 1)
-  (check-equal? (factor-tire stryker) 25/8)
-  (check-equal? (factor-transmission stryker) 1 1/20)
+  (check-equal? (exact->inexact (factor-tire stryker)) 3.125)
+  (check-equal? (factor-transmission stryker) 1.05)
   (check-equal? (factor-engine stryker) 1)
-  (check-equal? (factor-contact-pressure stryker) 9 17/99)
-  (check-equal? (factor-clearance stryker) 2 1/10)
+  (check-equal? (exact->inexact (factor-contact-pressure stryker)) 9.171717171717171)
+  (check-equal? (exact->inexact (factor-clearance stryker)) 2.1)
   (check-equal? (calculate-mobility-index stryker) 3.531569664))
+
+(define (calculate-vci-1 vehicle)
+  #|
+  :param vehicle: hash table of vehicle properties
+  :return: the one-pass vehicle cone index for fine-grained soils
+  |#
+  (define mi (calculate-mobility-index vehicle))
+  (- (+ 7 (* 0.2 mi)
+     (/ 39.2 (+ mi 5.6)))))
 
 (define (calculate-mobility-index vehicle)
   #|
@@ -45,7 +54,7 @@
   (/ 100 (+ 10 (hash-ref vehicle "tire-width"))))
 
 (define (factor-grouser vehicle)
-  (if (hash-has-key? vehicle "chains") 1 1/20 1))
+  (if (hash-has-key? vehicle "chains") 1.05 1))
 
 (define (factor-wheel-load vehicle)
   (let ([kips (/ (hash-ref vehicle "weight") 1000)])
@@ -55,16 +64,16 @@
   (/ (hash-ref vehicle "clearance") 10))
 
 (define (factor-transmission vehicle)
-  (if (hash-has-key? vehicle "hydraulic") 1 1 1/20))
+  (if (hash-has-key? vehicle "hydraulic") 1 1.05))
 
 (define (factor-engine vehicle)
   (let ([hp/ton (/ (hash-ref vehicle "weight") 2000)])
-    (if (<= hp/ton 10)  1 1/20 1)))  
+    (if (<= hp/ton 10)  1.05 1)))  
 
 (define (factor-contact-pressure vehicle)
   (/ (hash-ref vehicle "weight")
      (* (hash-ref vehicle "tire-width")
         (hash-ref vehicle "tire#") 
         (/ (hash-ref vehicle "tire-diameter") 2))))
-  
+
 (test-factors)
