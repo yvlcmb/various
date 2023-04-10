@@ -75,12 +75,14 @@
 (defmulti calculate-mobility-index "calculate mobility index"
   (fn [veh] (:Category veh)))
 (defmethod calculate-mobility-index :Wheel [veh]
-  (* (- (+ (/ (* (fac-pressure veh) (fac-weight veh) (fac-tire veh) (fac-grouser veh)))
+  (* (- (+ (/ (* (fac-pressure veh) (fac-weight veh)) 
+              (* (fac-tire veh) (fac-grouser veh)))
            (fac-wheel-load veh))
         (fac-clearance veh))
      (* (fac-engine veh) (fac-transmission veh))))
 (defmethod calculate-mobility-index :Track [veh]
-   (* (- (+ (/ (* (fac-pressure veh) (fac-weight veh) (fac-track veh) (fac-grouser veh)))
+  (* (- (+ (/ (* (fac-pressure veh) (fac-weight veh))
+              (* (fac-track veh) (fac-grouser veh)))
            (fac-bogie veh))
         (fac-clearance veh))
      (* (fac-engine veh) (fac-transmission veh))))
