@@ -45,9 +45,9 @@ print('test precision_score:', round(metrics.precision_score(y_test, test_preds)
 # [[movement type1, movement type2, movement type3, movement type 4, movement type5, workout type]]
 # workout type must be one of `AMRAP`, `RFT`, or `Load`.
 # for movement types, see data for a sample, or use `none`.
-Xnew = enc.fit_transform([['no', 'clean and jerks', 'burpees', 'none', 'none', 'RFT']])
+x_new = enc.fit_transform([['wall balls', 'T2B', 'box jumps', 'none', 'none', 'AMRAP']])
 
-print("Naive Bayes prediction: ", ("Mitch loses", "Mitch wins")[clf.predict(Xnew)[0]])
+print("Naive Bayes prediction: ", ("Mitch loses", "Mitch wins")[clf.predict(x_new)[0]])
 
 print("\nNeural Network section")
 print("-"*22)
@@ -75,7 +75,7 @@ print('test f1:', round(metrics.f1_score(y_test, preds2), 3))
 print('test recall:', round(metrics.recall_score(y_test, preds2), 2))
 print('test precision_score:', round(metrics.precision_score(y_test, preds2), 2), "\n")
 
-print("Neural network prediction: ", ("Mitch loses", "Mitch wins")[mlp.predict(Xnew)[0]])
+print("Neural network prediction: ", ("Mitch loses", "Mitch wins")[mlp.predict(x_new)[0]])
 
 # SVM Section
 print("\nSVM section")
@@ -95,4 +95,4 @@ print('test f1:', round(metrics.f1_score(y_test, y_pred), 3))
 print('test recall:', round(metrics.recall_score(y_test, y_pred), 2))
 print('test precision_score:', round(metrics.precision_score(y_test, y_pred), 2), "\n")
 
-print("Support vector machine prediction: ", ("Mitch loses", "Mitch wins")[svc.predict(Xnew)[0]])
+print("Support vector machine prediction: ", ("Mitch loses", "Mitch wins")[svc.predict(x_new)[0]])
