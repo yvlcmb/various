@@ -2,10 +2,9 @@
   (:gen-class))
 
 
-(defmulti fac-weight (fn [vehicle] (:Category vehicle)))
+(defmulti fac-weight "calculate weight factor" (fn [vehicle] (:Category vehicle)))
 (defmethod fac-weight :Wheel
   [vehicle]
-  "docstring"
   (def lbs-per-axle (/ (:weight vehicle) (:axles vehicle)))
   (def kips (/ (:weight vehicle) 1000))
   (let [mods (cond
@@ -16,7 +15,6 @@
     (+ (* (first mods) (/ kips (:axles vehicle)) (last mods)))))
 (defmethod fac-weight :Track
   [vehicle]
-  "docstring"
   (def wt (:weight vehicle))
   (cond
     (< wt 50000)  1.0
