@@ -32,7 +32,7 @@
 
 (defn fac-grouser [veh]
   "calcuate the grouser factor"
-  (if (and (contains? veh :grouser-ht) (> (:veh "grouser-ht") 1.5)) 1.1 1))
+  (if (and (contains? veh :grouser-ht) (> (:grouser-ht veh) 1.5)) 1.1 1))
 
 (defmulti fac-pressure "calculate contact pressure factor"
   (fn [veh] (:Category veh)))
