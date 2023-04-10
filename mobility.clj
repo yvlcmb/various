@@ -1,4 +1,4 @@
-(ns swampmonster.mobility
+(ns vci.mobility
   (:gen-class))
 
 
