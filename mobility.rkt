@@ -8,7 +8,7 @@ Sources:
   
   Kennedy, J.G. & Rush, E.S. (1968). Development of revised mobility index formula
      for self-propelled wheeled vehicles in fine-grained soils. 
-     Trafficability of Soils. U.S. Army Materiel Command. U.S. Departmeny of the Army. 
+     Trafficability of Soils. U.S. Army Materiel Command. U.S. Department of the Army. 
   
   U.S. Department of the Army. (1994). Planning and design of roads, airfields,
      and heliports in the theater of operations -- airfield and heliport design:
@@ -35,7 +35,7 @@ Vehicle specs from https://en.wikipedia.org/
                      "track-width" 25  ;inches
                      "shoe-area" 190  ;inches
                      "hydraulic" #t
-                     "bogies" 7
+                     "bogie#" 7
                      "hp" 1500))
 
 
@@ -173,7 +173,7 @@ Vehicle specs from https://en.wikipedia.org/
 (define (factor-bogie vehicle)
   (/
    (/ (hash-ref vehicle "weight") 10)
-   (* (hash-ref vehicle "bogies") (hash-ref vehicle "shoe-area"))))
+   (* (hash-ref vehicle "bogie#") (hash-ref vehicle "shoe-area"))))
 
 (test-wheeled)
 (test-tracked)
