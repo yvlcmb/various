@@ -77,6 +77,16 @@
         (fac-clearance veh))
      (* (fac-engine veh) (fac-transmission veh))))
 
+(defn calculate-vci1-track [mi]
+  "return the one-pass wheeled vehicle cone index for fine-grained soils"
+  (- (+ 7 (* 0.2 mi)) (/ 39.2 (+ mi 5.6))))
+
+(defn calculate-vci1-wheel [mi]
+  "return the one-pass tracked vehicle cone index for fine-grained soils"
+  (if (< mi 115)
+    (- (+ 11.48 (* 0.2 mi)) (/ 39.2 (+ mi 3.74)))
+    (* 4.1 (Math/pow mi 0.446))))
+
 (defn main []
   (def stryker {:Category :Wheel
                 :weight 36320
@@ -99,7 +109,7 @@
                :bogies 7
                :hp 1500})
 
-  (println (calculate-mobility-index stryker))
-  (println (calculate-mobility-index abrams)))
+  (println (calculate-vci1-wheel (calculate-mobility-index stryker)))
+  (println (calculate-vci1-track (calculate-mobility-index abrams))))
 
 (main)
