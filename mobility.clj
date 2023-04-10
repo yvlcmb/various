@@ -1,4 +1,4 @@
-(ns cljdemo.core
+(ns swampmonster.mobility
   (:gen-class))
 
 
