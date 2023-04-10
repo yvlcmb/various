@@ -40,12 +40,12 @@ Vehicle specs from https://en.wikipedia.org/
   (check-equal? (wheel-factor-grouser stryker) 1)
   (check-equal? (exact->inexact (factor-tire stryker)) 3.125) 
   (check-equal? (factor-transmission stryker) 1)
-  (check-equal? (factor-engine stryker) 1)
+  (check-equal? (factor-engine stryker) 1.05)
   (check-equal? (exact->inexact (wheel-factor-contact-pressure stryker)) 9.171717171717171)
-  (check-equal? (exact->inexact (factor-clearance stryker)) 2.1) 
-  (check-equal? (wheel-calculate-mobility-index stryker) 3.36339968)
+  (check-equal? (exact->inexact (factor-clearance stryker)) 2.1)
+  (check-equal? (wheel-calculate-mobility-index stryker) 3.531569664)
   (check-equal? (wheel-calculate-vci-1
-                (wheel-calculate-mobility-index stryker)) 6.634195581195963))
+                (wheel-calculate-mobility-index stryker)) 6.795455863452073))
 
 
 (define (test-tracked)
@@ -129,9 +129,8 @@ Vehicle specs from https://en.wikipedia.org/
 
 
 (define (factor-engine vehicle)
-  (let ([hp/ton (/ (hash-ref vehicle "hp") 2000)])
-    (if (<= hp/ton 10)  1 1.05)))  
-
+  (let ([hp/ton (/ (hash-ref vehicle "hp") (/ (hash-ref vehicle "weight") 2000))])
+    (if (<= hp/ton 10) 1 1.05)))  
 
 (define (wheel-factor-contact-pressure vehicle)
   (/ (hash-ref vehicle "weight")
