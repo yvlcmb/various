@@ -8,7 +8,7 @@ from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
 from sklearn import metrics
 
 # basic data exploration
-df = pd.read_csv('nonobis.csv')
+df = pd.read_csv('nonnobis.csv')
 counts = df['win'].value_counts()
 print(counts, "\n")
 counts.plot(kind='bar').figure.savefig('demo-file.png')
