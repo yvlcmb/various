@@ -87,6 +87,27 @@
     (- (+ 11.48 (* 0.2 mi)) (/ 39.2 (+ mi 3.74)))
     (* 4.1 (Math/pow mi 0.446))))
 
+ (def soils {:a {:soils "course grained sands and gravels"
+                 :symbols `("GW" "GP" "SW" "SP")
+                 :cone-index-range `(80 300)
+                 :median-cone-index 125
+                 :mobility-restrictions "unrestricted"}
+             :b {:soils "inorganic and fat clays"
+                 :symbols `("CH")
+                 :cone-index-range `(65 140)
+                 :median-cone-index 95
+                 :mobility-restrictions "restricted"}
+             :c {:soils "clayey gravels and sands and mixtures"
+                 :symbols `("GC" "SC" "CL")
+                 :cone-index-range `(45 125)
+                 :median-cone-index 75
+                 :mobility-restrictions "restricted"}
+             :d {:soils "silty gravels and sands; silts, organic clays"
+                 :symbols `("GM" "SM" "ML" "CL-ML" "MH" "OL" "OH")
+                 :cone-index-range `(25 120)
+                 :median-cone-index 65
+                 :mobility-restrictions "severely restricted"}})
+
 (defn main []
   (def stryker {:Category :Wheel
                 :weight 36320
@@ -111,5 +132,6 @@
 
   (println (calculate-vci1-wheel (calculate-mobility-index stryker)))
   (println (calculate-vci1-track (calculate-mobility-index abrams))))
+  (println (last(:cone-index-range (:d soils))))
 
 (main)
