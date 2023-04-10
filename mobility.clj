@@ -121,7 +121,7 @@
                 :hp 350})
 
   (def abrams {:Category :Track
-               :weight 136500
+               :weight 136000
                :clearance 19
                :length 384.5
                :track-width 25
