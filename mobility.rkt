@@ -5,6 +5,11 @@ Sources:
      A review of mobility metrics for next generation vehicle mobility models.
      Journal of Terramechanics (87). 11 -20.
      https://doi.org/10.1016/j.jterra.2019.10.003.
+  
+  Kennedy, J.G. & Rush, E.S. (1968). Development of revised mobility index formula
+     for self-propelled wheeled vehicles in fine-grained soils. 
+     Trafficability of Soils. U.S. Army Materiel Command. U.S. Departmeny of the Army. 
+  
   U.S. Department of the Army. (1994). Planning and design of roads, airfields,
      and heliports in the theater of operations -- airfield and heliport design:
      FM 5-430-00-1/AFPAM 32-8013, Vol 1.
