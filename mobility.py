@@ -51,6 +51,15 @@ def factor_pressure(veh: Vehicle) -> Callable:
     return (_wheel, _track)[veh.category == 'track']
 
 
+def factor_tire_track(veh: Vehicle) -> Callable:
+    """Calculate the track or tire factor"""
+    def _tire():
+        return 100 / (veh.tire_width + 10)
+    def _track(): 
+        return veh.track_width / 100
+    return (_tire, _track)[veh.category == 'track']
+
+
 if __name__ == "__main__"::
     abrams = {
         'length': 385, 
