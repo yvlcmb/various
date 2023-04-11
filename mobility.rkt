@@ -23,7 +23,7 @@ Vehicle specs from https://en.wikipedia.org/
                       "clearance" 21  ;inches
                       "axles" 4
                       "wheel#" 8
-                      "tire-width" 22  ;inches
+                      "tire-width" 15  ;inches
                       "hydraulic" #t
                       "tire-diameter" 45  ;inches
                       "tire#" 8
