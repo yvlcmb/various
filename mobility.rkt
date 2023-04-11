@@ -7,7 +7,7 @@ Sources:
      https://doi.org/10.1016/j.jterra.2019.10.003.
   
   Kennedy, J.G. & Rush, E.S. (1968). Trafficability of Soils: Development of revised mobility 
-     index formula for self-propelled wheeled vehicles in fine-grained soils. 
+      index formula for self-propelled wheeled vehicles in fine-grained soils. 
       U.S. Army Materiel Command. U.S. Department of the Army. 
   
   U.S. Department of the Army. (1994). Planning and design of roads, airfields,
