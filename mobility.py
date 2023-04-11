@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
+"""Mobility module for calculating mobility and vehicle cone indices"""
 from typing import NamedTuple, Callable
 
 
@@ -19,7 +19,6 @@ class Vehicle(NamedTuple):
     length: int = 0  # tracked 
     shoe_area: int = 0  # tracked
     track_width: int = 0  # tracked
-
 
 
 def factor_weight(veh: Vehicle) -> Callable: 
