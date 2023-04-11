@@ -16,6 +16,7 @@ Sources:
      
 Vehicle specs from https://en.wikipedia.org/
 |#
+(require rackunit)
 
 ;; use the below as a template for wheeled vehicles
 (define stryker (hash "weight" 36320  ;lbs
