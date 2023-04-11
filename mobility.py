@@ -5,20 +5,20 @@ from typing import NamedTuple, Callable
 
 
 class Vehicle(NamedTuple): 
-    category: str # both
-    length: int = 0 # tracked only
-    weight: int = 0 # both 
+    category: str  # both
+    length: int = 0  # tracked 
+    weight: int = 0  # both 
     axles: int = 0  # wheeled
-    clearance: int = 0 # both
-    wheels: int = 0 # wheeled
-    bogies: int = 0 # tracked
-    tires: int = 0 # wheeled
+    clearance: int = 0  # both
+    wheels: int = 0  # wheeled
+    bogies: int = 0  # tracked
+    tires: int = 0  # wheeled
     tire_diameter: int = 0 # wheeled
     hydraulic: bool = True # both
-    hp: int = 0# both
-    shoe_area: int = 0# tracked
-    track_width: int = 0# tracked
-    tire_width: int = 0 # wheeled
+    hp: int = 0  # both
+    shoe_area: int = 0  # tracked
+    track_width: int = 0  # tracked
+    tire_width: int = 0  # wheeled
 
 
 def factor_weight(veh: Vehicle) -> Callable: 
