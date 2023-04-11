@@ -138,6 +138,7 @@ Vehicle specs from https://en.wikipedia.org/
   (let ([hp/ton (/ (hash-ref vehicle "hp") (/ (hash-ref vehicle "weight") 2000))])
     (if (<= hp/ton 10) 1 1.05)))  
 
+
 (define (wheel-factor-contact-pressure vehicle)
   (/ (hash-ref vehicle "weight")
      (* (hash-ref vehicle "tire-width")
