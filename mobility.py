@@ -65,10 +65,12 @@ def factor_grouser(veh: Vehicle) -> float:
     """Calculate the grouser factor"""
     return (1, 1.1)[veh.grouser_ht > 1.5]
 
+
 def factor_engine(veh: Vehicle) -> float:
     """Calculate the engine factor"""
     hp_per_ton = veh.hp / (veh.weight / 2000)
     return (1.05, 1.0)[hp_per_ton <= 10]
+
 
 if __name__ == "__main__"::
     abrams = {
