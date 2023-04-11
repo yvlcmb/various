@@ -114,7 +114,7 @@
                 :axles 4
                 :clearance 21
                 :wheels 8
-                :tire-width 22
+                :tire-width 15
                 :hydraulic true
                 :tire-diameter 45
                 :tires 8
