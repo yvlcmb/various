@@ -6,19 +6,20 @@ from typing import NamedTuple, Callable
 
 class Vehicle(NamedTuple): 
     category: str  # both
-    length: int = 0  # tracked 
+    hydraulic: bool = True # both
+    clearance: int = 0  # both
+    hp: int = 0  # both
     weight: int = 0  # both 
     axles: int = 0  # wheeled
-    clearance: int = 0  # both
-    wheels: int = 0  # wheeled
-    bogies: int = 0  # tracked
     tires: int = 0  # wheeled
     tire_diameter: int = 0 # wheeled
-    hydraulic: bool = True # both
-    hp: int = 0  # both
+    tire_width: int = 0  # wheeled
+    wheels: int = 0  # wheeled
+    bogies: int = 0  # tracked
+    length: int = 0  # tracked 
     shoe_area: int = 0  # tracked
     track_width: int = 0  # tracked
-    tire_width: int = 0  # wheeled
+
 
 
 def factor_weight(veh: Vehicle) -> Callable: 
@@ -42,7 +43,16 @@ def factor_weight(veh: Vehicle) -> Callable:
     return (_wheel, _track)[veh.category == 'track']
 
 
-if __name__ == "__main__":
+def factor_pressure(veh: Vehicle) -> Callable: 
+    """Calculate the ground contact pressure factor"""
+    def _wheel(): 
+        return veh.weight / ((veh.tire_width * veh.tires * (veh.tire_diameter / 2)))
+    def _track(): 
+        return veh.weight / (veh.length * veh.track_width)
+    return (_wheel, _track)[veh.category == 'track']
+
+
+if __name__ == "__main__"::
     abrams = {
         'length': 385, 
         'weight': 136000,
