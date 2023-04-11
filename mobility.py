@@ -7,6 +7,7 @@ from typing import NamedTuple, Callable
 class Vehicle(NamedTuple): 
     category: str  # both
     hydraulic: bool = True # both
+    grouser_ht: float = 0 # both
     clearance: int = 0  # both
     hp: int = 0  # both
     weight: int = 0  # both 
@@ -59,6 +60,10 @@ def factor_tire_track(veh: Vehicle) -> Callable:
         return veh.track_width / 100
     return (_tire, _track)[veh.category == 'track']
 
+
+def factor_grouser(veh: Vehicle) -> float: 
+    """Calculate the grouser factor"""
+    return (1, 1.1)[veh.grouser_ht > 1.5]
 
 if __name__ == "__main__"::
     abrams = {
