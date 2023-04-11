@@ -90,7 +90,7 @@ if __name__ == "__main__"::
         'axles': 4,
         'clearance': 21,
         'wheels': 8, 
-        'tire_width': 22,
+        'tire_width': 15,
         'hydraulic': True,
         'tire_diameter': 45,
         'tires': 8,
