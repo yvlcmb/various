@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 from typing import NamedTuple, Callable
+
 
 class Vehicle(NamedTuple): 
     category: str # both
@@ -25,17 +26,17 @@ def factor_weight(veh: Vehicle) -> Callable:
     def _wheel(): 
         lbs_per_axle = veh.weight / veh.axles
         cons = (
-        (2000, 0.533, 0),
-        (13500, 0.033, 1.05),
-        (20000, 0.142, -0.42),
-        (200000, 0.278, -3.115))
+        (2_000, 0.533, 0),
+        (13_500, 0.033, 1.05),
+        (20_000, 0.142, -0.42),
+        (100_000, 0.278, -3.115))
         mod, val = next(filter(lambda x: x[0] >= lbs_per_axle, cons))[1:]
         return mod * ((veh.weight/1000) / veh.axles) + val
     def _track(): 
         cons = (
-            (50000, 1.0), 
-            (70000, 1.2), 
-            (100000, 1.4), 
+            (50_000, 1.0), 
+            (70_000, 1.2), 
+            (100_000, 1.4), 
             (1_000_000, 1.8))
         return next(filter(lambda x: x[0] >= veh.weight, cons))[1]
     return (_wheel, _track)[veh.category == 'track']
