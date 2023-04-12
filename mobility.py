@@ -62,12 +62,12 @@ def factor_tire_track(veh: Vehicle) -> Callable:
 
 
 def factor_transmission(veh: Vehicle) -> float: 
-    return (1, 1.05)[bool(veh.hydraulic)]
+    return (1.0, 1.05)[bool(veh.hydraulic)]
 
 
 def factor_grouser(veh: Vehicle) -> float: 
     """Calculate the grouser factor"""
-    return (1, 1.1)[veh.grouser_ht > 1.5]
+    return (1.0, 1.1)[veh.grouser_ht > 1.5]
 
 
 def factor_clearance(veh: Vehicle) -> float: 
