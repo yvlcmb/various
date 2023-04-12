@@ -55,7 +55,7 @@ def factor_pressure(veh: Vehicle) -> Callable:
 def factor_tire_track(veh: Vehicle) -> Callable:
     """Calculate the track or tire factor"""
     def _tire():
-        return 100 / (veh.tire_width + 10)
+        return (veh.tire_width + 10) / 100
     def _track(): 
         return veh.track_width / 100
     return (_tire, _track)[veh.category == 'track']
