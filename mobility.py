@@ -143,8 +143,8 @@ if __name__ == "__main__":
         'tires': 8,
         'hp': 350}
 
-    veh = Vehicle(**abrams)
+    mbt = Vehicle(**abrams)
     ifv = Vehicle(**stryker)
     assert round(calculate_mobility(ifv)) == 83
-    assert round(calculate_mobility(veh)) == 121
+    assert round(calculate_mobility(mbt)) == 121
     test_mobility_tracked()
