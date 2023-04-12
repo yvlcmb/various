@@ -61,9 +61,17 @@ def factor_tire_track(veh: Vehicle) -> Callable:
     return (_tire, _track)[veh.category == 'track']
 
 
+def factor_transmission(veh: Vehicle) -> float: 
+    return (1, 1.05)[bool(veh.hydraulic)]
+
+
 def factor_grouser(veh: Vehicle) -> float: 
     """Calculate the grouser factor"""
     return (1, 1.1)[veh.grouser_ht > 1.5]
+
+
+def factor_clearance(veh: Vehicle) -> float: 
+    return veh.clearance /10
 
 
 def factor_engine(veh: Vehicle) -> float:
@@ -72,29 +80,70 @@ def factor_engine(veh: Vehicle) -> float:
     return (1.05, 1.0)[hp_per_ton <= 10]
 
 
-if __name__ == "__main__"::
-    abrams = {
-        'length': 385, 
-        'weight': 136000,
-        'track_width': 25,
-        'shoe_area': 190,
-        'hydraulic': True,
-        'bogies': 7,
-        'hp': 1500,
-        'clearance': 19,
-        'category': 'track'}
+def factor_bogie_wheel(veh: Vehicle) -> Callable:
+    """Calculate the bogie or wheel factors"""
+    def _bogie():
+        return (veh.weight/10) / (veh.bogies * veh.shoe_area)
+    def _wheel_load(): 
+        return (veh.weight / 1000) / veh.wheels
+    return (_wheel_load, _bogie)[veh.category == 'track']
 
-    stryker = {
-        'category': 'wheel', 
-        'weight': 36320,
-        'axles': 4,
-        'clearance': 21,
-        'wheels': 8, 
-        'tire_width': 15,
-        'hydraulic': True,
-        'tire_diameter': 45,
-        'tires': 8,
-        'hp': 350}
-    
+
+def calculate_mobility(veh): 
+    """Calculate the Revised Mobility Index for wheeled and tracked vehicles"""
+    engine = factor_engine(veh)
+    clear = factor_clearance(veh)
+    trans = factor_transmission(veh)
+    tire_track = factor_tire_track(veh)
+    grouser = factor_grouser(veh)
+    press = factor_pressure(veh)
+    weight = factor_weight(veh)
+    bogie = factor_bogie_wheel(veh)
+  
+    res1 = press() * weight() / tire_track() * grouser 
+    return (res1 + bogie() - clear) * engine * trans
+
+
+def test_mobility_tracked(): 
     veh = Vehicle(**abrams)
-    print(factor_weight(veh)())
+    engine = factor_engine(veh)
+    clear = factor_clearance(veh)
+    trans = factor_transmission(veh)
+    tire_track = factor_tire_track(veh)()
+    grouser = factor_grouser(veh)
+    press = factor_pressure(veh)()
+    weight = factor_weight(veh)()
+    bogie = factor_bogie_wheel(veh)()
+    actual = (engine, clear, trans, tire_track, grouser, press, weight, bogie)
+    expected = (1.05, 1.9, 1.05, 0.25, 1, 14.12987012987013, 1.8, 10.225563909774436)
+    assert actual == expected
+
+
+if __name__ == "__main__":
+    abrams = {'length': 385,
+         'weight': 136000,
+         'track_width': 25,
+         'shoe_area': 190,
+         'hydraulic': True,
+         'bogies': 7,
+         'hp': 1500,
+         'clearance': 19,
+         'category': 'track'
+         }
+
+    stryker = {'category': 'wheel',
+         'weight': 36320,
+         'axles': 4,
+         'clearance': 21,
+         'wheels': 8,
+         'tire_width': 15,
+         'hydraulic': True,
+         'tire_diameter': 45,
+         'tires': 8,
+         'hp': 350}
+
+    veh = Vehicle(**abrams)
+    ifv = Vehicle(**stryker)
+    assert round(calculate_mobility(ifv)) == 83
+    assert round(calculate_mobility(veh)) == 121
+    test_mobility_tracked()
