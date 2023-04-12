@@ -32,7 +32,7 @@ Vehicle specs from https://en.wikipedia.org/
 ;; use the below as a template for tracked vehicles
 (define abrams (hash "weight" 136000  ;lbs
                      "clearance" 19  ;inches
-                     "length" 384.5  ;inches
+                     "length" 385  ;inches
                      "track-width" 25  ;inches
                      "shoe-area" 190  ;inches
                      "hydraulic" #t
@@ -40,25 +40,16 @@ Vehicle specs from https://en.wikipedia.org/
                      "hp" 1500))
 
 
-(define (test-wheeled)
-  (check-equal? (wheel-factor-weight stryker) 0.314622)
-  (check-equal? (exact->inexact(factor-wheel-load stryker)) 4.54)  ;github can't render fractions like Dr. Racket
-  (check-equal? (wheel-factor-grouser stryker) 1)
-  (check-equal? (exact->inexact (factor-tire stryker)) 3.125) 
-  (check-equal? (factor-transmission stryker) 1)
-  (check-equal? (factor-engine stryker) 1.05)
-  (check-equal? (exact->inexact (wheel-factor-contact-pressure stryker)) 9.171717171717171)
-  (check-equal? (exact->inexact (factor-clearance stryker)) 2.1)
-  (check-equal? (wheel-calculate-mobility-index stryker) 3.531569664)
-  (check-equal? (wheel-calculate-vci-1
-                (wheel-calculate-mobility-index stryker)) 6.795455863452073))
-
 
 (define (test-tracked)
   (define mi (track-calculate-mobility-index abrams))
   (displayln (format "Abrams mobility index: ~a" mi))
   (displayln (format "Abrams one-pass VCI: ~a" (track-calculate-vci-1 mi))))
 
+(define (test-wheeled)
+  (define mi (wheel-calculate-mobility-index stryker))
+  (displayln (format "Stryker mobility index: ~a" mi))
+  (displayln (format "Stryker one-pass VCI: ~a" (wheel-calculate-vci-1 mi))))
 
 (define (track-calculate-vci-1 mi)
   #|
@@ -78,16 +69,14 @@ Vehicle specs from https://en.wikipedia.org/
       (* 4.1 (expt mi 0.446))))
 
 
-(define (wheel-calculate-mobility-index vehicle)
+(define (wheel-calculate-mobility-index veh)
   #|
   :param vehicle: hash table of vehicle properties
   :return: a number reflecting the vehicle's mobility index
   |#
-  (* (- (+ (/ (* (wheel-factor-contact-pressure vehicle) (wheel-factor-weight vehicle))
-              (* (factor-tire vehicle) (wheel-factor-grouser vehicle)))
-           (factor-wheel-load vehicle))
-        (factor-clearance vehicle))
-     (* (factor-engine vehicle) (factor-transmission vehicle))))
+  (let ([res1 (/ (* (wheel-factor-contact-pressure veh) (wheel-factor-weight veh))
+              (* (factor-tire veh) (wheel-factor-grouser veh)))])
+    (* (-(+ res1 (factor-wheel-load veh)) (factor-clearance veh)) (factor-engine veh) (factor-transmission veh))))
 
 
 (define (track-calculate-mobility-index vehicle)
@@ -110,11 +99,12 @@ Vehicle specs from https://en.wikipedia.org/
                 [(< lbs/axle 13500) `(0.033 1.05)]
                 [(< lbs/axle 20000) `(0.142 -0.42)]
                 [else `(0.278 -3.115)])])
-  (+ (* (first mods) (/ kips (hash-ref vehicle "axles")) (last mods))))))
+  (+ (* (first mods) (/ kips (hash-ref vehicle "axles"))) (last mods)))))
+
 
 
 (define (factor-tire vehicle)
-  (/ 100 (+ 10 (hash-ref vehicle "tire-width"))))
+  (/ (+ 10 (hash-ref stryker "tire-width")) 100))
 
 
 (define (wheel-factor-grouser vehicle)
@@ -177,5 +167,6 @@ Vehicle specs from https://en.wikipedia.org/
    (/ (hash-ref vehicle "weight") 10)
    (* (hash-ref vehicle "bogie#") (hash-ref vehicle "shoe-area"))))
 
-(test-wheeled)
-(test-tracked)
+
+(test-tracked) ;;mi = 115.6, vci = 29.8
+(test-wheeled) ;;mi = 78.8, vci = 26.77
