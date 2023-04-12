@@ -120,27 +120,28 @@ def test_mobility_tracked():
 
 
 if __name__ == "__main__":
-    abrams = {'length': 385,
-         'weight': 136000,
-         'track_width': 25,
-         'shoe_area': 190,
-         'hydraulic': True,
-         'bogies': 7,
-         'hp': 1500,
-         'clearance': 19,
-         'category': 'track'
-         }
+    abrams = {
+        'length': 385,
+        'weight': 136000,
+        'track_width': 25,
+        'shoe_area': 190,
+        'hydraulic': True,
+        'bogies': 7,
+        'hp': 1500,
+        'clearance': 19,
+        'category': 'track'}
 
-    stryker = {'category': 'wheel',
-         'weight': 36320,
-         'axles': 4,
-         'clearance': 21,
-         'wheels': 8,
-         'tire_width': 15,
-         'hydraulic': True,
-         'tire_diameter': 45,
-         'tires': 8,
-         'hp': 350}
+    stryker = {
+        'category': 'wheel',
+        'weight': 36320,
+        'axles': 4,
+        'clearance': 21,
+        'wheels': 8,
+        'tire_width': 15,
+        'hydraulic': True,
+        'tire_diameter': 45,
+        'tires': 8,
+        'hp': 350}
 
     veh = Vehicle(**abrams)
     ifv = Vehicle(**stryker)
