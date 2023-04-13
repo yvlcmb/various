@@ -12,6 +12,7 @@ class Vehicle(NamedTuple):
     hp: int = 0  # both
     weight: int = 0  # both 
     axles: int = 0  # wheeled
+    chains: bool = False
     tires: int = 0  # wheeled
     tire_diameter: int = 0 # wheeled
     tire_width: int = 0  # wheeled
@@ -62,12 +63,16 @@ def factor_tire_track(veh: Vehicle) -> Callable:
 
 
 def factor_transmission(veh: Vehicle) -> float: 
-    return (1.0, 1.05)[bool(veh.hydraulic)]
+    return (1.0, 1.05)[veh.hydraulic]
 
 
 def factor_grouser(veh: Vehicle) -> float: 
     """Calculate the grouser factor"""
-    return (1.0, 1.1)[veh.grouser_ht > 1.5]
+    def _wheel():
+        return (1.0, 1.5)[veh.chains]
+    def _track(): 
+        return (1.0, 1.1)[veh.grouser_ht > 1.5]
+    return (_wheel, _track)[veh.category == 'track']
 
 
 def factor_clearance(veh: Vehicle) -> float: 
@@ -83,7 +88,7 @@ def factor_engine(veh: Vehicle) -> float:
 def factor_bogie_wheel(veh: Vehicle) -> Callable:
     """Calculate the bogie or wheel factors"""
     def _bogie():
-        return (veh.weight/10) / (veh.bogies * veh.shoe_area)
+        return (veh.weight / 10) / (veh.bogies * veh.shoe_area)
     def _wheel_load(): 
         return (veh.weight / 1000) / veh.wheels
     return (_wheel_load, _bogie)[veh.category == 'track']
@@ -99,9 +104,10 @@ def calculate_mobility(veh):
     press = factor_pressure(veh)
     weight = factor_weight(veh)
     bogie = factor_bogie_wheel(veh)
-  
-    res1 = press() * weight() / tire_track() * grouser 
-    return (res1 + bogie() - clear) * engine * trans
+    product1 = press() * weight()
+    product2 = tire_track() * grouser()
+    return ((product1 / product 2) + bogie() - clear) * engine * trans
+
 
 
 def test_mobility_tracked(): 
@@ -111,11 +117,11 @@ def test_mobility_tracked():
     trans = factor_transmission(veh)
     tire_track = factor_tire_track(veh)()
     grouser = factor_grouser(veh)
-    press = factor_pressure(veh)()
+    press = round(factor_pressure(veh)(), 3)
     weight = factor_weight(veh)()
-    bogie = factor_bogie_wheel(veh)()
+    bogie = round(factor_bogie_wheel(veh)(), 3)
     actual = (engine, clear, trans, tire_track, grouser, press, weight, bogie)
-    expected = (1.05, 1.9, 1.05, 0.25, 1, 14.12987012987013, 1.8, 10.225563909774436)
+    expected = (1.05, 1.9, 1.05, 0.25, 1, 14.129, 1.8, 10.225)
     assert actual == expected
 
 
@@ -137,7 +143,7 @@ if __name__ == "__main__":
         'axles': 4,
         'clearance': 21,
         'wheels': 8,
-        'tire_width': 15,
+        'tire_width': 14.5,
         'hydraulic': True,
         'tire_diameter': 45,
         'tires': 8,
@@ -145,6 +151,6 @@ if __name__ == "__main__":
 
     mbt = Vehicle(**abrams)
     ifv = Vehicle(**stryker)
-    assert round(calculate_mobility(ifv)) == 83
+    assert round(calculate_mobility(ifv)) == 87
     assert round(calculate_mobility(mbt)) == 121
     test_mobility_tracked()
