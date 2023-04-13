@@ -109,7 +109,6 @@ def calculate_mobility(veh):
     return ((product1 / product 2) + bogie() - clear) * engine * trans
 
 
-
 def test_mobility_tracked(): 
     veh = Vehicle(**abrams)
     engine = factor_engine(veh)
@@ -122,6 +121,21 @@ def test_mobility_tracked():
     bogie = round(factor_bogie_wheel(veh)(), 3)
     actual = (engine, clear, trans, tire_track, grouser, press, weight, bogie)
     expected = (1.05, 1.9, 1.05, 0.25, 1, 14.129, 1.8, 10.225)
+    assert actual == expected
+
+    
+def test_mobility_wheeled(): 
+    veh = Vehicle(**stryker)
+    engine = factor_engine(veh)
+    clear = factor_clearance(veh)
+    trans = factor_transmission(veh)
+    tire_track = factor_tire_track(veh)()
+    grouser = factor_grouser(veh)()
+    press = round(factor_pressure(veh)(), 3)
+    weight = factor_weight(veh)()
+    bogie = round(factor_bogie_wheel(veh)(), 3)
+    actual = (engine, clear, trans, tire_track, grouser, press, weight, bogie)
+    expected = (1.05, 2.1, 1.05, 0.245, 1.0, 13.916, 1.34964, 4.54)
     assert actual == expected
 
 
@@ -154,3 +168,4 @@ if __name__ == "__main__":
     assert round(calculate_mobility(ifv)) == 87
     assert round(calculate_mobility(mbt)) == 121
     test_mobility_tracked()
+    test_mobility_wheeled()
