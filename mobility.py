@@ -106,7 +106,7 @@ def calculate_mobility(veh):
     bogie = factor_bogie_wheel(veh)
     product1 = press() * weight()
     product2 = tire_track() * grouser()
-    return ((product1 / product 2) + bogie() - clear) * engine * trans
+    return ((product1 / product2) + bogie() - clear) * engine * trans
 
 
 def test_mobility_tracked(): 
