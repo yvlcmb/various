@@ -48,7 +48,7 @@
 (defn fac-engine [veh]
   "calculate the engine factor"
   (let [hp-per-ton (/ (:hp veh) (/ (:weight veh) 2000))]
-    (if (<= hp-per-ton 10) 1 1.05)))
+    (if (<= hp-per-ton 10) 1.1 1)))
 
 (defn fac-transmission [veh]
   "calculate the tranmission factor"
