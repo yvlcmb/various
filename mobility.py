@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """Mobility module for calculating mobility and vehicle cone indices"""
 from typing import NamedTuple, Callable
+from operator import lt
 
 
 class Vehicle(NamedTuple): 
