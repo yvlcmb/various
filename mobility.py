@@ -109,6 +109,18 @@ def calculate_mobility(veh):
     return ((product1 / product2) + bogie() - clear) * engine * trans
 
 
+def estimate_wheeled_vci():
+    """Estimate vehicle cone index, placeholder, WIP.
+    should return a dictionary, will have a vehicle parameter"""
+    mi = 55  # this will come from a call to calculate_mobility(veh)
+    cond = next(filter(lambda x: lt(mi, x), (40, 159, 160)))
+    calcs = {40: 'regular vci',
+             159: {'vci50': 25.2 + (0.454 * mi)},
+             160: {'vci1': 11.48 + (0.2 * mi ) - (39.2/(mi + 3.74)),
+                   'vci50': 28.23 + (0.43 * mi) - (92.67 / (mi + 3.67))}}
+    return calcs.get(cond)
+
+
 def test_mobility_tracked(): 
     veh = Vehicle(**abrams)
     engine = factor_engine(veh)
