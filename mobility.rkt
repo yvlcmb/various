@@ -19,25 +19,25 @@ Vehicle specs from https://en.wikipedia.org/
 (require rackunit)
 
 ;; use the below as a template for wheeled vehicles
-(define stryker (hash "weight" 36320  ;lbs
-                      "clearance" 21  ;inches
-                      "axles" 4
-                      "wheel#" 8
-                      "tire-width" 15  ;inches
-                      "hydraulic" #t
-                      "tire-diameter" 45  ;inches
-                      "tire#" 8
-                      "hp" 350))
+(define stryker (hash 'weight 36320  ;lbs
+                      'clearance 21  ;inches
+                      'axles 4
+                      'wheel# 8
+                      'tire-width 15  ;inches
+                      'hydraulic #t
+                      'tire-diameter 45  ;inches
+                      'tire# 8
+                      'hp 350))
 
 ;; use the below as a template for tracked vehicles
-(define abrams (hash "weight" 136000  ;lbs
-                     "clearance" 19  ;inches
-                     "length" 385  ;inches
-                     "track-width" 25  ;inches
-                     "shoe-area" 190  ;inches
-                     "hydraulic" #t
-                     "bogie#" 7
-                     "hp" 1500))
+(define abrams (hash 'weight 136000  ;lbs
+                     'clearanc" 19  ;inches
+                     'length 385  ;inches
+                     'track-width 25  ;inches
+                     'shoe-area 190  ;inches
+                     'hydraulic #t
+                     'bogie# 7
+                     'hp 1500))
 
 
 
@@ -92,52 +92,52 @@ Vehicle specs from https://en.wikipedia.org/
 
 
 (define (wheel-factor-weight vehicle)
-  (local ((define lbs/axle (/ (hash-ref vehicle "weight") (hash-ref vehicle "axles")))
-          (define kips (/ (hash-ref vehicle "weight") 1000)))
+  (local ((define lbs/axle (/ (hash-ref vehicle 'weight) (hash-ref vehicle 'axles)))
+          (define kips (/ (hash-ref vehicle 'weight) 1000)))
   (let ([mods (cond
                 [(< lbs/axle 2000)  `(0.533 0)]
                 [(< lbs/axle 13500) `(0.033 1.05)]
                 [(< lbs/axle 20000) `(0.142 -0.42)]
                 [else `(0.278 -3.115)])])
-  (+ (* (first mods) (/ kips (hash-ref vehicle "axles"))) (last mods)))))
+  (+ (* (first mods) (/ kips (hash-ref vehicle 'axles))) (last mods)))))
 
 
 
 (define (factor-tire vehicle)
-  (/ (+ 10 (hash-ref stryker "tire-width")) 100))
+  (/ (+ 10 (hash-ref stryker 'tire-width)) 100))
 
 
 (define (wheel-factor-grouser vehicle)
-  (if (hash-has-key? vehicle "chains") 1.05 1))
+  (if (hash-has-key? vehicle 'chains) 1.05 1))
 
 
 (define (factor-wheel-load vehicle)
-  (let ([kips (/ (hash-ref vehicle "weight") 1000)])
-    (/ kips (hash-ref vehicle "wheel#"))))
+  (let ([kips (/ (hash-ref vehicle 'weight) 1000)])
+    (/ kips (hash-ref vehicle 'wheel#))))
 
 
 (define (factor-clearance vehicle)
-  (/ (hash-ref vehicle "clearance") 10))
+  (/ (hash-ref vehicle 'clearance) 10))
 
 
 (define (factor-transmission vehicle)
-  (if (hash-has-key? vehicle "hydraulic") 1 1.05))
+  (if (hash-has-key? vehicle 'hydraulic) 1 1.05))
 
 
 (define (factor-engine vehicle)
-  (let ([hp/ton (/ (hash-ref vehicle "hp") (/ (hash-ref vehicle "weight") 2000))])
+  (let ([hp/ton (/ (hash-ref vehicle 'hp) (/ (hash-ref vehicle 'weight) 2000))])
     (if (<= hp/ton 10) 1 1.05)))  
 
 
 (define (wheel-factor-contact-pressure vehicle)
-  (/ (hash-ref vehicle "weight")
-     (* (hash-ref vehicle "tire-width")
-        (hash-ref vehicle "tire#") 
-        (/ (hash-ref vehicle "tire-diameter") 2))))
+  (/ (hash-ref vehicle 'weight)
+     (* (hash-ref vehicle 'tire-width)
+        (hash-ref vehicle 'tire#) 
+        (/ (hash-ref vehicle 'tire-diameter) 2))))
 
 
 (define (track-factor-weight vehicle)
-  (let ([wt (hash-ref vehicle "weight")])
+  (let ([wt (hash-ref vehicle 'weight)])
    (cond
      [(< wt 50000)  1.0]
      [(< wt 70000)  1.2]
@@ -146,26 +146,26 @@ Vehicle specs from https://en.wikipedia.org/
 
 
 (define (factor-track vehicle)
-  (/ (hash-ref vehicle "track-width") 100))
+  (/ (hash-ref vehicle 'track-width) 100))
 
 
 (define (factor-grouser vehicle)
   (if
-   (and (hash-has-key? vehicle "grouser-ht")
+   (and (hash-has-key? vehicle 'grouser-ht)
         (> (hash-ref "grouser-ht") 1.5))
    1.1 1))
 
 
 (define (track-factor-contact-pressure vehicle)
-  (/ (hash-ref vehicle "weight")
-     (* (hash-ref vehicle "length")
-        (hash-ref vehicle "track-width"))))
+  (/ (hash-ref vehicle 'weight)
+     (* (hash-ref vehicle 'length)
+        (hash-ref vehicle 'track-width))))
 
 
 (define (factor-bogie vehicle)
   (/
-   (/ (hash-ref vehicle "weight") 10)
-   (* (hash-ref vehicle "bogie#") (hash-ref vehicle "shoe-area"))))
+   (/ (hash-ref vehicle 'weight) 10)
+   (* (hash-ref vehicle 'bogie#) (hash-ref vehicle 'shoe-area))))
 
 
 (test-tracked) ;;mi = 115.6, vci = 29.8
