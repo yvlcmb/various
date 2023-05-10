@@ -31,7 +31,7 @@ Vehicle specs from https://en.wikipedia.org/
 
 ;; use the below as a template for tracked vehicles
 (define abrams (hash 'weight 136000  ;lbs
-                     'clearanc" 19  ;inches
+                     'clearance 19  ;inches
                      'length 385  ;inches
                      'track-width 25  ;inches
                      'shoe-area 190  ;inches
