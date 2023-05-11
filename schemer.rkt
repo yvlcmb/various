@@ -1,8 +1,8 @@
 #lang racket
 #| some examples from The Little Schemer, implemented in Racket |#
 
-
-(define (atom? x); required for the rest of the functions
+;; required for the rest of the functions
+(define (atom? x)
   (and (not (null? x)) 
        (not (pair? x))))
 
