@@ -91,6 +91,7 @@
 (define ingredients '(((("hot") ("tuna" ("and")))) "cheese"))
 (define banana-split '(("banana") ("split" (((("banana" "ice"))) ("cream" ("banana"))))))
 (define coffee-notes '('sweet-fruit 'red-fruit 'chocolate 'floral 'spice 'citrus 'smoke 'tobacco 'tea 'nut))
+;;^ what is the difference between using values and strings?
 
 (leftmost ingredients) ;hot
 (rightmost ingredients) ;cheese
