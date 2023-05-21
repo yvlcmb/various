@@ -39,8 +39,6 @@ Vehicle specs from https://en.wikipedia.org/
                      'bogie# 7
                      'hp 1500))
 
-
-
 (define (test-tracked)
   (define mi (track-calculate-mobility-index abrams))
   (displayln (format "Abrams mobility index: ~a" mi))
@@ -58,7 +56,6 @@ Vehicle specs from https://en.wikipedia.org/
   |#
   (- (+ 7 (* 0.2 mi)) (/ 39.2 (+ mi 5.6))))
 
-
 (define (wheel-calculate-vci-1 mi)
   #|
   :param vehicle: a mobility index
@@ -68,7 +65,6 @@ Vehicle specs from https://en.wikipedia.org/
       (- (+ 11.48 (* 0.2 mi)) (/ 39.2 (+ mi 3.74)))
       (* 4.1 (expt mi 0.446))))
 
-
 (define (wheel-calculate-mobility-index veh)
   #|
   :param vehicle: hash table of vehicle properties
@@ -77,7 +73,6 @@ Vehicle specs from https://en.wikipedia.org/
   (let ([res1 (/ (* (wheel-factor-contact-pressure veh) (wheel-factor-weight veh))
               (* (factor-tire veh) (wheel-factor-grouser veh)))])
     (* (-(+ res1 (factor-wheel-load veh)) (factor-clearance veh)) (factor-engine veh) (factor-transmission veh))))
-
 
 (define (track-calculate-mobility-index vehicle)
   #|
@@ -90,7 +85,6 @@ Vehicle specs from https://en.wikipedia.org/
         (factor-clearance vehicle))
      (* (factor-engine vehicle) (factor-transmission vehicle))))
 
-
 (define (wheel-factor-weight vehicle)
   (local ((define lbs/axle (/ (hash-ref vehicle 'weight) (hash-ref vehicle 'axles)))
           (define kips (/ (hash-ref vehicle 'weight) 1000)))
@@ -101,40 +95,31 @@ Vehicle specs from https://en.wikipedia.org/
                 [else `(0.278 -3.115)])])
   (+ (* (first mods) (/ kips (hash-ref vehicle 'axles))) (last mods)))))
 
-
-
 (define (factor-tire vehicle)
   (/ (+ 10 (hash-ref stryker 'tire-width)) 100))
 
-
 (define (wheel-factor-grouser vehicle)
   (if (hash-has-key? vehicle 'chains) 1.05 1))
-
 
 (define (factor-wheel-load vehicle)
   (let ([kips (/ (hash-ref vehicle 'weight) 1000)])
     (/ kips (hash-ref vehicle 'wheel#))))
 
-
 (define (factor-clearance vehicle)
   (/ (hash-ref vehicle 'clearance) 10))
-
 
 (define (factor-transmission vehicle)
   (if (hash-has-key? vehicle 'hydraulic) 1 1.05))
 
-
 (define (factor-engine vehicle)
   (let ([hp/ton (/ (hash-ref vehicle 'hp) (/ (hash-ref vehicle 'weight) 2000))])
     (if (<= hp/ton 10) 1 1.05)))  
-
 
 (define (wheel-factor-contact-pressure vehicle)
   (/ (hash-ref vehicle 'weight)
      (* (hash-ref vehicle 'tire-width)
         (hash-ref vehicle 'tire#) 
         (/ (hash-ref vehicle 'tire-diameter) 2))))
-
 
 (define (track-factor-weight vehicle)
   (let ([wt (hash-ref vehicle 'weight)])
@@ -144,10 +129,8 @@ Vehicle specs from https://en.wikipedia.org/
      [(< wt 100000) 1.4]
      [else 1.8])))
 
-
 (define (factor-track vehicle)
   (/ (hash-ref vehicle 'track-width) 100))
-
 
 (define (factor-grouser vehicle)
   (if
@@ -155,18 +138,15 @@ Vehicle specs from https://en.wikipedia.org/
         (> (hash-ref 'grouser-ht) 1.5))
    1.1 1))
 
-
 (define (track-factor-contact-pressure vehicle)
   (/ (hash-ref vehicle 'weight)
      (* (hash-ref vehicle 'length)
         (hash-ref vehicle 'track-width))))
 
-
 (define (factor-bogie vehicle)
   (/
    (/ (hash-ref vehicle 'weight) 10)
    (* (hash-ref vehicle 'bogie#) (hash-ref vehicle 'shoe-area))))
-
 
 (test-tracked) ;;mi = 115.6, vci = 29.8
 (test-wheeled) ;;mi = 78.8, vci = 26.77
