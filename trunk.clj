@@ -1,7 +1,13 @@
+; from James Trunk's Func Prog Sweden Talk called 'Clojure in a Nutshell'
+; https://www.youtube.com/watch?v=C-kF25fWTO8
+
+; slurp, aka curl, A Tale of Two Cities from Project Gutenberg
 (def book (slurp "https://gutenberg.org/cache/epub/98/pg98.txt"))
 
+; split into words 
 (def words (re-seq #"[\w|']+" book))
 
+; a set of commonly used words to remove from the corpus
 (def common-words #{"a" "able" "about" "across" "after" "all" "almost"
                     "also" "am" "among" "an" "and" "any" "are" "as" "at" "be" "been"
                     "because" "but" "by" "can" "cannot" "could" "else"
@@ -21,8 +27,7 @@
                     "again" "more" "such" "over" "under" "muchk" "how" "through"
                     "whom" "why" "will" "wih" "would" "yet" "you" "come" "your" "very"})
 
-; 20 most frequently used words
-; -----------------------------
+; Find the 25 most frequently used words using a pipeline/thread-last macro
 (def top-25 (->> words
                  (map clojure.string/lower-case)
                  (remove common-words)
@@ -31,5 +36,3 @@
                  (take-last 25)))
 
 (println top-25)
-
-
