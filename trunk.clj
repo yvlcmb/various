@@ -1,7 +1,7 @@
 ; from James Trunk's Func Prog Sweden Talk called 'Clojure in a Nutshell'
 ; https://www.youtube.com/watch?v=C-kF25fWTO8
 
-; slurp (read a file (local or external) in as a string, this is A Tale of Two Cities from Project Gutenberg
+; slurp (read a file (local or external) in as a string) A Tale of Two Cities from Project Gutenberg
 (def book (slurp "https://gutenberg.org/cache/epub/98/pg98.txt"))
 
 ; split into words 
