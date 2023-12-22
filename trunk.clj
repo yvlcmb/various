@@ -31,8 +31,8 @@
 (def top-25 (->> words
                  (map clojure.string/lower-case)
                  (remove common-words)
-                 (frequencies)
-                 (sort-by val)
+                 (frequencies) ; produces a 'frequency map (dictionary)', like Python's Counter
+                 (sort-by val) ; instead of sorting by keys, sort by values -- word counts in ascending order
                  (take-last 25)))
 
 (println top-25)
