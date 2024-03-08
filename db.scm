@@ -13,13 +13,6 @@
       ((equal? (car (car lst)) player) (cdr (car lst)))
       (else (find-player (cdr lst) player)))))
 
-; racket version below:
-#;(define (find-player2 lst player)
-    (cond
-      [(null? lst) '()]
-      [(equal? (first (first lst)) player) (rest (first lst))]
-      [else (find-player (rest lst) player)]))
-
 (find-player saints2009 'drew-brees)
 
 (newline)
