@@ -4,7 +4,7 @@ from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.naive_bayes import CategoricalNB
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import OrdinalEncoder, LabelEncoder
+from sklearn.preprocessing import LabelEncoder
 from sklearn import metrics
 
 # basic data exploration
@@ -14,7 +14,7 @@ print(counts, "\n")
 counts.plot(kind='bar').figure.savefig('demo-file.png')
 
 # pre-processing
-enc = OrdinalEncoder()  # convert text to ordinal values for Naive Bayes requirements
+enc = LabelEncoder()  # convert text to ordinal values for Naive Bayes requirements
 X = enc.fit_transform(df[['rep1', 'rep2', 'rep3', 'rep4', 'rep5', 'format']])  # excludes label and date cols
 y = df['win'].apply(lambda x: 1 if x == 'yes' else 0)  # `mitch wins` is the label col
 X_train, X_test, y_train, y_test = train_test_split(
