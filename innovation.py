@@ -199,9 +199,10 @@ def init_game(num_players):
         ]
     )
     random.shuffle(age5)
-
+    
+    acheivements = {1: age1.pop(), 2: age2.pop(), 3: age3.pop(), 4: age4.pop(), 5: age5.pop()}
     decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5}
-    achievements = [create_player() for _ in range(num_players)]
+    players = [create_player() for _ in range(num_players)]
     return decks, achievements, players
 
 
@@ -214,23 +215,7 @@ def set_up():
     draw(p1, deck, 1)
     draw(p2, deck, 1)
     return players, deck, achievements
-
-
-# Initialize game state
-def initialize_game(num_players):
-    supply_piles = {age: deque() for age in range(1, 11)}
-    achievements = {age: None for age in range(1, 10)}  # Normal achievements
-    players = [
-        {
-            'hand': [],
-            'board': defaultdict(lambda: {'cards': [], 'splay': 'none'}),
-            'score_pile': [],
-            'achievements': [],
-        }
-        for _ in range(num_players)
-    ]
-    return supply_piles, achievements, players
-
+    
 
 # cards
 archery = {
@@ -270,7 +255,7 @@ domestication = {
     'age': 1,
     'color': 'green',
     'icons': ['', 'leaf', 'leaf', 'castle'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': 'Meld the lowest card in your hand. Draw a 1',
     'dogma_icon': 'leaf',
 }
 masonry = {
@@ -294,7 +279,7 @@ sailing = {
     'age': 1,
     'color': 'purple',
     'icons': ['', 'castle', 'leaf', 'leaf'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': "Draw three 1's",
     'dogma_icon': 'castle',
 }
 wheel = {
@@ -326,7 +311,7 @@ writing = {
     'age': 1,
     'color': 'blue',
     'icons': ['', 'bulb', 'bulb', 'crown'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': 'Draw a 2',
     'dogma_icon': 'bulb',
 }
 codeoflaws = {
@@ -838,7 +823,10 @@ flight = {
     'age': 8,
     'color': 'red',
     'icons': ['', 'factory', 'clock', 'clock'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join((
+        '1) If your red cards are splayed up you may splay any other color of cards up.', 
+        '2) You may splay your red cards up'
+    ))
     'dogma_icon': 'factory',
 }
 antibiotics = {
