@@ -7,6 +7,8 @@ not yet implemented:
     achieve action
     dogma action
     end game score calculation
+    a return card action
+    a transfer card action
 """
 
 import random
@@ -1031,10 +1033,14 @@ robotics = {
 globalization = {
     'name': 'Globalization',
     'age': 10,
-    'color': 'red',
-    'icons': ['', 'crown', 'clock', 'factory'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'crown',
+    'color': 'yellow',
+    'icons': ['', 'factory', 'factory', 'factory'],
+    'dogma_effects': ''.join((
+        '1. I demand you return a top card with a leaf icon on your board!,
+        ' 2. Draw and score a 6.', 
+        ' If no player has more leaf icons on their board than factory icons,', 
+        ' the single player with the most points wins.')),
+    'dogma_icon': 'factory',
 }
 stem_cells = {
     'name': 'Stem Cells',
@@ -1055,17 +1061,24 @@ databases = {
 self_service = {
     'name': 'Self Service',
     'age': 10,
-    'color': 'yellow',
-    'icons': ['', 'crown', 'clock', 'factory'],
-    'dogma_effects': 'place holder',
+    'color': 'green',
+    'icons': ['', 'crown', 'crown', 'crown'],
+    'dogma_effects': ''.join((
+        '1. Execute the non-demand dogma effects of any other top card on your board
+        ' for yourself only.',
+        '2. If you have more achievements than any other player, you win.')), 
     'dogma_icon': 'crown',
 }
 bioengineering = {
     'name': 'Bioengineering',
     'age': 10,
-    'color': 'green',
-    'icons': ['', 'leaf', 'bulb', 'clock'],
-    'dogma_effects': 'place holder',
+    'color': 'blue',
+    'icons': ['bulb', 'clock', 'clock', ''],
+    'dogma_effects': ''.join((
+        "1. Transfer a top card with a leaf icon from any other player's board",
+        ' to your score pile.',
+        '2. If any other player has fewer than three leaf icons on their board,',
+        'the player with the most leaf icons on their board wins.')),
     'dogma_icon': 'leaf',
 }
 software = {
@@ -1079,10 +1092,13 @@ software = {
 ai = {
     'name': 'A.I.',
     'age': 10,
-    'color': 'blue',
-    'icons': ['', 'bulb', 'clock', 'clock'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'clock',
+    'color': 'purple',
+    'icons': ['bulb', 'bulb', 'clock', ''],
+    'dogma_effects': ''.join((
+        '1. Draw and score a 10.', 
+        ' 2. If Robotics and Software are top cards of any board, ', 
+        'the single player with the lowest score wins.')), 
+    'dogma_icon': 'bulb',
 }
 the_internet = {
     'name': 'The Internet',
