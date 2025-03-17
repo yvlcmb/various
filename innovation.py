@@ -277,17 +277,17 @@ clothing = {
 sailing = {
     'name': 'Sailing',
     'age': 1,
-    'color': 'purple',
-    'icons': ['', 'castle', 'leaf', 'leaf'],
-    'dogma_effects': "Draw three 1's",
+    'color': 'green',
+    'icons': ['crown', 'castle', 'leaf', 'leaf'],
+    'dogma_effects': "Draw and meld a 1",
     'dogma_icon': 'castle',
 }
 wheel = {
     'name': 'The Wheel',
     'age': 1,
-    'color': 'blue',
-    'icons': ['', 'castle', 'castle', 'leaf'],
-    'dogma_effects': 'place holder',
+    'color': 'green',
+    'icons': ['', 'castle', 'castle', 'castle'],
+    'dogma_effects': 'draw three 1s',
     'dogma_icon': 'castle',
 }
 pottery = {
@@ -301,10 +301,13 @@ pottery = {
 tools = {
     'name': 'Tools',
     'age': 1,
-    'color': 'yellow',
-    'icons': ['', 'castle', 'leaf', 'leaf'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'castle',
+    'color': 'blue',
+    'icons': ['', 'bulb', 'bulb', 'castle'],
+    'dogma_effects': ''.join((
+        '1. You may return three cards from your hand, if you do draw and meld a 3',
+        '2. You may return a 3 from your hand, if you do draw three 1s.'
+    )),
+    'dogma_icon': 'bulb',
 }
 writing = {
     'name': 'Writing',
@@ -438,9 +441,12 @@ machinery = {
     'name': 'Machinery',
     'age': 3,
     'color': 'yellow',
-    'icons': ['', 'factory', 'factory', 'bulb'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'factory',
+    'icons': ['leaf', 'leaf', '', 'castle'],
+    'dogma_effects': ''.join((
+        '1. I demand you exchange all cards in your hand with the highest card in my hand!',
+        '2. Score a card from your hand with a castle icon.',
+        'You may splay your red cards left')),
+    'dogma_icon': 'leaf',
 }
 medicine = {
     'name': 'Medicine',
@@ -735,16 +741,18 @@ emancipation = {
     'age': 6,
     'color': 'purple',
     'icons': ['', 'crown', 'crown', 'leaf'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join(('1. I demand you transfer a card from your hand to my score pile!',
+                              ' if you do, draw a 6.',
+                              '2.You may splay your red or purple cards right')),
     'dogma_icon': 'crown',
 }
 combustion = {
     'name': 'Combustion',
     'age': 7,
     'color': 'red',
-    'icons': ['', 'factory', 'clock', 'clock'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'factory',
+    'icons': ['crown', 'crown', 'factory', ''],
+    'dogma_effects': 'I demand you transfer two cards from your score pile to my score pile!',
+    'dogma_icon': 'crown',
 }
 explosives = {
     'name': 'Explosives',
