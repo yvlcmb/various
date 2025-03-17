@@ -41,11 +41,11 @@ def create_player() -> dict:
 
 
 def meld(player, card):
-    yes = card in player['hand']
+    yes = card in player('hand')
     if not yes:
         print('card not in hand')
         return None
-    card = player['hand'].pop(card)
+    card = player('hand').pop(card)
     color = card.get('color')
     board = player.get('board')
     board.get('color').get('cards').append(card)
@@ -58,7 +58,7 @@ def splay(player, color, direction):
     if len(board[color].get('cards', [])) < 2:
         print('cannot splay a single card')
         return None
-    board[color]['splay'] = direction
+    board[color]('splay') = direction
     print(f'cards splayed {direction}.')
     return None
 
@@ -67,10 +67,10 @@ def tuck(player, cardname):
     if not cardname in player.get('hand'):
         print(f"{cardname} not found in player's hand")
         return None
-    card = player['hand'].pop(cardname)
+    card = player('hand').pop(cardname)
     color = card.get('color')
     print(color)
-    player['board'][color]['cards'].appendleft(card)
+    player('board')[color]('cards').appendleft(card)
     print(f"{card.get('name')} tucked in player's {card.get('color')} stack")
     return None
 
@@ -79,7 +79,7 @@ def draw(player, decks, age):
     while age <= 10:
         if decks.get(age):
             card = decks[age].popleft()
-            player['hand'].update({card.get('name'): card})
+            player('hand').update({card.get('name'): card})
             print(f"Player drew {card.get('name')}")
             return None
         else:
@@ -224,7 +224,7 @@ archery = {
     'name': 'Archery',
     'age': 1,
     'color': 'red',
-    'icons': ['castle', 'bulb', '', 'castle'],
+    'icons': ('castle', 'bulb', '', 'castle'),
     'dogma_effects': 'I demand you draw a 1. Then transfer the highest card in your hand to my hand!',
     'dogma_icon': 'castle',
 }
@@ -232,7 +232,7 @@ metalworking = {
     'name': 'Metalworking',
     'age': 1,
     'color': 'red',
-    'icons': ['', 'castle', 'castle', 'castle'],
+    'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': ''.join((
         'Draw and reveal a 1. If it has a castle icon, score it and repeat this dogma effect, ',
         'otherwise keep it'.)),
@@ -242,7 +242,7 @@ oars = {
     'name': 'Oars',
     'age': 1,
     'color': 'red',
-    'icons': ['', 'castle', '', ''],
+    'icons': ('', 'castle', '', ''),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -250,7 +250,7 @@ agriculture = {
     'name': 'Agriculture',
     'age': 1,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'leaf', 'leaf'],
+    'icons': ('', 'leaf', 'leaf', 'leaf'),
     'dogma_effects': ''.join((
         'You may return a card from your hand.',
         ' If you do, draw and score a card of value one higher than',
@@ -261,7 +261,7 @@ domestication = {
     'name': 'Domestication',
     'age': 1,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'leaf', 'castle'],
+    'icons': ('', 'leaf', 'leaf', 'castle'),
     'dogma_effects': 'Meld the lowest card in your hand. Draw a 1',
     'dogma_icon': 'leaf',
 }
@@ -269,7 +269,7 @@ masonry = {
     'name': 'Masonry',
     'age': 1,
     'color': 'yellow',
-    'icons': ['castle', '', 'castle', 'castle'],
+    'icons': ('castle', '', 'castle', 'castle'),
     'dogma_effects': ''.join((
         'You may meld any number of cards from your hand, each with a castle symbol. ',
         'If you melded four or more cards, claim the Monument achievement.'
@@ -280,7 +280,7 @@ clothing = {
     'name': 'Clothing',
     'age': 1,
     'color': 'green',
-    'icons': ['', 'crown', 'leaf', 'leaf'],
+    'icons': ('', 'crown', 'leaf', 'leaf'),
     'dogma_effects': ''.join((
         '1. Meld a card from your hand of a different color than any ',
         'color currently on your board. ',
@@ -292,7 +292,7 @@ sailing = {
     'name': 'Sailing',
     'age': 1,
     'color': 'green',
-    'icons': ['crown', 'crown', '', 'leaf'],
+    'icons': ('crown', 'crown', '', 'leaf'),
     'dogma_effects': "Draw and meld a 1",
     'dogma_icon': 'crown',
 }
@@ -300,7 +300,7 @@ wheel = {
     'name': 'The Wheel',
     'age': 1,
     'color': 'green',
-    'icons': ['', 'castle', 'castle', 'castle'],
+    'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': 'Draw three 1s',
     'dogma_icon': 'castle',
 }
@@ -308,7 +308,7 @@ pottery = {
     'name': 'Pottery',
     'age': 1,
     'color': 'blue',
-    'icons': ['', 'leaf', 'leaf', 'leaf'],
+    'icons': ('', 'leaf', 'leaf', 'leaf'),
     'dogma_effects': ''.join((
         '1. You may return up to three cards from your hand ', 
         'If you returned any cards, draw and score a card of value ',
@@ -320,7 +320,7 @@ tools = {
     'name': 'Tools',
     'age': 1,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'castle'],
+    'icons': ('', 'bulb', 'bulb', 'castle'),
     'dogma_effects': ''.join((
         '1. You may return three cards from your hand, if you do draw and meld a 3',
         '2. You may return a 3 from your hand, if you do draw three 1s.'
@@ -331,7 +331,7 @@ writing = {
     'name': 'Writing',
     'age': 1,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'crown'],
+    'icons': ('', 'bulb', 'bulb', 'crown'),
     'dogma_effects': 'Draw a 2',
     'dogma_icon': 'bulb',
 }
@@ -339,7 +339,7 @@ codeoflaws = {
     'name': 'Code of Laws',
     'age': 1,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'crown'],
+    'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': ''.join((
         'You may tuck a card from your hand of any color matching a card on your board.', 
         ' If you do, splay that color of your cards left'.)), 
@@ -349,7 +349,7 @@ city_states = {
     'name': 'City States',
     'age': 1,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'castle'],
+    'icons': ('', 'crown', 'crown', 'castle'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'crown',
 }
@@ -357,7 +357,7 @@ mysticism = {
     'name': 'Mysticism',
     'age': 1,
     'color': 'purple',
-    'icons': ['', 'castle', 'castle', 'castle'],
+    'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -365,7 +365,7 @@ construction = {
     'name': 'Construction',
     'age': 2,
     'color': 'red',
-    'icons': ['castle', '', 'castle', 'castle'],
+    'icons': ('castle', '', 'castle', 'castle'),
     'dogma_effects': ''.join((
         '1. I demand you transfer two cards from your hand to my hand ',
         'then draw a 2! ', 
@@ -376,7 +376,7 @@ road_building = {
     'name': 'Road Building',
     'age': 2,
     'color': 'red',
-    'icons': ['', 'castle', 'factory', 'crown'],
+    'icons': ('', 'castle', 'factory', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -384,7 +384,7 @@ canal_building = {
     'name': 'Canal Building',
     'age': 2,
     'color': 'yellow',
-    'icons': ['', 'castle', 'factory', 'leaf'],
+    'icons': ('', 'castle', 'factory', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -392,7 +392,7 @@ fermenting = {
     'name': 'Fermenting',
     'age': 2,
     'color': 'yellow',
-    'icons': ['leaf', 'leaf', '', 'castle'],
+    'icons': ('leaf', 'leaf', '', 'castle'),
     'dogma_effects': 'Draw a 2 for every two leaf icons on your board',
     'dogma_icon': 'leaf',
 }
@@ -400,7 +400,7 @@ currency = {
     'name': 'Currency',
     'age': 2,
     'color': 'green',
-    'icons': ['', 'factory', 'crown', 'leaf'],
+    'icons': ('', 'factory', 'crown', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -408,7 +408,7 @@ mapmaking = {
     'name': 'Mapmaking',
     'age': 2,
     'color': 'green',
-    'icons': ['', 'leaf', 'factory', 'castle'],
+    'icons': ('', 'leaf', 'factory', 'castle'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -416,7 +416,7 @@ calendar = {
     'name': 'Calendar',
     'age': 2,
     'color': 'blue',
-    'icons': ['', 'bulb', 'crown', 'leaf'],
+    'icons': ('', 'bulb', 'crown', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -424,7 +424,7 @@ mathematics = {
     'name': 'Mathematics',
     'age': 2,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'crown'],
+    'icons': ('', 'bulb', 'bulb', 'crown'),
     'dogma_effects': ''.join((
         'You may return a card from your hand. ', 
         'If you do, draw and meld a card of one value higher than the card you returned.')),
@@ -434,7 +434,7 @@ monotheism = {
     'name': 'Monotheism',
     'age': 2,
     'color': 'purple',
-    'icons': ['', 'castle', 'castle', 'castle'],
+    'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': ''.join((
         '1. I demand you transfer a top card on your board of a different color ',
         'from any color on my board to my score pile! ', 
@@ -445,7 +445,7 @@ philosophy = {
     'name': 'Philosophy',
     'age': 2,
     'color': 'purple',
-    'icons': ['', 'bulb', 'bulb', 'bulb'],
+    'icons': ('', 'bulb', 'bulb', 'bulb'),
     'dogma_effects': ''.join((
         '1. You may splay left any one color of your cards. ',
         '2. You may score a card from your hand.'
@@ -456,7 +456,7 @@ engineering = {
     'name': 'Engineering',
     'age': 3,
     'color': 'red',
-    'icons': ['', 'bulb', 'factory', 'castle'],
+    'icons': ('', 'bulb', 'factory', 'castle'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -464,7 +464,7 @@ optics = {
     'name': 'Optics',
     'age': 3,
     'color': 'red',
-    'icons': ['', 'bulb', 'bulb', 'factory'],
+    'icons': ('', 'bulb', 'bulb', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -472,7 +472,7 @@ machinery = {
     'name': 'Machinery',
     'age': 3,
     'color': 'yellow',
-    'icons': ['leaf', 'leaf', '', 'castle'],
+    'icons': ('leaf', 'leaf', '', 'castle'),
     'dogma_effects': ''.join((
         '1. I demand you exchange all cards in your hand with the highest card in my hand!',
         '2. Score a card from your hand with a castle icon.',
@@ -483,7 +483,7 @@ medicine = {
     'name': 'Medicine',
     'age': 3,
     'color': 'yellow',
-    'icons': ['crown', 'leaf', 'leaf', ''],
+    'icons': ('crown', 'leaf', 'leaf', ''),
     'dogma_effects': ''.join((
         'I demand you exchange the highest card in your score pile ',
         'with the lowest card in my score pile!',
@@ -494,7 +494,7 @@ compass = {
     'name': 'Compass',
     'age': 3,
     'color': 'green',
-    'icons': ['', 'factory', 'leaf', 'crown'],
+    'icons': ('', 'factory', 'leaf', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -502,7 +502,7 @@ paper = {
     'name': 'Paper',
     'age': 3,
     'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'crown'],
+    'icons': ('', 'bulb', 'bulb', 'crown'),
     'dogma_effects': ''.join((
         '1. You may splay your green or blue cards left. ',
         '2. Draw a 4 for every color you have splayed left. ',
@@ -513,7 +513,7 @@ alchemy = {
     'name': 'Alchemy',
     'age': 3,
     'color': 'blue',
-    'icons': ['', 'leaf', 'castle', 'castle'],
+    'icons': ('', 'leaf', 'castle', 'castle'),
     'dogma_effects': ''.join((
         '1. Draw and reveala 4 for every three castle icons on your board. ',
         'If any of the drawn cards are red, return the drawn cards and ',
@@ -526,7 +526,7 @@ translation = {
     'name': 'Translation',
     'age': 3,
     'color': 'blue',
-    'icons': ['', 'crown', 'crown', 'crown'],
+    'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': ''.join((
         '1. You may meld all the cards in your hand. ',
         'If you meld one you must meld them all. ',
@@ -538,7 +538,7 @@ education = {
     'name': 'Education',
     'age': 3,
     'color': 'purple',
-    'icons': ['', 'bulb', 'bulb', 'bulb'],
+    'icons': ('', 'bulb', 'bulb', 'bulb'),
     'dogma_effects': ''.join((
         'You may return the highest card from your score pile. ',
         'If you do, draw a card of value two higher than the ', 
@@ -550,7 +550,7 @@ feudalism = {
     'name': 'Feudalism',
     'age': 3,
     'color': 'purple',
-    'icons': ['', 'castle', 'crown', 'crown'],
+    'icons': ('', 'castle', 'crown', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -558,7 +558,7 @@ colonialism = {
     'name': 'Colonialism',
     'age': 4,
     'color': 'red',
-    'icons': ['', 'factory', 'leaf', 'factory'],
+    'icons': ('', 'factory', 'leaf', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -566,7 +566,7 @@ gunpowder = {
     'name': 'Gunpowder',
     'age': 4,
     'color': 'red'
-    'icons': ['', 'factory', 'crown', 'factory'],
+    'icons': ('', 'factory', 'crown', 'factory'),
     'dogma_effects': ''.join((
         '1. I demand you transfer a top card with a castle icon from your board to ',
         'my score pile!',
@@ -577,7 +577,7 @@ anatomy = {
     'name': 'Anatomy',
     'age': 4,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'bulb', 'bulb'],
+    'icons': ('', 'leaf', 'bulb', 'bulb'),
     'dogma_effects': ''.join((
         'I demand you return a card from your score pile!', 
         ' If you do return a top card from your board of equal value!')),
@@ -587,7 +587,7 @@ invention = {
     'name': 'Invention',
     'age': 4,
     'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'factory'],
+    'icons': ('', 'bulb', 'bulb', 'factory'),
     'dogma_effects': ''.join((
         'You may spay right any color of your cards currently splayed left ', 
         'if you do, draw and score a 4.')),
@@ -597,7 +597,7 @@ experimentation = {
     'name': 'Experimentation',
     'age': 4,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'bulb'],
+    'icons': ('', 'bulb', 'bulb', 'bulb'),
     'dogma_effects': 'Draw and meld a 5.', 
     'dogma_icon': 'bulb',
 }
@@ -605,7 +605,7 @@ printing_press = {
     'name': 'Printing Press',
     'age': 4,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'crown'],
+    'icons': ('', 'bulb', 'bulb', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -613,7 +613,7 @@ enterprise = {
     'name': 'Enterprise',
     'age': 4,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'crown'],
+    'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': ''.join((
         '1. I demand you transfer a top non-puprle card with a crown icon from your board to my board!',
         ' If you do, draw and meld a 4!', 
@@ -624,7 +624,7 @@ perspective = {
     'name': 'Perspective',
     'age': 4,
     'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'bulb'],
+    'icons': ('', 'bulb', 'bulb', 'bulb'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -632,7 +632,7 @@ navigation = {
     'name': 'Navigation',
     'age': 4,
     'color': 'green',
-    'icons': ['', 'castle', 'factory', 'factory'],
+    'icons': ('', 'castle', 'factory', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -640,7 +640,7 @@ reformation = {
     'name': 'Reformation',
     'age': 4,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'bulb'],
+    'icons': ('', 'crown', 'crown', 'bulb'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'crown',
 }
@@ -648,7 +648,7 @@ coal = {
     'name': 'Coal',
     'age': 5,
     'color': 'red',
-    'icons': ['', 'factory', 'factory', 'factory'],
+    'icons': ('', 'factory', 'factory', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -656,7 +656,7 @@ pirate_code = {
     'name': 'The Pirate Code',
     'age': 5,
     'color': 'red',
-    'icons': ['', 'castle', 'crown', 'factory'],
+    'icons': ('', 'castle', 'crown', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -664,7 +664,7 @@ statistics = {
     'name': 'Statistics',
     'age': 5,
     'color': 'green',
-    'icons': ['', 'bulb', 'factory', 'crown'],
+    'icons': ('', 'bulb', 'factory', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -672,7 +672,7 @@ steam_engine = {
     'name': 'Steam Engine',
     'age': 5,
     'color': 'yellow',
-    'icons': ['', 'factory', 'factory', 'clock'],
+    'icons': ('', 'factory', 'factory', 'clock'),
     'dogma_effects': 'Draw and tuck two 4s, then score your bottom yellow card',
     'dogma_icon': 'factory',
 }
@@ -680,7 +680,7 @@ banking = {
     'name': 'Banking',
     'age': 5,
     'color': 'green',
-    'icons': ['', 'factory', 'factory', 'crown'],
+    'icons': ('', 'factory', 'factory', 'crown'),
     'dogma_effects': ''.join((
         '1. I demand you transfer a top card with a factory icon from your board to my board! ',
         'If you do, draw and score a 5!', 
@@ -692,7 +692,7 @@ measurement = {
     'name': 'Measurement',
     'age': 5,
     'color': 'green',
-    'icons': ['bulb', 'leaf', 'bulb', ''],
+    'icons': ('bulb', 'leaf', 'bulb', ''),
     'dogma_effects': ''.join((
         'You may return a card from your hand. ',
         'If you do splay that color of your cards right, ',
@@ -704,7 +704,7 @@ chemistry = {
     'name': 'Chemistry',
     'age': 5,
     'color': 'blue',
-    'icons': ['factory', 'bulb', 'factory', ''],
+    'icons': ('factory', 'bulb', 'factory', ''),
     'dogma_effects': ''.join((
         '1. You may splay your blue cards right. ',
         '2. Score a card from your hand of value one higher than the highest '
@@ -716,7 +716,7 @@ physics = {
     'name': 'Physics',
     'age': 5,
     'color': 'blue',
-    'icons': ['factory', 'bulb', 'bulb', ''],
+    'icons': ('factory', 'bulb', 'bulb', ''),
     'dogma_effects': ''.join(('Draw three 6s and reveal them. ',
                               'If two or more of the drawn cards are the same color',
                               ' return them and all cards in your hand.', 
@@ -727,7 +727,7 @@ astronomy = {
     'name': 'Astronomy',
     'age': 5,
     'color': 'purple',
-    'icons': ['crown', 'bulb', 'bulb', ''],
+    'icons': ('crown', 'bulb', 'bulb', ''),
     'dogma_effects': ''.join((
         '1. Draw a 6. If the card is green or blue, meld it and repeat this dogma effect. ',
         '2. If all non-puprle cards on your board are value 6 or higher, ', 
@@ -739,7 +739,7 @@ societies = {
     'name': 'Societies',
     'age': 5,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'factory'],
+    'icons': ('', 'crown', 'crown', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'crown',
 }
@@ -747,7 +747,7 @@ industrialization = {
     'name': 'Industrialization',
     'age': 6,
     'color': 'red',
-    'icons': ['', 'factory', 'factory', 'clock'],
+    'icons': ('', 'factory', 'factory', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -755,7 +755,7 @@ machine_tools = {
     'name': 'Machine Tools',
     'age': 6,
     'color': 'red',
-    'icons': ['', 'factory', 'clock', 'bulb'],
+    'icons': ('', 'factory', 'clock', 'bulb'),
     'dogma_effects': 'Draw and score a card of value equal to the highest card in your score pile.',
     'dogma_icon': 'factory',
 }
@@ -763,7 +763,7 @@ canning = {
     'name': 'Canning',
     'age': 6,
     'color': 'yellow',
-    'icons': ['', 'factory', 'factory', 'leaf'],
+    'icons': ('', 'factory', 'factory', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -771,7 +771,7 @@ vaccination = {
     'name': 'Vaccination',
     'age': 6,
     'color': 'yellow',
-    'icons': ['leaf', 'factory', 'leaf', ''],
+    'icons': ('leaf', 'factory', 'leaf', ''),
     'dogma_effects': ''.join((
         '1. I demand you return all the lowest cards in your score pile! ',
         'If you returned any, draw and meld a 5! ',
@@ -783,7 +783,7 @@ classification = {
     'name': 'Classification',
     'age': 6,
     'color': 'green',
-    'icons': ['bulb', 'bulb', 'bulb', ''],
+    'icons': ('bulb', 'bulb', 'bulb', ''),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -791,7 +791,7 @@ metric_system = {
     'name': 'Metric System',
     'age': 6,
     'color': 'green',
-    'icons': ['', 'factory', 'crown', 'crown'],
+    'icons': ('', 'factory', 'crown', 'crown'),
     'dogma_effects': ''.join((
         '1. If your green cards are splayed right, you may splay any color of your cards right',
         '2. You may splay your green cards right')),
@@ -801,7 +801,7 @@ atomic_theory = {
     'name': 'Atomic Theory',
     'age': 6,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'bulb'],
+    'icons': ('', 'bulb', 'bulb', 'bulb'),
     'dogma_effects': 'Draw and meld a 7.',
     'dogma_icon': 'bulb',
 }
@@ -809,7 +809,7 @@ encyclopedia = {
     'name': 'Encyclopedia',
     'age': 6,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'leaf'],
+    'icons': ('', 'bulb', 'bulb', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -817,7 +817,7 @@ democracy = {
     'name': 'Democracy',
     'age': 6,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'crown'],
+    'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'crown',
 }
@@ -825,7 +825,7 @@ emancipation = {
     'name': 'Emancipation',
     'age': 6,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'leaf'],
+    'icons': ('', 'crown', 'crown', 'leaf'),
     'dogma_effects': ''.join(('1. I demand you transfer a card from your hand to my score pile!',
                               ' if you do, draw a 6.',
                               '2.You may splay your red or purple cards right')),
@@ -835,7 +835,7 @@ combustion = {
     'name': 'Combustion',
     'age': 7,
     'color': 'red',
-    'icons': ['crown', 'crown', 'factory', ''],
+    'icons': ('crown', 'crown', 'factory', ''),
     'dogma_effects': 'I demand you transfer two cards from your score pile to my score pile!',
     'dogma_icon': 'crown',
 }
@@ -843,7 +843,7 @@ explosives = {
     'name': 'Explosives',
     'age': 7,
     'color': 'red',
-    'icons': ['', 'factory', 'factory', 'clock'],
+    'icons': ('', 'factory', 'factory', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -851,7 +851,7 @@ refrigeration = {
     'name': 'Refrigeration',
     'age': 7,
     'color': 'yellow',
-    'icons': ['', 'factory', 'clock', 'leaf'],
+    'icons': ('', 'factory', 'clock', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -859,7 +859,7 @@ sanitation = {
     'name': 'Sanitation',
     'age': 7,
     'color': 'yellow',
-    'icons': ['leaf', 'leaf', '', 'leaf'],
+    'icons': ('leaf', 'leaf', '', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -867,7 +867,7 @@ bicycle = {
     'name': 'Bicycle',
     'age': 7,
     'color': 'green',
-    'icons': ['crown', 'crown', 'clock', ''],
+    'icons': ('crown', 'crown', 'clock', ''),
     'dogma_effects': ''.join((
         'You may exchange all teh cards in your hand with all the cards in your core pile.',
         ' If you exchange one, you must exchange them all.')),
@@ -877,7 +877,7 @@ electricity = {
     'name': 'Electricity',
     'age': 7,
     'color': 'green',
-    'icons': ['', 'bulb', 'clock', 'bulb'],
+    'icons': ('', 'bulb', 'clock', 'bulb'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -885,7 +885,7 @@ evolution = {
     'name': 'Evolution',
     'age': 7,
     'color': 'blue',
-    'icons': ['', 'leaf', 'leaf', 'clock'],
+    'icons': ('', 'leaf', 'leaf', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -893,7 +893,7 @@ publications = {
     'name': 'Publications',
     'age': 7,
     'color': 'blue',
-    'icons': ['', 'bulb', 'clock', 'bulb'],
+    'icons': ('', 'bulb', 'clock', 'bulb'),
     'dogma_effects': ''.join((
         '1. You may rearrange the order of one color of cards on your board. ',
         '2. You may splay your yellow or blue cards up.')),
@@ -903,7 +903,7 @@ lighting = {
     'name': 'Lighting',
     'age': 7,
     'color': 'purple',
-    'icons': ['', 'bulb', 'clock', 'clock'],
+    'icons': ('', 'bulb', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -911,7 +911,7 @@ railroad = {
     'name': 'Railroad',
     'age': 7,
     'color': 'purple',
-    'icons': ['', 'factory', 'clock', 'clock'],
+    'icons': ('', 'factory', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -919,7 +919,7 @@ flight = {
     'name': 'Flight',
     'age': 8,
     'color': 'red',
-    'icons': ['', 'factory', 'clock', 'clock'],
+    'icons': ('', 'factory', 'clock', 'clock'),
     'dogma_effects': ''.join((
         '1) If your red cards are splayed up you may splay any other color of cards up.', 
         '2) You may splay your red cards up'
@@ -930,7 +930,7 @@ antibiotics = {
     'name': 'Antibiotics',
     'age': 8,
     'color': 'green',
-    'icons': ['', 'leaf', 'bulb', 'clock'],
+    'icons': ('', 'leaf', 'bulb', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -938,7 +938,7 @@ corporations = {
     'name': 'Corporations',
     'age': 8,
     'color': 'green',
-    'icons': ['', 'factory', 'clock', 'crown'],
+    'icons': ('', 'factory', 'clock', 'crown'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -946,7 +946,7 @@ quantum_theory = {
     'name': 'Quantum Theory',
     'age': 8,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'clock'],
+    'icons': ('', 'bulb', 'bulb', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -954,7 +954,7 @@ empiricism = {
     'name': 'Empiricism',
     'age': 8,
     'color': 'purple',
-    'icons': ['bulb', 'bulb', 'bulb', ''],
+    'icons': ('bulb', 'bulb', 'bulb', ''),
     'dogma_effects': ''.join((
         '1. Choose two colors then draw a 9.',
         ' If it is either of the colors you chose, meld it', 
@@ -966,7 +966,7 @@ mobility = {
     'name': 'Mobility',
     'age': 8,
     'color': 'red',
-    'icons': ['', 'factory', 'clock', 'clock'],
+    'icons': ('', 'factory', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -974,7 +974,7 @@ skyscrapers = {
     'name': 'Skyscrapers',
     'age': 8,
     'color': 'yellow',
-    'icons': ['', 'factory', 'clock', 'clock'],
+    'icons': ('', 'factory', 'clock', 'clock'),
     'dogma_effects': ''.join((
         'I demand you transfer a top non-yellow card with a clock icon from your board to my board! ',
         'If you do, score the card beneath it, then return all cards of that color!')), 
@@ -984,7 +984,7 @@ mass_media = {
     'name': 'Mass Media',
     'age': 8,
     'color': 'green',
-    'icons': ['', 'bulb', 'clock', 'leaf'],
+    'icons': ('', 'bulb', 'clock', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -992,7 +992,7 @@ rocketry = {
     'name': 'Rocketry',
     'age': 8,
     'color': 'blue',
-    'icons': ['', 'bulb', 'clock', 'factory'],
+    'icons': ('', 'bulb', 'clock', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -1000,7 +1000,7 @@ socialism = {
     'name': 'Socialism',
     'age': 8,
     'color': 'purple',
-    'icons': ['', 'crown', 'crown', 'clock'],
+    'icons': ('', 'crown', 'crown', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'crown',
 }
@@ -1008,7 +1008,7 @@ composites = {
     'name': 'Composites',
     'age': 9,
     'color': 'red',
-    'icons': ['', 'factory', 'clock', 'clock'],
+    'icons': ('', 'factory', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -1016,7 +1016,7 @@ fission = {
     'name': 'Fission',
     'age': 9,
     'color': 'red',
-    'icons': ['', 'clock', 'clock', 'clock'],
+    'icons': ('', 'clock', 'clock', 'clock'),
     'dogma_effects': ''.join((
         '1. I demand you draw a 10! ',
         'If it is red, remove all hands, boards, and score piles from the game! ', 
@@ -1028,7 +1028,7 @@ ecology = {
     'name': 'Ecology',
     'age': 9,
     'color': 'green',
-    'icons': ['', 'leaf', 'leaf', 'clock'],
+    'icons': ('', 'leaf', 'leaf', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -1036,7 +1036,7 @@ suburbia = {
     'name': 'Suburbia',
     'age': 9,
     'color': 'purple',
-    'icons': ['', 'factory', 'clock', 'leaf'],
+    'icons': ('', 'factory', 'clock', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -1044,7 +1044,7 @@ collaboration = {
     'name': 'Collaboration',
     'age': 9,
     'color': 'green',
-    'icons': ['', 'crown', 'clock', 'crown'],
+    'icons': ('', 'crown', 'clock', 'crown'),
     'dogma_effects': ''.join((
         '1. I demand you draw two 9 and reveal them!',
         ' Transfer the card of my choice to my board and meld the other!',
@@ -1055,7 +1055,7 @@ satellites = {
     'name': 'Satellites',
     'age': 9,
     'color': 'purple',
-    'icons': ['', 'bulb', 'clock', 'factory'],
+    'icons': ('', 'bulb', 'clock', 'factory'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -1063,7 +1063,7 @@ computers = {
     'name': 'Computers',
     'age': 9,
     'color': 'green',
-    'icons': ['', 'bulb', 'factory', 'clock'],
+    'icons': ('', 'bulb', 'factory', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'clock',
 }
@@ -1071,7 +1071,7 @@ genetics = {
     'name': 'Genetics',
     'age': 9,
     'color': 'blue',
-    'icons': ['', 'leaf', 'bulb', 'clock'],
+    'icons': ('', 'leaf', 'bulb', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -1079,7 +1079,7 @@ services = {
     'name': 'Services',
     'age': 9,
     'color': 'yellow',
-    'icons': ['', 'crown', 'clock', 'bulb'],
+    'icons': ('', 'crown', 'clock', 'bulb'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'crown',
 }
@@ -1087,7 +1087,7 @@ specialization = {
     'name': 'Specialization',
     'age': 9,
     'color': 'blue',
-    'icons': ['', 'bulb', 'factory', 'clock'],
+    'icons': ('', 'bulb', 'factory', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -1095,7 +1095,7 @@ miniaturization = {
     'name': 'Miniaturization',
     'age': 10,
     'color': 'yellow',
-    'icons': ['', 'factory', 'clock', 'bulb'],
+    'icons': ('', 'factory', 'clock', 'bulb'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
 }
@@ -1103,7 +1103,7 @@ robotics = {
     'name': 'Robotics',
     'age': 10,
     'color': 'green',
-    'icons': ['', 'factory', 'clock', 'clock'],
+    'icons': ('', 'factory', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'clock',
 }
@@ -1111,7 +1111,7 @@ globalization = {
     'name': 'Globalization',
     'age': 10,
     'color': 'yellow',
-    'icons': ['', 'factory', 'factory', 'factory'],
+    'icons': ('', 'factory', 'factory', 'factory'),
     'dogma_effects': ''.join((
         '1. I demand you return a top card with a leaf icon on your board!,
         ' 2. Draw and score a 6.', 
@@ -1123,7 +1123,7 @@ stem_cells = {
     'name': 'Stem Cells',
     'age': 10,
     'color': 'purple',
-    'icons': ['', 'leaf', 'bulb', 'clock'],
+    'icons': ('', 'leaf', 'bulb', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -1131,7 +1131,7 @@ databases = {
     'name': 'Databases',
     'age': 10,
     'color': 'red',
-    'icons': ['', 'bulb', 'clock', 'leaf'],
+    'icons': ('', 'bulb', 'clock', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -1139,7 +1139,7 @@ self_service = {
     'name': 'Self Service',
     'age': 10,
     'color': 'green',
-    'icons': ['', 'crown', 'crown', 'crown'],
+    'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': ''.join((
         '1. Execute the non-demand dogma effects of any other top card on your board', 
         ' for yourself only.',
@@ -1150,7 +1150,7 @@ bioengineering = {
     'name': 'Bioengineering',
     'age': 10,
     'color': 'blue',
-    'icons': ['bulb', 'clock', 'clock', ''],
+    'icons': ('bulb', 'clock', 'clock', ''),
     'dogma_effects': ''.join((
         "1. Transfer a top card with a leaf icon from any other player's board",
         ' to your score pile.',
@@ -1162,7 +1162,7 @@ software = {
     'name': 'Software',
     'age': 10,
     'color': 'blue',
-    'icons': ['', 'bulb', 'clock', 'clock'],
+    'icons': ('', 'bulb', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'clock',
 }
@@ -1170,7 +1170,7 @@ ai = {
     'name': 'A.I.',
     'age': 10,
     'color': 'purple',
-    'icons': ['bulb', 'bulb', 'clock', ''],
+    'icons': ('bulb', 'bulb', 'clock', ''),
     'dogma_effects': ''.join((
         '1. Draw and score a 10.', 
         ' 2. If Robotics and Software are top cards of any board, ', 
@@ -1181,7 +1181,7 @@ the_internet = {
     'name': 'The Internet',
     'age': 10,
     'color': 'purple',
-    'icons': ['', 'bulb', 'clock', 'clock'],
+    'icons': ('', 'bulb', 'clock', 'clock'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
