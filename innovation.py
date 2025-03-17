@@ -1,4 +1,4 @@
-"""Innovation the card game
+"""Innovation by C. Chudyk. 
 
 code smells:
 stateful modifications in place, functions that don't return anything
