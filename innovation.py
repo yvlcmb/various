@@ -1106,7 +1106,7 @@ self_service = {
     'color': 'green',
     'icons': ['', 'crown', 'crown', 'crown'],
     'dogma_effects': ''.join((
-        '1. Execute the non-demand dogma effects of any other top card on your board
+        '1. Execute the non-demand dogma effects of any other top card on your board', 
         ' for yourself only.',
         '2. If you have more achievements than any other player, you win.')), 
     'dogma_icon': 'crown',
