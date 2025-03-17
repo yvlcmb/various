@@ -443,7 +443,10 @@ philosophy = {
     'age': 2,
     'color': 'purple',
     'icons': ['', 'bulb', 'bulb', 'bulb'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join((
+        '1. You may splay left any one color of your cards. ',
+        '2. You may score a card from your hand.'
+    )),
     'dogma_icon': 'bulb',
 }
 engineering = {
@@ -477,8 +480,11 @@ medicine = {
     'name': 'Medicine',
     'age': 3,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'bulb', 'factory'],
-    'dogma_effects': 'place holder',
+    'icons': ['crown', 'leaf', 'leaf', ''],
+    'dogma_effects': ''.join((
+        'I demand you exchange the highest card in your score pile ',
+        'with the lowest card in my score pile!',
+    )),
     'dogma_icon': 'leaf',
 }
 compass = {
@@ -493,16 +499,24 @@ paper = {
     'name': 'Paper',
     'age': 3,
     'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'leaf'],
-    'dogma_effects': 'place holder',
+    'icons': ['', 'bulb', 'bulb', 'crown'],
+    'dogma_effects': ''.join((
+        '1. You may splay your green or blue cards left. ',
+        '2. Draw a 4 for every color you have splayed left. ',
+    )), 
     'dogma_icon': 'bulb',
 }
 alchemy = {
     'name': 'Alchemy',
     'age': 3,
     'color': 'blue',
-    'icons': ['', 'leaf', 'bulb', 'factory'],
-    'dogma_effects': 'place holder',
+    'icons': ['', 'leaf', 'castle', 'castle'],
+    'dogma_effects': ''.join((
+        '1. Draw and reveala 4 for every three castle icons on your board. ',
+        'If any of the drawn cards are red, return the drawn cards and ',
+        'all cards in your hand. Otherweise, keep them. ',
+        '2. Meld a card from your hand, then score a card from your hand.'
+    )),
     'dogma_icon': 'leaf',
 }
 translation = {
@@ -521,10 +535,12 @@ education = {
     'name': 'Education',
     'age': 3,
     'color': 'purple',
-    'icons': ['', 'bulb', 'crown', 'leaf'],
+    'icons': ['', 'bulb', 'bulb', 'bulb'],
     'dogma_effects': ''.join((
-        '1. You may splay left any one color of your cards.',
-        ' 2. You may score a card from your hand.')),
+        'You may return the highest card from your score pile. ',
+        'If you do, draw a card of value two higher than the ', 
+        'highest card remaining in your score pile.'
+    )),
     'dogma_icon': 'bulb',
 }
 feudalism = {
