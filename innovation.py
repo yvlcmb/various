@@ -269,8 +269,11 @@ masonry = {
     'name': 'Masonry',
     'age': 1,
     'color': 'yellow',
-    'icons': ['', 'castle', 'castle', 'leaf'],
-    'dogma_effects': 'place holder',
+    'icons': ['castle', '', 'castle', 'castle'],
+    'dogma_effects': ''.join((
+        'You may meld any number of cards from your hand, each with a castle symbol. ',
+        'If you melded four or more cards, claim the Monument achievement.'
+    )),
     'dogma_icon': 'castle',
 }
 clothing = {
@@ -289,9 +292,9 @@ sailing = {
     'name': 'Sailing',
     'age': 1,
     'color': 'green',
-    'icons': ['crown', 'castle', 'leaf', 'leaf'],
+    'icons': ['crown', 'crown', '', 'leaf'],
     'dogma_effects': "Draw and meld a 1",
-    'dogma_icon': 'castle',
+    'dogma_icon': 'crown',
 }
 wheel = {
     'name': 'The Wheel',
@@ -678,8 +681,12 @@ banking = {
     'age': 5,
     'color': 'green',
     'icons': ['', 'factory', 'factory', 'crown'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'factory',
+    'dogma_effects': ''.join((
+        '1. I demand you transfer a top card with a factory icon from your board to my board! ',
+        'If you do, draw and score a 5!', 
+        '2. You may splay your green cards right',
+    )),
+    'dogma_icon': 'crown',
 }
 measurement = {
     'name': 'Measurement',
@@ -697,9 +704,13 @@ chemistry = {
     'name': 'Chemistry',
     'age': 5,
     'color': 'blue',
-    'icons': ['', 'bulb', 'factory', 'bulb'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ['factory', 'bulb', 'factory', ''],
+    'dogma_effects': ''.join((
+        '1. You may splay your blue cards right. ',
+        '2. Score a card from your hand of value one higher than the highest '
+        'card in your score pile, then return a card from your score pile.'
+    )),
+    'dogma_icon': 'factory',
 }
 physics = {
     'name': 'Physics',
@@ -716,8 +727,12 @@ astronomy = {
     'name': 'Astronomy',
     'age': 5,
     'color': 'purple',
-    'icons': ['', 'bulb', 'bulb', 'crown'],
-    'dogma_effects': 'place holder',
+    'icons': ['crown', 'bulb', 'bulb', ''],
+    'dogma_effects': ''.join((
+        '1. Draw a 6. If the card is green or blue, meld it and repeat this dogma effect. ',
+        '2. If all non-puprle cards on your board are value 6 or higher, ', 
+        'claim the Universe achievement'
+    )), 
     'dogma_icon': 'bulb',
 }
 societies = {
@@ -756,8 +771,12 @@ vaccination = {
     'name': 'Vaccination',
     'age': 6,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'bulb', 'bulb'],
-    'dogma_effects': 'place holder',
+    'icons': ['leaf', 'factory', 'leaf', ''],
+    'dogma_effects': ''.join((
+        '1. I demand you return all the lowest cards in your score pile! ',
+        'If you returned any, draw and meld a 5! ',
+        '2. If any card was returned as a result of the demand, draw and meld a 7.', 
+    )),
     'dogma_icon': 'leaf',
 }
 classification = {
