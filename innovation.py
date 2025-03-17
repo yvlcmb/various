@@ -247,7 +247,10 @@ agriculture = {
     'age': 1,
     'color': 'yellow',
     'icons': ['', 'leaf', 'leaf', 'leaf'],
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join((
+        'You may return a card from your hand.',
+        ' If you do, draw and score a card of value one higher than',
+        ' the card you returned.')),
     'dogma_icon': 'leaf',
 }
 domestication = {
@@ -515,10 +518,13 @@ colonialism = {
 gunpowder = {
     'name': 'Gunpowder',
     'age': 4,
-    'color': 'yellow',
-    'icons': ['', 'castle', 'factory', 'factory'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'castle',
+    'color': 'red'
+    'icons': ['', 'factory', 'crown', 'factory'],
+    'dogma_effects': ''.join((
+        '1. I demand you transfer a top card with a castle icon from your board to ',
+        'my score pile!',
+        '2. If any card was transferred due to the demand, draw and score a 2.')),
+    'dogma_icon': 'factory',
 }
 anatomy = {
     'name': 'Anatomy',
@@ -555,10 +561,13 @@ printing_press = {
 enterprise = {
     'name': 'Enterprise',
     'age': 4,
-    'color': 'red',
-    'icons': ['', 'factory', 'factory', 'crown'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'factory',
+    'color': 'purple',
+    'icons': ['', 'crown', 'crown', 'crown'],
+    'dogma_effects': ''.join((
+        '1. I demand you transfer a top non-puprle card with a crown icon from your board to my board!',
+        ' If you do, draw and meld a 4!', 
+        ' 2. You may splay your green cards right.')), 
+    'dogma_icon': 'crown',
 }
 perspective = {
     'name': 'Perspective',
@@ -643,9 +652,12 @@ chemistry = {
 physics = {
     'name': 'Physics',
     'age': 5,
-    'color': 'red',
-    'icons': ['', 'bulb', 'bulb', 'factory'],
-    'dogma_effects': 'place holder',
+    'color': 'blue',
+    'icons': ['factory', 'bulb', 'bulb', ''],
+    'dogma_effects': ''.join(('Draw three 6s and reveal them. ',
+                              'If two or more of the drawn cards are the same color',
+                              ' return them and all cards in your hand.', 
+                              ' Otherwise, keep them'.)),
     'dogma_icon': 'bulb',
 }
 astronomy = {
@@ -708,8 +720,10 @@ metric_system = {
     'name': 'Metric System',
     'age': 6,
     'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'factory'],
-    'dogma_effects': 'place holder',
+    'icons': ['', 'factory', 'crown', 'crown'],
+    'dogma_effects': ''.join((
+        '1. If your green cards are splayed right, you may splay any color of your cards right',
+        '2. You may splay your green cards right')),
     'dogma_icon': 'bulb',
 }
 atomic_theory = {
@@ -781,9 +795,11 @@ sanitation = {
 bicycle = {
     'name': 'Bicycle',
     'age': 7,
-    'color': 'blue',
-    'icons': ['', 'factory', 'clock', 'factory'],
-    'dogma_effects': 'place holder',
+    'color': 'green',
+    'icons': ['crown', 'crown', 'clock', ''],
+    'dogma_effects': ''.join((
+        'You may exchange all teh cards in your hand with all the cards in your core pile.',
+        ' If you exchange one, you must exchange them all.')),
     'dogma_icon': 'factory',
 }
 electricity = {
@@ -864,9 +880,13 @@ quantum_theory = {
 empiricism = {
     'name': 'Empiricism',
     'age': 8,
-    'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'leaf'],
-    'dogma_effects': 'place holder',
+    'color': 'purple',
+    'icons': ['bulb', 'bulb', 'bulb', ''],
+    'dogma_effects': ''.join((
+        '1. Choose two colors then draw a 9.',
+        ' If it is either of the colors you chose, meld it', 
+        ' and you may splay that color of your cards up.',
+        '2. If you have twenty or more light bulb icons on your board, you win')),
     'dogma_icon': 'bulb',
 }
 mobility = {
@@ -944,9 +964,12 @@ suburbia = {
 collaboration = {
     'name': 'Collaboration',
     'age': 9,
-    'color': 'red',
-    'icons': ['', 'bulb', 'crown', 'clock'],
-    'dogma_effects': 'place holder',
+    'color': 'green',
+    'icons': ['', 'crown', 'clock', 'crown'],
+    'dogma_effects': ''.join((
+        '1. I demand you draw two 9 and reveal them!',
+        ' Transfer the card of my choice to my board and meld the other!',
+        '2. If you have ten or more green cards on your board, you win')),
     'dogma_icon': 'bulb',
 }
 satellites = {
