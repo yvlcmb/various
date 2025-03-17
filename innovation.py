@@ -298,7 +298,7 @@ wheel = {
     'age': 1,
     'color': 'green',
     'icons': ['', 'castle', 'castle', 'castle'],
-    'dogma_effects': 'draw three 1s',
+    'dogma_effects': 'Draw three 1s',
     'dogma_icon': 'castle',
 }
 pottery = {
@@ -509,9 +509,13 @@ translation = {
     'name': 'Translation',
     'age': 3,
     'color': 'blue',
-    'icons': ['', 'bulb', 'crown', 'bulb'],
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ['', 'crown', 'crown', 'crown'],
+    'dogma_effects': ''.join((
+        '1. You may meld all the cards in your hand. ',
+        'If you meld one you must meld them all. ',
+        '2. If each top card on your board has a crown icon ', 
+        'claim the World achievement.')), 
+    'dogma_icon': 'crown',
 }
 education = {
     'name': 'Education',
@@ -665,8 +669,12 @@ measurement = {
     'name': 'Measurement',
     'age': 5,
     'color': 'green',
-    'icons': ['', 'bulb', 'bulb', 'factory'],
-    'dogma_effects': 'place holder',
+    'icons': ['bulb', 'leaf', 'bulb', ''],
+    'dogma_effects': ''.join((
+        'You may return a card from your hand. ',
+        'If you do splay that color of your cards right, ',
+        'and draw a card of value equal to the number of cards ',
+        'of that color on your board.')),
     'dogma_icon': 'bulb',
 }
 chemistry = {
@@ -739,8 +747,8 @@ vaccination = {
 classification = {
     'name': 'Classification',
     'age': 6,
-    'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'leaf'],
+    'color': 'green',
+    'icons': ['bulb', 'bulb', 'bulb', ''],
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -807,7 +815,7 @@ explosives = {
 refrigeration = {
     'name': 'Refrigeration',
     'age': 7,
-    'color': 'green',
+    'color': 'yellow',
     'icons': ['', 'factory', 'clock', 'leaf'],
     'dogma_effects': 'place holder',
     'dogma_icon': 'factory',
@@ -816,7 +824,7 @@ sanitation = {
     'name': 'Sanitation',
     'age': 7,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'bulb', 'clock'],
+    'icons': ['leaf', 'leaf', '', 'leaf'],
     'dogma_effects': 'place holder',
     'dogma_icon': 'leaf',
 }
@@ -850,8 +858,10 @@ publications = {
     'name': 'Publications',
     'age': 7,
     'color': 'blue',
-    'icons': ['', 'bulb', 'bulb', 'leaf'],
-    'dogma_effects': 'place holder',
+    'icons': ['', 'bulb', 'clock', 'bulb'],
+    'dogma_effects': ''.join((
+        '1. You may rearrange the order of one color of cards on your board. ',
+        '2. You may splay your yellow or blue cards up.')),
     'dogma_icon': 'bulb',
 }
 lighting = {
