@@ -224,8 +224,8 @@ archery = {
     'name': 'Archery',
     'age': 1,
     'color': 'red',
-    'icons': ['', '', '', 'castle'],
-    'dogma_effects': 'place holder',
+    'icons': ['castle', 'bulb', '', 'castle'],
+    'dogma_effects': 'I demand you draw a 1. Then transfer the highest card in your hand to my hand!',
     'dogma_icon': 'castle',
 }
 metalworking = {
@@ -389,8 +389,8 @@ fermenting = {
     'name': 'Fermenting',
     'age': 2,
     'color': 'yellow',
-    'icons': ['', 'leaf', 'leaf', 'factory'],
-    'dogma_effects': 'place holder',
+    'icons': ['leaf', 'leaf', '', 'castle'],
+    'dogma_effects': 'Draw a 2 for every two leaf icons on your board',
     'dogma_icon': 'leaf',
 }
 currency = {
@@ -517,7 +517,7 @@ alchemy = {
         'all cards in your hand. Otherweise, keep them. ',
         '2. Meld a card from your hand, then score a card from your hand.'
     )),
-    'dogma_icon': 'leaf',
+    'dogma_icon': 'castle',
 }
 translation = {
     'name': 'Translation',
