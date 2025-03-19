@@ -202,7 +202,7 @@ def init_game(num_players):
     )
     random.shuffle(age5)
     
-    acheivements = {1: age1.pop(), 2: age2.pop(), 3: age3.pop(), 4: age4.pop(), 5: age5.pop()}
+    achievements = {1: age1.pop(), 2: age2.pop(), 3: age3.pop(), 4: age4.pop(), 5: age5.pop()}
     decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5}
     players = [create_player() for _ in range(num_players)]
     return decks, achievements, players
@@ -242,7 +242,7 @@ oars = {
     'name': 'Oars',
     'age': 1,
     'color': 'red',
-    'icons': ('', 'castle', '', ''),
+    'icons': ('', 'castle', 'crown', 'castle'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -376,7 +376,7 @@ road_building = {
     'name': 'Road Building',
     'age': 2,
     'color': 'red',
-    'icons': ('', 'castle', 'factory', 'crown'),
+    'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -384,7 +384,7 @@ canal_building = {
     'name': 'Canal Building',
     'age': 2,
     'color': 'yellow',
-    'icons': ('', 'castle', 'factory', 'leaf'),
+    'icons': ('', 'castle', 'leaf', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'castle',
 }
@@ -400,9 +400,9 @@ currency = {
     'name': 'Currency',
     'age': 2,
     'color': 'green',
-    'icons': ('', 'factory', 'crown', 'leaf'),
+    'icons': ('', 'crown', 'crown', 'leaf'),
     'dogma_effects': 'place holder',
-    'dogma_icon': 'factory',
+    'dogma_icon': 'crown',
 }
 mapmaking = {
     'name': 'Mapmaking',
@@ -1167,7 +1167,7 @@ software = {
     'dogma_icon': 'clock',
 }
 ai = {
-    'name': 'A.I.',
+    'name': 'AI',
     'age': 10,
     'color': 'purple',
     'icons': ('bulb', 'bulb', 'clock', ''),
