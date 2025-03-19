@@ -151,6 +151,8 @@ def transfer(player_from, player_to, source_location, target_location, color=Non
         player_to['board'][color]['cards'].append(card)
 
     print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
+
+
 def return_card(player_from, player_to=None, target_deck=None):
     """
     Returns a card from the player's score pile either back to the draw deck 
