@@ -29,6 +29,7 @@ module Innovation =
   /// sample cards
   let domestication = createCard "domestication" 1 "yellow" (None, Some "castle", Some "castle", Some "castle") "castle"
   let metalWorking = { domestication with name = "Metal Working"; color = "red" } 
+  let mysticism = { domestication with name = "Mysticism"; color = "purple" }
   let theWheel = { name = "The Wheel"; 
                    age = 1;
                    color = "green"; 
