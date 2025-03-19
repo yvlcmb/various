@@ -162,7 +162,6 @@ def return_card(player_from, player_to=None, target_deck=None):
     :param player_to: The player to whom the card is being transferred (if transferring between players).
     :param target_deck: The deck where the card should go if it's being returned to the draw pile.
     """
-
     # Check if the player has any cards in their score pile
     if not player_from['score_pile']:
         raise ValueError("No cards in the score pile to return.")
@@ -172,22 +171,11 @@ def return_card(player_from, player_to=None, target_deck=None):
 
     # If returning to the draw deck
     if target_deck is not None:
-        # Ensure target_deck is a valid deck object passed as a parameter (not a string name)
-        if target_deck is None:
-            raise ValueError("A valid deck object must be provided.")
-        
-        # Add the card to the target deck (draw pile) at the bottom
         target_deck.append(card)  # Place the card at the bottom of the deck
-        # No shuffling to maintain order in the deck
         print(f"Card '{card['name']}' returned to the bottom of the deck.")
 
     # If transferring to another player's score pile
     elif player_to is not None:
-        # Ensure the player_to exists and is valid
-        if 'score_pile' not in player_to:
-            raise ValueError("The target player does not have a score pile.")
-
-        # Add the card to the target player's score pile
         player_to['score_pile'].append(card)
         print(f"Card '{card['name']}' transferred from {player_from} to {player_to}.")
 
