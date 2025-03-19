@@ -151,7 +151,6 @@ def transfer(player_from, player_to, source_location, target_location, color=Non
         player_to['board'][color]['cards'].append(card)
 
     print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
-
 def return_card(player_from, player_to=None, target_deck=None):
     """
     Returns a card from the player's score pile either back to the draw deck 
@@ -159,7 +158,7 @@ def return_card(player_from, player_to=None, target_deck=None):
 
     :param player_from: The player from whose score pile the card is being returned.
     :param player_to: The player to whom the card is being transferred (if transferring between players).
-    :param target_deck: The deck (like 'age1') where the card should go if it's being returned to the draw pile.
+    :param target_deck: The deck where the card should go if it's being returned to the draw pile.
     """
 
     # Check if the player has any cards in their score pile
@@ -171,14 +170,14 @@ def return_card(player_from, player_to=None, target_deck=None):
 
     # If returning to the draw deck
     if target_deck is not None:
-        # Ensure the target_deck is a valid deck (like 'age1')
-        if target_deck not in globals():
-            raise ValueError(f"Invalid target deck: {target_deck}. Please provide a valid deck.")
+        # Ensure target_deck is a valid deck object passed as a parameter (not a string name)
+        if target_deck is None:
+            raise ValueError("A valid deck object must be provided.")
         
         # Add the card to the target deck (draw pile) at the bottom
-        globals()[target_deck].append(card)  # Place the card at the bottom of the deck
+        target_deck.append(card)  # Place the card at the bottom of the deck
         # No shuffling to maintain order in the deck
-        print(f"Card '{card['name']}' returned to the bottom of the {target_deck} deck.")
+        print(f"Card '{card['name']}' returned to the bottom of the deck.")
 
     # If transferring to another player's score pile
     elif player_to is not None:
@@ -192,6 +191,7 @@ def return_card(player_from, player_to=None, target_deck=None):
 
     else:
         raise ValueError("Either a target_deck or player_to must be specified.")
+
 
 def init_game(num_players):
     age1 = deque()
