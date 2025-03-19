@@ -111,6 +111,87 @@ def count_icons(player):
                     icon_count += 1
         return dict(icon_count)
 
+def transfer(player_from, player_to, source_location, target_location, color=None):
+    """
+    Transfers a card from one player to another.
+
+    :param player_from: The player who is sending the card.
+    :param player_to: The player who is receiving the card.
+    :param source_location: The location of the card in the source player's hand or board ('hand' or 'board').
+    :param target_location: The location where the card should be placed in the target player's hand or board ('hand' or 'board').
+    :param color: If the card is on the board, specify the color. (Default is None for hand cards)
+    """
+
+    # Ensure valid source and target locations
+    if source_location not in ['hand', 'board'] or target_location not in ['hand', 'board']:
+        raise ValueError("Source and target locations must be 'hand' or 'board'.")
+
+    # Check the source player's location
+    if source_location == 'hand':
+        if not player_from['hand']:
+            raise ValueError("No cards in the source player's hand to transfer.")
+        # Pop the card from the player's hand
+        card = player_from['hand'].pop()
+
+    elif source_location == 'board':
+        if color is None or color not in player_from['board']:
+            raise ValueError(f"No cards found in the {color} pile of the source player's board.")
+        # Pop the card from the player's board (color-specific)
+        card = player_from['board'][color]['cards'].pop()
+
+    # Add the card to the destination player's location
+    if target_location == 'hand':
+        player_to['hand'].append(card)
+    elif target_location == 'board':
+        if color is None:
+            raise ValueError("Must specify a color for the board destination.")
+        if color not in player_to['board']:
+            raise ValueError(f"{color} color not found in the target player's board.")
+        # Append the card to the specified color pile on the destination player's board
+        player_to['board'][color]['cards'].append(card)
+
+    print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
+
+def return_card(player_from, player_to=None, target_deck=None):
+    """
+    Returns a card from the player's score pile either back to the draw deck 
+    or to another player's score pile.
+
+    :param player_from: The player from whose score pile the card is being returned.
+    :param player_to: The player to whom the card is being transferred (if transferring between players).
+    :param target_deck: The deck (like 'age1') where the card should go if it's being returned to the draw pile.
+    """
+
+    # Check if the player has any cards in their score pile
+    if not player_from['score_pile']:
+        raise ValueError("No cards in the score pile to return.")
+
+    # Pop a card from the score pile
+    card = player_from['score_pile'].pop()
+
+    # If returning to the draw deck
+    if target_deck is not None:
+        # Ensure the target_deck is a valid deck (like 'age1')
+        if target_deck not in globals():
+            raise ValueError(f"Invalid target deck: {target_deck}. Please provide a valid deck.")
+        
+        # Add the card to the target deck (draw pile) at the bottom
+        globals()[target_deck].append(card)  # Place the card at the bottom of the deck
+        # No shuffling to maintain order in the deck
+        print(f"Card '{card['name']}' returned to the bottom of the {target_deck} deck.")
+
+    # If transferring to another player's score pile
+    elif player_to is not None:
+        # Ensure the player_to exists and is valid
+        if 'score_pile' not in player_to:
+            raise ValueError("The target player does not have a score pile.")
+
+        # Add the card to the target player's score pile
+        player_to['score_pile'].append(card)
+        print(f"Card '{card['name']}' transferred from {player_from} to {player_to}.")
+
+    else:
+        raise ValueError("Either a target_deck or player_to must be specified.")
 
 def init_game(num_players):
     age1 = deque()
