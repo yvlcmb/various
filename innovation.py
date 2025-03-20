@@ -447,8 +447,12 @@ road_building = {
     'name': 'Road Building',
     'age': 2,
     'color': 'red',
-    'icons': ('', 'castle', 'castle', 'castle'),
-    'dogma_effects': 'place holder',
+    'icons': ('castle', 'castle', '', 'castle'),
+    'dogma_effects': ''.join(
+        'Meld one or two cards from your hand. ',
+        "If you melded two, you may transfer your top red card to another player's board. ",
+        "If you do, transfer that player's top green card to your board.",
+    )), 
     'dogma_icon': 'castle',
 }
 canal_building = {
