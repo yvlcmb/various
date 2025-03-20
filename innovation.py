@@ -739,9 +739,13 @@ pirate_code = {
     'name': 'The Pirate Code',
     'age': 5,
     'color': 'red',
-    'icons': ('', 'castle', 'crown', 'factory'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'castle',
+    'icons': ('crown', 'factory', 'crown', ''),
+    'dogma_effects': ''.join((
+        '1. I demand you transfer two cards of value 4 or less from your score pile to my score pile! ',
+        '2. If any card was transferred due to the demand, score the lowest top card with a crown icon '
+        'from your board.',
+    )),
+    'dogma_icon': 'crown',
 }
 statistics = {
     'name': 'Statistics',
@@ -853,8 +857,11 @@ canning = {
     'name': 'Canning',
     'age': 6,
     'color': 'yellow',
-    'icons': ('', 'factory', 'factory', 'leaf'),
-    'dogma_effects': 'place holder',
+    'icons': ('', 'factory', 'leaf', 'factory'),
+    'dogma_effects': ''.join((
+        '1. You may draw and tuck a 6. If you do, score all your top cards without a factory',
+        '2. You may play your yellow cards right',
+    )), 
     'dogma_icon': 'factory',
 }
 vaccination = {
@@ -1078,8 +1085,12 @@ mass_media = {
     'name': 'Mass Media',
     'age': 8,
     'color': 'green',
-    'icons': ('', 'bulb', 'clock', 'leaf'),
-    'dogma_effects': 'place holder',
+    'icons': ('bulb', '', 'clock', 'bulb'),
+    'dogma_effects': ''.join((
+        '1. You may return a card from your hand. If you do, choose a value and '
+        'return all cards of that value from all score piles. ',
+        '2. You may splay your purple cards up',
+    )),
     'dogma_icon': 'bulb',
 }
 rocketry = {
@@ -1196,10 +1207,13 @@ miniaturization = {
 robotics = {
     'name': 'Robotics',
     'age': 10,
-    'color': 'green',
-    'icons': ('', 'factory', 'clock', 'clock'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'clock',
+    'color': 'red',
+    'icons': ('', 'factory', 'clock', 'factory'),
+    'dogma_effects': ''.join((
+        'Score your top green card. ',
+        'draw and meld a 10, then execute its non-demand dogma effects, do not share them'
+    )),
+    'dogma_icon': 'factory',
 }
 globalization = {
     'name': 'Globalization',
