@@ -388,7 +388,8 @@ pottery = {
         '1. You may return up to three cards from your hand ', 
         'If you returned any cards, draw and score a card of value ',
         'equal to the number of cards you returned. ',
-        '2. Draw a 1.',)), 
+        '2. Draw a 1.',
+    )), 
     'dogma_icon': 'leaf',
 }
 tools = {
@@ -417,7 +418,8 @@ codeoflaws = {
     'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': ''.join((
         'You may tuck a card from your hand of any color matching a card on your board.', 
-        ' If you do, splay that color of your cards left'.)), 
+        ' If you do, splay that color of your cards left'.
+    )), 
     'dogma_icon': 'crown',
 }
 city_states = {
@@ -444,7 +446,8 @@ construction = {
     'dogma_effects': ''.join((
         '1. I demand you transfer two cards from your hand to my hand ',
         'then draw a 2! ', 
-        '2. If you are the only player with five top cards, claim the Empire achievement')),
+        '2. If you are the only player with five top cards, claim the Empire achievement'
+    )),
     'dogma_icon': 'castle',
 }
 road_building = {
@@ -734,8 +737,11 @@ reformation = {
     'name': 'Reformation',
     'age': 4,
     'color': 'purple',
-    'icons': ('', 'crown', 'crown', 'bulb'),
-    'dogma_effects': 'place holder',
+    'icons': ('leaf', 'leaf', '', 'leaf'),
+    'dogma_effects': ''.join((
+        '1. You may tuck a card from your hand for every two leaf icons on your board ',
+        '2. You may splay your yellow or purple cards right'
+    )),
     'dogma_icon': 'crown',
 }
 coal = {
