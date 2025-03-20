@@ -961,8 +961,11 @@ explosives = {
     'name': 'Explosives',
     'age': 7,
     'color': 'red',
-    'icons': ('', 'factory', 'factory', 'clock'),
-    'dogma_effects': 'place holder',
+    'icons': ('', 'factory', 'factory', 'factory'),
+    'dogma_effects': ''.join((
+        'I demand you transfer the three highest cards from your hand to my hand! ',
+        'If you transferred any, and then have no scard in hand, draw a 1!'
+    )),
     'dogma_icon': 'factory',
 }
 refrigeration = {
@@ -1096,11 +1099,11 @@ skyscrapers = {
     'name': 'Skyscrapers',
     'age': 8,
     'color': 'yellow',
-    'icons': ('', 'factory', 'clock', 'clock'),
+    'icons': ('', 'factory', 'crown', 'crown'),
     'dogma_effects': ''.join((
         'I demand you transfer a top non-yellow card with a clock icon from your board to my board! ',
         'If you do, score the card beneath it, then return all cards of that color!')), 
-    'dogma_icon': 'factory',
+    'dogma_icon': 'crown',
 }
 mass_media = {
     'name': 'Mass Media',
@@ -1134,8 +1137,11 @@ composites = {
     'name': 'Composites',
     'age': 9,
     'color': 'red',
-    'icons': ('', 'factory', 'clock', 'clock'),
-    'dogma_effects': 'place holder',
+    'icons': ('factory', 'factory', '', 'factory'),
+    'dogma_effects': ''.join(
+        'I demand you transfer all but one card from your hand to my hand! ',
+        'Also transfer the highest card from your score pile to my score pile!'
+    )), 
     'dogma_icon': 'factory',
 }
 fission = {
@@ -1197,9 +1203,9 @@ genetics = {
     'name': 'Genetics',
     'age': 9,
     'color': 'blue',
-    'icons': ('', 'leaf', 'bulb', 'clock'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'leaf',
+    'icons': ('bulb', 'bulb', 'bulb', ''),
+    'dogma_effects': 'draw and meld a 10. Score all cards beneath it',
+    'dogma_icon': 'bulb',
 }
 services = {
     'name': 'Services',
@@ -1212,10 +1218,14 @@ services = {
 specialization = {
     'name': 'Specialization',
     'age': 9,
-    'color': 'blue',
-    'icons': ('', 'bulb', 'factory', 'clock'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'color': 'purple',
+    'icons': ('', 'factory', 'leaf', 'factory'),
+    'dogma_effects': ''.join((
+        "1. Reveal a card from your hand, take into your hand the top card of that color
+        " from all other player's boards ",
+        '2. You may splay your rellow or blue cards up'. 
+    )), 
+    'dogma_icon': 'factory',
 }
 miniaturization = {
     'name': 'Miniaturization',
