@@ -184,7 +184,22 @@ def return_card(player_from, player_to=None, target_deck=None):
 def count_score(player): 
     return sum([card['age'] for card in player['score_pile'])
 
+def max_age(player):
+    '''find the highest max age on the player's board'''
+    return max([player['board'][color]['cards'][-1]['age'] for color in 
+                player['board'] if player['board'][color]['cards']])
 
+def achieve(player, achievements): 
+    score = count_score(player)
+    age = max_age(player)
+    if score >= (age * 5) and achievements.get(age):
+        card = achievements.pop(age)
+        player['achievements'].append(card) 
+        print(f'player achieved {age}')
+    else: 
+        print(f'player cannot achieve any cards yet')
+    return None
+    
 def init_game(num_players):
     age1 = deque()
     age1.extend(
