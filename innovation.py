@@ -455,9 +455,9 @@ canal_building = {
     'name': 'Canal Building',
     'age': 2,
     'color': 'yellow',
-    'icons': ('', 'castle', 'leaf', 'leaf'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'castle',
+    'icons': ('', 'crown', 'leaf', 'crown'),
+    'dogma_effects': 'You may exchange all the highest cards in your hand with all the highest card in your score pile',
+    'dogma_icon': 'crown',
 }
 fermenting = {
     'name': 'Fermenting',
@@ -487,9 +487,9 @@ calendar = {
     'name': 'Calendar',
     'age': 2,
     'color': 'blue',
-    'icons': ('', 'bulb', 'crown', 'leaf'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ('', 'leaf', 'leaf', 'leaf'),
+    'dogma_effects': 'If you have have more cards in your score pile than in your hand, draw two 3',
+    'dogma_icon': 'leaf',
 }
 mathematics = {
     'name': 'Mathematics',
@@ -527,9 +527,12 @@ engineering = {
     'name': 'Engineering',
     'age': 3,
     'color': 'red',
-    'icons': ('', 'bulb', 'factory', 'castle'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ('castle', '', 'bulb', 'castle'),
+    'dogma_effects': ''.join((
+        '1. I demand you transfer all your top cards with a castle icon to my score pile!',
+        '2. You may splay your red cards left.',
+    )),
+    'dogma_icon': 'castle',
 }
 optics = {
     'name': 'Optics',
@@ -621,8 +624,11 @@ feudalism = {
     'name': 'Feudalism',
     'age': 3,
     'color': 'purple',
-    'icons': ('', 'castle', 'crown', 'crown'),
-    'dogma_effects': 'place holder',
+    'icons': ('', 'castle', 'leaf', 'castle'),
+    'dogma_effects': ''.join((
+        '1. I demand you transfer card with a castle icon from your hand to my score pile!', 
+        '2. You may splay your yellow or purple cards left',
+    )),
     'dogma_icon': 'castle',
 }
 colonialism = {
@@ -661,7 +667,9 @@ invention = {
     'icons': ('', 'bulb', 'bulb', 'factory'),
     'dogma_effects': ''.join((
         'You may spay right any color of your cards currently splayed left ', 
-        'if you do, draw and score a 4.')),
+        'if you do, draw and score a 4. '
+        'If you have five top cards splayed in any direction, claim the Wonder achievement'
+    )),
     'dogma_icon': 'bulb',
 }
 experimentation = {
@@ -677,7 +685,11 @@ printing_press = {
     'age': 4,
     'color': 'blue',
     'icons': ('', 'bulb', 'bulb', 'crown'),
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join((
+        'You may return a card from yur score pile. If you do, draw a card of value two higher than ',
+        'the highest card remaining in your score pile. ',
+        'You may splay your blue cards right.'
+    )),
     'dogma_icon': 'bulb',
 }
 enterprise = {
@@ -703,9 +715,9 @@ navigation = {
     'name': 'Navigation',
     'age': 4,
     'color': 'green',
-    'icons': ('', 'castle', 'factory', 'factory'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'castle',
+    'icons': ('', 'crown', 'crown', 'crown'),
+    'dogma_effects': 'I demad you transfer a 2 or 3 from your score pile, if it has any, to my score pile!',
+    'dogma_icon': 'crown',
 }
 reformation = {
     'name': 'Reformation',
@@ -735,15 +747,19 @@ statistics = {
     'name': 'Statistics',
     'age': 5,
     'color': 'green',
-    'icons': ('', 'bulb', 'factory', 'crown'),
-    'dogma_effects': 'place holder',
+    'icons': ('leaf', 'bulb', 'leaf', ''),
+    'dogma_effects': ''.join((
+        '1. I demand you transfer the highest card in your score pile to your hand!',
+        ' if you do, and have only one card in your hand afterwards, repeat this demand.',
+        ' 2. You may splay your yellow cards right.', 
+    )),
     'dogma_icon': 'bulb',
 }
 steam_engine = {
     'name': 'Steam Engine',
     'age': 5,
     'color': 'yellow',
-    'icons': ('', 'factory', 'factory', 'clock'),
+    'icons': ('', 'factory', 'crown', 'factory'),
     'dogma_effects': 'Draw and tuck two 4s, then score your bottom yellow card',
     'dogma_icon': 'factory',
 }
@@ -818,8 +834,11 @@ industrialization = {
     'name': 'Industrialization',
     'age': 6,
     'color': 'red',
-    'icons': ('', 'factory', 'factory', 'clock'),
-    'dogma_effects': 'place holder',
+    'icons': ('crown', 'factory', 'factory', ''),
+    'dogma_effects': ''.join((
+        '1. Draw and tuck a 6 for every two factory icons on your board',
+        '2. You may splay your red or purple cards right'
+    )),
     'dogma_icon': 'factory',
 }
 machine_tools = {
@@ -967,15 +986,19 @@ publications = {
     'icons': ('', 'bulb', 'clock', 'bulb'),
     'dogma_effects': ''.join((
         '1. You may rearrange the order of one color of cards on your board. ',
-        '2. You may splay your yellow or blue cards up.')),
+        '2. You may splay your yellow or blue cards up.'
+    )),
     'dogma_icon': 'bulb',
 }
 lighting = {
     'name': 'Lighting',
     'age': 7,
     'color': 'purple',
-    'icons': ('', 'bulb', 'clock', 'clock'),
-    'dogma_effects': 'place holder',
+    'icons': ('', 'leaf', 'clock', 'leaf'),
+    'dogma_effects': ''.join((
+        'You may tuck up to three cards from your hand. '
+        'If you do, draw and score a 7 for every different value of card you tucked.',
+    )),
     'dogma_icon': 'bulb',
 }
 railroad = {
@@ -1245,14 +1268,19 @@ ai = {
     'dogma_effects': ''.join((
         '1. Draw and score a 10.', 
         ' 2. If Robotics and Software are top cards of any board, ', 
-        'the single player with the lowest score wins.')), 
+        'the single player with the lowest score wins.'
+    )), 
     'dogma_icon': 'bulb',
 }
 the_internet = {
     'name': 'The Internet',
     'age': 10,
     'color': 'purple',
-    'icons': ('', 'bulb', 'clock', 'clock'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ('', 'clock', 'clock', 'bulbe'),
+    'dogma_effects': ''.join((
+        '1. You may splay your green cards up', 
+        '2. Draw and score a 10', 
+        '3. Draw and meld a 10 for every two clock icons on your board',
+    )),
+    'dogma_icon': 'clock',
 }
