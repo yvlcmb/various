@@ -313,8 +313,12 @@ oars = {
     'name': 'Oars',
     'age': 1,
     'color': 'red',
-    'icons': ('', 'castle', 'crown', 'castle'),
-    'dogma_effects': 'place holder',
+    'icons': ('castle', 'crown', '', 'castle'),
+    'dogma_effects': ''.join(
+        '1. I demand you transfer a card with a crown from your hand to my score pile! ',
+        'If you do, draw a 1! ', 
+        '2. If no cards were transferred due to this demand, draw a 1', 
+    )), 
     'dogma_icon': 'castle',
 }
 agriculture = {
@@ -483,9 +487,12 @@ mapmaking = {
     'name': 'Mapmaking',
     'age': 2,
     'color': 'green',
-    'icons': ('', 'leaf', 'factory', 'castle'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'leaf',
+    'icons': ('', 'crown', 'crown', 'castle'),
+    'dogma_effects': ''.join((
+        '1. I demand you transfer a 1 from your score pile, if it has any to my score pile!',
+        '2. If any card was transferred due to the demand, draw and score a 1',
+    )), 
+    'dogma_icon': 'crown',
 }
 calendar = {
     'name': 'Calendar',
@@ -1144,10 +1151,10 @@ ecology = {
 suburbia = {
     'name': 'Suburbia',
     'age': 9,
-    'color': 'purple',
-    'icons': ('', 'factory', 'clock', 'leaf'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'factory',
+    'color': 'yellow',
+    'icons': ('', 'crown', 'leaf', 'leaf'),
+    'dogma_effects': 'You may tuck any number of cards from your hand. Draw and score a 1 for each card you tucked',
+    'dogma_icon': 'leaf',
 }
 collaboration = {
     'name': 'Collaboration',
