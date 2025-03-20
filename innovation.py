@@ -748,8 +748,12 @@ coal = {
     'name': 'Coal',
     'age': 5,
     'color': 'red',
-    'icons': ('', 'factory', 'factory', 'factory'),
-    'dogma_effects': 'place holder',
+    'icons': ('factory', 'factory', 'factory', ''),
+    'dogma_effects': ''.join((
+        '1. Draw and tuck a 1. ',
+        '2. You may splay your red cards right. ',
+        '3. You may score any one of your top cards. If you do score the card beneath it also.',
+    )), 
     'dogma_icon': 'factory',
 }
 pirate_code = {
