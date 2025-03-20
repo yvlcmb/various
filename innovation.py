@@ -649,8 +649,8 @@ colonialism = {
     'name': 'Colonialism',
     'age': 4,
     'color': 'red',
-    'icons': ('', 'factory', 'leaf', 'factory'),
-    'dogma_effects': 'place holder',
+    'icons': ('', 'factory', 'bulb', 'factory'),
+    'dogma_effects': 'Draw and tuck a 3. If it has a crown icon repeat this dogma effect',
     'dogma_icon': 'factory',
 }
 gunpowder = {
@@ -1071,9 +1071,12 @@ quantum_theory = {
     'name': 'Quantum Theory',
     'age': 8,
     'color': 'blue',
-    'icons': ('', 'bulb', 'bulb', 'clock'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ('clock', 'clock', 'clock', ''),
+    'dogma_effects': ''.join((
+        'You may return 1 or 2 cards from your hand. '
+        'If you returned two, draw a 10, then draw and score a 10'.
+    )),
+    'dogma_icon': 'clock',
 }
 empiricism = {
     'name': 'Empiricism',
