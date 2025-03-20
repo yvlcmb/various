@@ -427,7 +427,10 @@ city_states = {
     'age': 1,
     'color': 'purple',
     'icons': ('', 'crown', 'crown', 'castle'),
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join(
+        'I demand you transfer a card with a crown on it from your hand to my score pile '
+        'if you have at least four castle icons on your board!'
+    )), 
     'dogma_icon': 'crown',
 }
 mysticism = {
@@ -435,7 +438,10 @@ mysticism = {
     'age': 1,
     'color': 'purple',
     'icons': ('', 'castle', 'castle', 'castle'),
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join((
+        'Draw a 1. If it is the same color of any card on your board, meld it. '
+        'Draw a 1'. 
+    )),
     'dogma_icon': 'castle',
 }
 construction = {
@@ -483,7 +489,10 @@ currency = {
     'age': 2,
     'color': 'green',
     'icons': ('', 'crown', 'crown', 'leaf'),
-    'dogma_effects': 'place holder',
+    'dogma_effects': ''.join(
+        'You may return any number of cards from your hand. ',
+        'If you do, draw and score a 2 for every different value of card you returned.'
+    )), 
     'dogma_icon': 'crown',
 }
 mapmaking = {
@@ -552,9 +561,13 @@ optics = {
     'name': 'Optics',
     'age': 3,
     'color': 'red',
-    'icons': ('', 'bulb', 'bulb', 'factory'),
-    'dogma_effects': 'place holder',
-    'dogma_icon': 'bulb',
+    'icons': ('crown', 'crown', 'crown', ''),
+    'dogma_effects': ''.join((
+        'Draw and meld a 3. If it has a crown icon draw and score a 4, ',
+        'otherwise transfer a card from your score pile to the score pile of an opponent ',
+        'who has fewer points than you',
+    )), 
+    'dogma_icon': 'crown',
 }
 machinery = {
     'name': 'Machinery',
