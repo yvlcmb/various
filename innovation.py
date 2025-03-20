@@ -1231,16 +1231,16 @@ globalization = {
 stem_cells = {
     'name': 'Stem Cells',
     'age': 10,
-    'color': 'purple',
-    'icons': ('', 'leaf', 'bulb', 'clock'),
-    'dogma_effects': 'place holder',
+    'color': 'yellow',
+    'icons': ('', 'leaf', 'leaf', 'leaf'),
+    'dogma_effects': 'You may score all the cards from your hand. If you score one you must score them all',
     'dogma_icon': 'leaf',
 }
 databases = {
     'name': 'Databases',
     'age': 10,
     'color': 'red',
-    'icons': ('', 'bulb', 'clock', 'leaf'),
+    'icons': ('', 'leaf', 'leaf', 'leaf'),
     'dogma_effects': 'place holder',
     'dogma_icon': 'bulb',
 }
@@ -1271,8 +1271,12 @@ software = {
     'name': 'Software',
     'age': 10,
     'color': 'blue',
-    'icons': ('', 'bulb', 'clock', 'clock'),
-    'dogma_effects': 'place holder',
+    'icons': ('clock', 'clock', 'clock', ''),
+    'dogma_effects': ''.join((
+        '1. Draw and score a 10. ',
+        "2. Draw and meld two 10s, then execute each of the second card's non-demand dogma ",
+        'effects. Do not share them.'
+    )), 
     'dogma_icon': 'clock',
 }
 ai = {
@@ -1281,8 +1285,8 @@ ai = {
     'color': 'purple',
     'icons': ('bulb', 'bulb', 'clock', ''),
     'dogma_effects': ''.join((
-        '1. Draw and score a 10.', 
-        ' 2. If Robotics and Software are top cards of any board, ', 
+        '1. Draw and score a 10. ', 
+        '2. If Robotics and Software are top cards of any board, ', 
         'the single player with the lowest score wins.'
     )), 
     'dogma_icon': 'bulb',
