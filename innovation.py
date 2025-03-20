@@ -1207,10 +1207,11 @@ globalization = {
     'color': 'yellow',
     'icons': ('', 'factory', 'factory', 'factory'),
     'dogma_effects': ''.join((
-        '1. I demand you return a top card with a leaf icon on your board!,
-        ' 2. Draw and score a 6.', 
-        ' If no player has more leaf icons on their board than factory icons,', 
-        ' the single player with the most points wins.')),
+        '1. I demand you return a top card with a leaf icon on your board! ',
+        '2. Draw and score a 6. ', 
+        'If no player has more leaf icons on their board than factory icons, ', 
+        'the single player with the most points wins.'
+    )),
     'dogma_icon': 'factory',
 }
 stem_cells = {
