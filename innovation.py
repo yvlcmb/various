@@ -7,8 +7,6 @@ not yet implemented:
     achieve action
     dogma action
     end game score calculation
-    a return card action
-    a transfer card action
 """
 
 import random
@@ -181,6 +179,10 @@ def return_card(player_from, player_to=None, target_deck=None):
 
     else:
         raise ValueError("Either a target_deck or player_to must be specified.")
+
+
+def count_score(player): 
+    return sum([card['age'] for card in player['score_pile'])
 
 
 def init_game(num_players):
