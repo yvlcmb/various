@@ -1062,7 +1062,7 @@ classification = {
         (
             'Reveal the color of a card from your hand. Take into your hand ',
             'all cards of that color from all other '
-            "player's hands. Then, meld all cards of that color from your hand.'
+            "player's hands. Then, meld all cards of that color from your hand."
         )
     ),
     'dogma_icon': 'bulb',
