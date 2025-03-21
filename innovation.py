@@ -186,8 +186,13 @@ def count_score(player):
     return sum([card['age'] for card in player['score_pile']])
 
 
-def max_age(player):
+def max_age(player) -> int:
     """find the highest max age on the player's board"""
+    has_cards = sum([1 for color in 
+                    player['board'][color]['cards'] for colors in
+                    player['board'].keys()])
+    if not has_cards:
+        return 0
     return max(
         [
             player['board'][color]['cards'][-1]['age']
