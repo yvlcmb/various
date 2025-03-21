@@ -77,7 +77,7 @@ def draw(player, decks, age):
     while age <= 10:
         if decks.get(age):
             card = decks[age].popleft()
-            player('hand').update({card.get('name'): card})
+            player['hand'].update({card.get('name'): card})
             print(f"Player drew {card.get('name')}")
             return None
         else:
@@ -260,7 +260,7 @@ def init_game(num_players):
             alchemy,
             translation,
             education,
-            feuadlism,
+            feudalism,
         ]
     )
     random.shuffle(age3)
@@ -293,7 +293,7 @@ def init_game(num_players):
             measurement,
             chemistry,
             physics,
-            astrononmy,
+            astronomy,
             societies,
         ]
     )
