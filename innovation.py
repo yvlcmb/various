@@ -38,17 +38,20 @@ def create_player() -> dict:
     }
 
 
-def meld(player, card):
-    yes = card in player('hand')
+def meld(player, card) -> bool:
+    '''meld! 
+    side effects: mutates player dict in place
+    returns boolean: True if success, False if failure
+    '''
+    yes = card in player['hand']
     if not yes:
         print('card not in hand')
-        return None
-    card = player('hand').pop(card)
+        return False
+    card = player['hand'].pop(card)
     color = card.get('color')
-    board = player.get('board')
-    board.get('color').get('cards').append(card)
+    player['board'][color]['cards'].appendleft(card)
     print(f"{card.get('name')} melded to {color} stack")
-    return None
+    return True
 
 
 def splay(player, color, direction):
@@ -1637,3 +1640,21 @@ the_internet = {
     ),
     'dogma_icon': 'clock',
 }
+
+
+def test_setup(): 
+	players, deck, achs = set_up() 
+	p1, p2 = players
+	assert all((p1, p2, deck, achs))
+
+
+def test_meld(): 
+	players, _, _, = set_up() 
+	p1 = players[0]
+	cardname = random.choice(list(p1['hand'].keys()))
+	assert meld(p1, cardname)
+
+
+if __name__ == "__main__": 
+    test_setup() 
+    test_meld()
