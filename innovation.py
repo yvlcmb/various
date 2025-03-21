@@ -56,7 +56,7 @@ def splay(player, color, direction):
     if len(board[color].get('cards', [])) < 2:
         print('cannot splay a single card')
         return None
-    # board[color]('splay') = direction
+    board[color]['splay'] = direction
     print(f'cards splayed {direction}.')
     return None
 
