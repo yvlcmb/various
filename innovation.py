@@ -155,34 +155,16 @@ def transfer(player_from, player_to, source_location, target_location, color=Non
     print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
 
 
-def return_card(player_from, player_to=None, target_deck=None):
-    """
-    Returns a card from the player's score pile either back to the draw deck
-    or to another player's score pile.
+def return_card_from_hand(player, card): 
+    pass 
 
-    :param player_from: The player from whose score pile the card is being returned.
-    :param player_to: The player to whom the card is being transferred (if transferring between players).
-    :param target_deck: The deck where the card should go if it's being returned to the draw pile.
-    """
-    # Check if the player has any cards in their score pile
-    if not player_from['score_pile']:
-        raise ValueError('No cards in the score pile to return.')
 
-    # Pop a card from the score pile
-    card = player_from['score_pile'].pop()
+def return_card_from_scorepile(player, card): 
+    pass 
 
-    # If returning to the draw deck
-    if target_deck is not None:
-        target_deck.append(card)  # Place the card at the bottom of the deck
-        print(f"Card '{card['name']}' returned to the bottom of the deck.")
 
-    # If transferring to another player's score pile
-    elif player_to is not None:
-        player_to['score_pile'].append(card)
-        print(f"Card '{card['name']}' transferred from {player_from} to {player_to}.")
-
-    else:
-        raise ValueError('Either a target_deck or player_to must be specified.')
+def return_card_from_board(player, card): 
+    pass
 
 
 def count_score(player):
