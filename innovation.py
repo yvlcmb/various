@@ -24,8 +24,9 @@ def create_card(name, age, color, icons, dogma_icon) -> dict:
     }
 
 
-def create_player() -> dict:
+def create_player(num) -> dict:
     return {
+        'number': num + 1, 
         'hand': {},
         'board': {
             'red': {'cards': deque(), 'splay': 'none'},
@@ -53,7 +54,7 @@ def meld(player, card) -> bool:
     card = player['hand'].pop(card)
     color = card.get('color')
     player['board'][color]['cards'].appendleft(card)
-    print(f"Player melded {card.get('name')} to {color} stack\n")
+    print(f"Player melded {card.get('name')} to their {color} stack\n")
     return True
 
 
@@ -69,7 +70,7 @@ def splay(player, color, direction) -> bool:
         print('cannot splay a single card\n')
         return False
     board[color]['splay'] = direction
-    print(f'cards splayed {direction}.\n')
+    print(f'{player[number]} splayed their {color} cards {direction}\n')
     return True
 
 
@@ -81,13 +82,13 @@ def tuck(player, cardname) -> bool:
     """
     print('tuck!')
     if not cardname in player.get('hand'):
-        print(f"{cardname} not found in player's hand")
+        print(f"{cardname} not found in {player[number]}'s hand\n")
         return False
     card = player('hand').pop(cardname)
     color = card.get('color')
     print(color)
     player('board')[color]('cards').appendleft(card)
-    print(f"{card.get('name')} tucked in player's {card.get('color')} stack\n")
+    print(f"{player[number]} tucked {card.get('name')} in their {card.get('color')} stack\n")
     return True
 
 
@@ -102,7 +103,7 @@ def draw(player, decks, age) -> bool:
         if decks.get(age):
             card = decks[age].popleft()
             player['hand'].update({card.get('name'): card})
-            print(f"Player drew {card.get('name')}\n")
+            print(f"Player {player['number']} drew {card.get('name')}\n")
             return False
         else:
             age += 1
@@ -142,10 +143,10 @@ def achieve(player, achievements):
     if score >= (age * 5) and achievements.get(age):
         card = achievements.pop(age)
         player['achievements'].append(card)
-        print(f'player achieved {age}\n.')
+        print(f'{player[number]} achieved age {age}!\n.')
         return True
     else:
-        print(f'player cannot achieve any cards yet\n')
+        print(f'{player[number]} cannot achieve any cards at this time\n')
         return False
 
 
@@ -426,7 +427,7 @@ def init_game(num_players):
         9: age9,
         10: age10,
     }
-    players = [create_player() for _ in range(num_players)]
+    players = [create_player(i) for i in range(num_players)]
     return decks, achievements, players
 
 
@@ -447,7 +448,7 @@ archery = {
     'age': 1,
     'color': 'red',
     'icons': ('castle', 'bulb', '', 'castle'),
-    'dogma_effects': 'I demand you draw a 1. Then transfer the highest card in your hand to my hand!',
+    'dogma_effects': 'I *demand* you draw a 1. Then transfer the highest card in your hand to my hand!',
     'dogma_icon': 'castle',
 }
 metalworking = {
@@ -470,7 +471,7 @@ oars = {
     'icons': ('castle', 'crown', '', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a card with a crown from your hand to my score pile! ',
+            '1. I *demand* you transfer a card with a crown from your hand to my score pile! ',
             'If you do, draw a 1! ',
             '2. If no cards were transferred due to this demand, draw a 1',
         )
@@ -599,7 +600,7 @@ city_states = {
     'icons': ('', 'crown', 'crown', 'castle'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer a card with a crown on it from your hand to my score pile',
+            'I *demand* you transfer a card with a crown on it from your hand to my score pile',
             'if you have at least four castle icons on your board!',
         )
     ),
@@ -622,7 +623,7 @@ construction = {
     'icons': ('castle', '', 'castle', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer two cards from your hand to my hand ',
+            '1. I *demand* you transfer two cards from your hand to my hand ',
             'then draw a 2! ',
             '2. If you are the only player with five top cards, claim the Empire achievement',
         )
@@ -679,7 +680,7 @@ mapmaking = {
     'icons': ('', 'crown', 'crown', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a 1 from your score pile, if it has any to my score pile!',
+            '1. I *demand* you transfer a 1 from your score pile, if it has any to my score pile!',
             '2. If any card was transferred due to the demand, draw and score a 1',
         )
     ),
@@ -713,7 +714,7 @@ monotheism = {
     'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a top card on your board of a different color ',
+            '1. I *demand* you transfer a top card on your board of a different color ',
             'from any color on my board to my score pile! ',
             '2. Draw and tuck a 1.',
         )
@@ -740,7 +741,7 @@ engineering = {
     'icons': ('castle', '', 'bulb', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer all your top cards with a castle icon to my score pile!',
+            '1. I *demand* you transfer all your top cards with a castle icon to my score pile!',
             '2. You may splay your red cards left.',
         )
     ),
@@ -767,7 +768,7 @@ machinery = {
     'icons': ('leaf', 'leaf', '', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you exchange all cards in your hand with the highest card in my hand!',
+            '1. I *demand* you exchange all cards in your hand with the highest card in my hand!',
             '2. Score a card from your hand with a castle icon.',
             'You may splay your red cards left',
         )
@@ -781,7 +782,7 @@ medicine = {
     'icons': ('crown', 'leaf', 'leaf', ''),
     'dogma_effects': ''.join(
         (
-            'I demand you exchange the highest card in your score pile ',
+            'I *demand* you exchange the highest card in your score pile ',
             'with the lowest card in my score pile!',
         )
     ),
@@ -794,7 +795,7 @@ compass = {
     'icons': ('', 'crown', 'crown', 'leaf'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer a top non-green card with leaf icon ',
+            'I *demand* you transfer a top non-green card with leaf icon ',
             'from your board to my board, and then transfer a top card ',
             'wihtout a leaf icon from my board to your board!',
         )
@@ -865,7 +866,7 @@ feudalism = {
     'icons': ('', 'castle', 'leaf', 'castle'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer card with a castle icon from your hand to my score pile!',
+            '1. I *demand* you transfer card with a castle icon from your hand to my score pile!',
             '2. You may splay your yellow or purple cards left',
         )
     ),
@@ -886,7 +887,7 @@ gunpowder = {
     'icons': ('', 'factory', 'crown', 'factory'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a top card with a castle icon from your board to ',
+            '1. I *demand* you transfer a top card with a castle icon from your board to ',
             'my score pile!',
             '2. If any card was transferred due to the demand, draw and score a 2.',
         )
@@ -900,7 +901,7 @@ anatomy = {
     'icons': ('leaf', 'leaf', 'leaf', ''),
     'dogma_effects': ''.join(
         (
-            'I demand you return a card from your score pile!',
+            'I *demand* you return a card from your score pile!',
             ' If you do return a top card from your board of equal value!',
         )
     ),
@@ -949,7 +950,7 @@ enterprise = {
     'icons': ('', 'crown', 'crown', 'crown'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a top non-puprle card with a crown icon from your board to my board!',
+            '1. I *demand* you transfer a top non-puprle card with a crown icon from your board to my board!',
             ' If you do, draw and meld a 4!',
             ' 2. You may splay your green cards right.',
         )
@@ -1011,7 +1012,7 @@ pirate_code = {
     'icons': ('crown', 'factory', 'crown', ''),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer two cards of value 4 or less from your score pile to my score pile! ',
+            '1. I *demand* you transfer two cards of value 4 or less from your score pile to my score pile! ',
             '2. If any card was transferred due to the demand, score the lowest top card with a crown icon '
             'from your board.',
         )
@@ -1025,7 +1026,7 @@ statistics = {
     'icons': ('leaf', 'bulb', 'leaf', ''),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer the highest card in your score pile to your hand!',
+            '1. I *demand* you transfer the highest card in your score pile to your hand!',
             ' if you do, and have only one card in your hand afterwards, repeat this demand.',
             ' 2. You may splay your yellow cards right.',
         )
@@ -1047,7 +1048,7 @@ banking = {
     'icons': ('factory', 'crown', '', 'crown'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a top card with a factory icon from your board to my board! ',
+            '1. I *demand* you transfer a top card with a factory icon from your board to my board! ',
             'If you do, draw and score a 5!',
             '2. You may splay your green cards right',
         )
@@ -1124,7 +1125,7 @@ societies = {
     ),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer a top non-puprle card with a bulb icon ',
+            'I *demand* you transfer a top non-puprle card with a bulb icon ',
             'from your board to my board! If you do, draw a 5!',
         )
     ),
@@ -1171,7 +1172,7 @@ vaccination = {
     'icons': ('leaf', 'factory', 'leaf', ''),
     'dogma_effects': ''.join(
         (
-            '1. I demand you return all the lowest cards in your score pile! ',
+            '1. I *demand* you return all the lowest cards in your score pile! ',
             'If you returned any, draw and meld a 5! ',
             '2. If any card was returned as a result of the demand, draw and meld a 7.',
         )
@@ -1247,7 +1248,7 @@ emancipation = {
     'icons': ('factory', 'bulb', 'factory', ''),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a card from your hand to my score pile!',
+            '1. I *demand* you transfer a card from your hand to my score pile!',
             ' if you do, draw a 6.',
             '2.You may splay your red or purple cards right',
         )
@@ -1259,7 +1260,7 @@ combustion = {
     'age': 7,
     'color': 'red',
     'icons': ('crown', 'crown', 'factory', ''),
-    'dogma_effects': 'I demand you transfer two cards from your score pile to my score pile!',
+    'dogma_effects': 'I *demand* you transfer two cards from your score pile to my score pile!',
     'dogma_icon': 'crown',
 }
 explosives = {
@@ -1269,7 +1270,7 @@ explosives = {
     'icons': ('', 'factory', 'factory', 'factory'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer the three highest cards from your hand to my hand! ',
+            'I *demand* you transfer the three highest cards from your hand to my hand! ',
             'If you transferred any, and then have no scard in hand, draw a 1!',
         )
     ),
@@ -1282,7 +1283,7 @@ refrigeration = {
     'icons': ('', 'leaf', 'leaf', 'crown'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you return half (rounded down) of all the cards in your hand! ',
+            '1. I *demand* you return half (rounded down) of all the cards in your hand! ',
             '2. You may score a card from your hand.',
         )
     ),
@@ -1295,7 +1296,7 @@ sanitation = {
     'icons': ('leaf', 'leaf', '', 'leaf'),
     'dogma_effects': ''.join(
         (
-            'I demand you exchange the two highest cards in your hand ',
+            'I *demand* you exchange the two highest cards in your hand ',
             'with the lowest card in my hand!',
         )
     ),
@@ -1408,7 +1409,7 @@ corporations = {
     'icons': ('', 'factory', 'factory', 'crown'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you transfer a top non-green card with a factor icon ',
+            '1. I *demand* you transfer a top non-green card with a factor icon ',
             'from your board to my score pile! ',
             'If you do, draw and meld an 8!' '2. Draw and meld an 8.',
         )
@@ -1450,7 +1451,7 @@ mobility = {
     'icons': ('', 'factory', 'clock', 'factory'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer the two highest non-red top cards without a ',
+            'I *demand* you transfer the two highest non-red top cards without a ',
             'factory icon from your board to my score pile! '
             'If you transferred any cards, draw an 8!',
         )
@@ -1464,7 +1465,7 @@ skyscrapers = {
     'icons': ('', 'factory', 'crown', 'crown'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer a top non-yellow card with a clock icon from your board to my board! ',
+            'I *demand* you transfer a top non-yellow card with a clock icon from your board to my board! ',
             'If you do, score the card beneath it, then return all cards of that color!',
         )
     ),
@@ -1513,7 +1514,7 @@ composites = {
     'icons': ('factory', 'factory', '', 'factory'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer all but one card from your hand to my hand! ',
+            'I *demand* you transfer all but one card from your hand to my hand! ',
             'Also transfer the highest card from your score pile to my score pile!',
         )
     ),
@@ -1526,7 +1527,7 @@ fission = {
     'icons': ('', 'clock', 'clock', 'clock'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you draw a 10! ',
+            '1. I *demand* you draw a 10! ',
             'If it is red, remove all hands, boards, and score piles from the game! ',
             'If this occurs the dogma action is complete. ',
             "2. Return a top card other than Fission from any other player's board",
@@ -1562,7 +1563,7 @@ collaboration = {
     'icons': ('', 'crown', 'clock', 'crown'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you draw two 9 and reveal them!',
+            '1. I *demand* you draw two 9 and reveal them!',
             ' Transfer the card of my choice to my board and meld the other!',
             '2. If you have ten or more green cards on your board, you win',
         )
@@ -1612,7 +1613,7 @@ services = {
     'icons': ('', 'leaf', 'leaf', 'leaf'),
     'dogma_effects': ''.join(
         (
-            'I demand you transfer all the highest cards from your score pile to my hand! ',
+            'I *demand* you transfer all the highest cards from your score pile to my hand! ',
             'If you transferred any cards, then transfer a top card from your board '
             'without a leaf icon to your hand!',
         )
@@ -1666,7 +1667,7 @@ globalization = {
     'icons': ('', 'factory', 'factory', 'factory'),
     'dogma_effects': ''.join(
         (
-            '1. I demand you return a top card with a leaf icon on your board! ',
+            '1. I *demand* you return a top card with a leaf icon on your board! ',
             '2. Draw and score a 6. ',
             'If no player has more leaf icons on their board than factory icons, ',
             'the single player with the most points wins.',
@@ -1687,7 +1688,7 @@ databases = {
     'age': 10,
     'color': 'red',
     'icons': ('', 'clock', 'clock', 'clock'),
-    'dogma_effects': 'I demand you return half (rounded up) of the cards in your score pile!',
+    'dogma_effects': 'I *demand* you return half (rounded up) of the cards in your score pile!',
     'dogma_icon': 'clock',
 }
 self_service = {
