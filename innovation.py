@@ -325,7 +325,6 @@ def init_game(num_players):
 	    7: age7.pop(),
 	    8: age8.pop(),
 	    9: age9.pop(),
-	    10: age10.pop(),
     }
     decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5, 6: age6, 
 	     7: age7, 8: age8, 9: age9, 10: age10}
