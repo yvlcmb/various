@@ -1,7 +1,7 @@
-"""Innovation by C. Chudyk.
+"""Innovation, based on the card game by Carl Chudyk.
 
 code smells:
-stateful modifications in place, functions that don't return anything
+    stateful modifications in place
 
 not yet implemented:
     achieve action
