@@ -48,7 +48,7 @@ def meld(player, card) -> bool:
     print('meld!')
     yes = card in player['hand']
     if not yes:
-        print('card not in hand')
+        print('fThe player does not have {card} in hand\n.')
         return False
     card = player['hand'].pop(card)
     color = card.get('color')
