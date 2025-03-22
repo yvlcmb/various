@@ -7,6 +7,7 @@ not yet implemented:
     achieve action
     dogma action
     end game score calculation
+    remaining test functions
 """
 
 import random
@@ -39,10 +40,12 @@ def create_player() -> dict:
 
 
 def meld(player, card) -> bool:
-    '''meld! 
-    side effects: mutates player dict in place
-    returns boolean: True if success, False if failure
-    '''
+    """meld!
+    side effects: mutates player[board] and player[hand] dicts in place
+    returns: boolean
+         True if success, False if failure
+    """
+    print('meld!')
     yes = card in player['hand']
     if not yes:
         print('card not in hand')
@@ -50,45 +53,103 @@ def meld(player, card) -> bool:
     card = player['hand'].pop(card)
     color = card.get('color')
     player['board'][color]['cards'].appendleft(card)
-    print(f"{card.get('name')} melded to {color} stack")
+    print(f"Player melded {card.get('name')} to {color} stack\n")
     return True
 
 
-def splay(player, color, direction):
+def splay(player, color, direction) -> bool:
+    """splay!
+    side effects: mutates player[board] dict in place
+    returns: boolean
+             True if success, False if failure
+    """
+    print('splay!')
     board = player.get('board')
     if len(board[color].get('cards', [])) < 2:
-        print('cannot splay a single card')
-        return None
+        print('cannot splay a single card\n')
+        return False
     board[color]['splay'] = direction
-    print(f'cards splayed {direction}.')
-    return None
+    print(f'cards splayed {direction}.\n')
+    return True
 
 
-def tuck(player, cardname):
+def tuck(player, cardname) -> bool:
+    """tuck!
+    side effects: mutates player[board] and player[hand] dicts in place
+    returns: boolean
+        True if success, False if failure
+    """
+    print('tuck!')
     if not cardname in player.get('hand'):
         print(f"{cardname} not found in player's hand")
-        return None
+        return False
     card = player('hand').pop(cardname)
     color = card.get('color')
     print(color)
     player('board')[color]('cards').appendleft(card)
-    print(f"{card.get('name')} tucked in player's {card.get('color')} stack")
-    return None
+    print(f"{card.get('name')} tucked in player's {card.get('color')} stack\n")
+    return True
 
 
-def draw(player, decks, age):
+def draw(player, decks, age) -> bool:
+    """draw!
+    side effects: mutates player[hand], decks dicts in place
+    returns: boolean
+        True if success, False if failure
+    """
+    print('draw!')
     while age <= 10:
         if decks.get(age):
             card = decks[age].popleft()
             player['hand'].update({card.get('name'): card})
-            print(f"Player drew {card.get('name')}")
-            return None
+            print(f"Player drew {card.get('name')}\n")
+            return False
         else:
             age += 1
-    return None
+    print('Game over!\n')
+    return True
 
 
-def count_icons(player):
+def count_score(player) -> int:
+    return sum([card['age'] for card in player['score_pile']])
+
+
+def max_age(player) -> int:
+    """find the highest max age on the player's board"""
+    has_cards = sum(
+        [1 for color in player['board'][color]['cards'] for colors in player['board'].keys()]
+    )
+    if not has_cards:
+        return 0
+    return max(
+        [
+            player['board'][color]['cards'][-1]['age']
+            for color in player['board']
+            if player['board'][color]['cards']
+        ]
+    )
+
+
+def achieve(player, achievements):
+    """achieve!
+    side effects: mutates player[hand], decks dicts in place
+    returns: boolean
+             True if success, False if failure
+    """
+    print('achieve!')
+    score = count_score(player)
+    age = max_age(player)
+    if score >= (age * 5) and achievements.get(age):
+        card = achievements.pop(age)
+        player['achievements'].append(card)
+        print(f'player achieved {age}\n.')
+        return True
+    else:
+        print(f'player cannot achieve any cards yet\n')
+        return False
+
+
+def count_icons(player) -> dict:
     icon_count = defaultdict(int)
     board = player.get('board')
     for color, data in board.items():
@@ -155,48 +216,16 @@ def transfer(player_from, player_to, source_location, target_location, color=Non
     print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
 
 
-def return_card_from_hand(player, card): 
-    pass 
-
-
-def return_card_from_scorepile(player, card): 
-    pass 
-
-
-def return_card_from_board(player, card): 
+def return_card_from_hand(player, card):
     pass
 
 
-def count_score(player):
-    return sum([card['age'] for card in player['score_pile']])
+def return_card_from_scorepile(player, card):
+    pass
 
 
-def max_age(player) -> int:
-    """find the highest max age on the player's board"""
-    has_cards = sum([1 for color in 
-                    player['board'][color]['cards'] for colors in
-                    player['board'].keys()])
-    if not has_cards:
-        return 0
-    return max(
-        [
-            player['board'][color]['cards'][-1]['age']
-            for color in player['board']
-            if player['board'][color]['cards']
-        ]
-    )
-
-
-def achieve(player, achievements):
-    score = count_score(player)
-    age = max_age(player)
-    if score >= (age * 5) and achievements.get(age):
-        card = achievements.pop(age)
-        player['achievements'].append(card)
-        print(f'player achieved {age}')
-    else:
-        print(f'player cannot achieve any cards yet')
-    return None
+def return_card_from_board(player, card):
+    pass
 
 
 def init_game(num_players):
@@ -217,7 +246,7 @@ def init_game(num_players):
             city_states,
             codeoflaws,
             mysticism,
-	)
+        )
     )
     random.shuffle(age1)
 
@@ -234,7 +263,7 @@ def init_game(num_players):
             mathematics,
             monotheism,
             philosophy,
-	)
+        )
     )
     random.shuffle(age2)
 
@@ -251,7 +280,7 @@ def init_game(num_players):
             translation,
             education,
             feudalism,
-	)
+        )
     )
     random.shuffle(age3)
 
@@ -268,7 +297,7 @@ def init_game(num_players):
             perspective,
             navigation,
             reformation,
-	)
+        )
     )
     random.shuffle(age4)
 
@@ -290,44 +319,113 @@ def init_game(num_players):
     random.shuffle(age5)
 
     age6 = deque()
-    age6.extend((industrialization, machine_tools, canning, vaccination, classification, 
-		metric_system, atomic_theory, encyclopedia, democracy, emancipation))
+    age6.extend(
+        (
+            industrialization,
+            machine_tools,
+            canning,
+            vaccination,
+            classification,
+            metric_system,
+            atomic_theory,
+            encyclopedia,
+            democracy,
+            emancipation,
+        )
+    )
     random.shuffle(age6)
 
+    age7 = deque()
+    age7.extend(
+        (
+            lighting,
+            publications,
+            railroad,
+            evolution,
+            electricity,
+            bicycle,
+            sanitation,
+            refrigeration,
+            explosives,
+            combustion,
+        )
+    )
+    random.shuffle(age7)
 
-    age7 = deque() 
-    age7.extend((lighting, publications, railroad, evolution, electricity, bicycle,
-                 sanitation, refrigeration, explosives, combustion))
-    random.shuffle(age7) 
-	
     age8 = deque()
-    age8.extend((flight, corporations, antibiotics, quantum_theory, mobility,
-		 empiricism, skyscrapers, mass_media, rocketry, socialism))
+    age8.extend(
+        (
+            flight,
+            corporations,
+            antibiotics,
+            quantum_theory,
+            mobility,
+            empiricism,
+            skyscrapers,
+            mass_media,
+            rocketry,
+            socialism,
+        )
+    )
     random.shuffle(age8)
 
     age9 = deque()
-    age9.extend((specialization, services, genetics, computers, satellites, 
-		 collaboration, suburbia, ecology, fission, composites))
+    age9.extend(
+        (
+            specialization,
+            services,
+            genetics,
+            computers,
+            satellites,
+            collaboration,
+            suburbia,
+            ecology,
+            fission,
+            composites,
+        )
+    )
     random.shuffle(age9)
-   
+
     age10 = deque()
-    age10.extend((miniaturization, robotics, globalization, stem_cells, databases,
-		  self_service, bioengineering, software, ai, the_internet))
+    age10.extend(
+        (
+            miniaturization,
+            robotics,
+            globalization,
+            stem_cells,
+            databases,
+            self_service,
+            bioengineering,
+            software,
+            ai,
+            the_internet,
+        )
+    )
     random.shuffle(age10)
-	
+
     achievements = {
-	    1: age1.pop(), 
-	    2: age2.pop(), 
-	    3: age3.pop(), 
-	    4: age4.pop(), 
-	    5: age5.pop(),
-            6: age6.pop(),
-	    7: age7.pop(),
-	    8: age8.pop(),
-	    9: age9.pop(),
+        1: age1.pop(),
+        2: age2.pop(),
+        3: age3.pop(),
+        4: age4.pop(),
+        5: age5.pop(),
+        6: age6.pop(),
+        7: age7.pop(),
+        8: age8.pop(),
+        9: age9.pop(),
     }
-    decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5, 6: age6, 
-	     7: age7, 8: age8, 9: age9, 10: age10}
+    decks = {
+        1: age1,
+        2: age2,
+        3: age3,
+        4: age4,
+        5: age5,
+        6: age6,
+        7: age7,
+        8: age8,
+        9: age9,
+        10: age10,
+    }
     players = [create_player() for _ in range(num_players)]
     return decks, achievements, players
 
@@ -698,7 +796,7 @@ compass = {
         (
             'I demand you transfer a top non-green card with leaf icon ',
             'from your board to my board, and then transfer a top card ',
-            'wihtout a leaf icon from my board to your board!'
+            'wihtout a leaf icon from my board to your board!',
         )
     ),
     'dogma_icon': 'crown',
@@ -1018,11 +1116,16 @@ societies = {
     'name': 'Societies',
     'age': 5,
     'color': 'purple',
-    'icons': ('crown','bulb', '', 'crown',),
+    'icons': (
+        'crown',
+        'bulb',
+        '',
+        'crown',
+    ),
     'dogma_effects': ''.join(
         (
             'I demand you transfer a top non-puprle card with a bulb icon ',
-            'from your board to my board! If you do, draw a 5!'
+            'from your board to my board! If you do, draw a 5!',
         )
     ),
     'dogma_icon': 'crown',
@@ -1084,7 +1187,7 @@ classification = {
         (
             'Reveal the color of a card from your hand. Take into your hand ',
             'all cards of that color from all other '
-            "player's hands. Then, meld all cards of that color from your hand."
+            "player's hands. Then, meld all cards of that color from your hand.",
         )
     ),
     'dogma_icon': 'bulb',
@@ -1118,7 +1221,7 @@ encyclopedia = {
     'dogma_effects': ''.join(
         (
             'You may meld all the highest cards in your score pile. ',
-            'If you meld one of the highest, you must meld all of the highest.'
+            'If you meld one of the highest, you must meld all of the highest.',
         )
     ),
     'dogma_icon': 'crown',
@@ -1180,7 +1283,7 @@ refrigeration = {
     'dogma_effects': ''.join(
         (
             '1. I demand you return half (rounded down) of all the cards in your hand! ',
-            '2. You may score a card from your hand.'
+            '2. You may score a card from your hand.',
         )
     ),
     'dogma_icon': 'factory',
@@ -1228,7 +1331,7 @@ evolution = {
         (
             'You may choose to either draw and score an 8 and then ',
             'return a card from your score pile, or sraw a card of '
-            'value one higher than the highest card in your score pile. '
+            'value one higher than the highest card in your score pile. ',
         )
     ),
     'dogma_icon': 'bulb',
@@ -1267,7 +1370,7 @@ railroad = {
     'dogma_effects': ''.join(
         (
             '1. Return all cards from your hand, then draw three 6s. ',
-            '2, You may splay up any one color of your cards currently splayed right.'
+            '2, You may splay up any one color of your cards currently splayed right.',
         )
     ),
     'dogma_icon': 'clock',
@@ -1307,8 +1410,7 @@ corporations = {
         (
             '1. I demand you transfer a top non-green card with a factor icon ',
             'from your board to my score pile! ',
-            'If you do, draw and meld an 8!'
-            '2. Draw and meld an 8.'
+            'If you do, draw and meld an 8!' '2. Draw and meld an 8.',
         )
     ),
     'dogma_icon': 'factory',
@@ -1350,7 +1452,7 @@ mobility = {
         (
             'I demand you transfer the two highest non-red top cards without a ',
             'factory icon from your board to my score pile! '
-            'If you transferred any cards, draw an 8!'
+            'If you transferred any cards, draw an 8!',
         )
     ),
     'dogma_icon': 'factory',
@@ -1399,7 +1501,7 @@ socialism = {
         (
             'You may tuck all the cards from your hand. If you tuck one, you must ',
             'tuck them all. If you tucked at least one purple card, take all the '
-            "lowest cards in each other player's hand into your hand."
+            "lowest cards in each other player's hand into your hand.",
         )
     ),
     'dogma_icon': 'leaf',
@@ -1440,7 +1542,7 @@ ecology = {
     'dogma_effects': ''.join(
         (
             'You may return a card from your hand. If you do score a card ',
-            'from your hand and draw two 10s.'
+            'from your hand and draw two 10s.',
         )
     ),
     'dogma_icon': 'bulb',
@@ -1477,7 +1579,7 @@ satellites = {
             '1. Return all cards from your hand, draw three 8s. ',
             '2. You may splay your purple cards up. ',
             '3. Meld a card from your hand, then execute each of its '
-            'non-demand effects for yourself only.'
+            'non-demand effects for yourself only.',
         )
     ),
     'dogma_icon': 'clock',
@@ -1490,7 +1592,7 @@ computers = {
     'dogma_effects': ''.join(
         (
             '1. You may splay your red cards or your green cards up. ',
-            '2. Draw and meld a 10 then execute its non-demand effects for yourself only.'
+            '2. Draw and meld a 10 then execute its non-demand effects for yourself only.',
         )
     ),
     'dogma_icon': 'clock',
@@ -1512,7 +1614,7 @@ services = {
         (
             'I demand you transfer all the highest cards from your score pile to my hand! ',
             'If you transferred any cards, then transfer a top card from your board '
-            'without a leaf icon to your hand!'
+            'without a leaf icon to your hand!',
         )
     ),
     'dogma_icon': 'crown',
@@ -1539,7 +1641,7 @@ miniaturization = {
     'dogma_effects': ''.join(
         (
             'You may return a card from your hand. ',
-            'If you returned a 10, draw a 10 for every different value of card in your score pile.'
+            'If you returned a 10, draw a 10 for every different value of card in your score pile.',
         )
     ),
     'dogma_icon': 'bulb',
@@ -1661,19 +1763,23 @@ the_internet = {
 }
 
 
-def test_setup(): 
-	players, deck, achs = set_up() 
-	p1, p2 = players
-	assert all((p1, p2, deck, achs))
+def test_setup():
+    players, deck, achs = set_up()
+    p1, p2 = players
+    assert all((p1, p2, deck, achs))
 
 
-def test_meld(): 
-	players, _, _, = set_up() 
-	p1 = players[0]
-	cardname = random.choice(list(p1['hand'].keys()))
-	assert meld(p1, cardname)
+def test_meld():
+    (
+        players,
+        _,
+        _,
+    ) = set_up()
+    p1 = players[0]
+    cardname = random.choice(list(p1['hand'].keys()))
+    assert meld(p1, cardname)
 
 
-if __name__ == "__main__": 
-    test_setup() 
+if __name__ == '__main__':
+    test_setup()
     test_meld()
