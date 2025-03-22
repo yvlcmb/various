@@ -239,7 +239,7 @@ def return_scored_card_by_age(player, age) -> bool:
     cardname = random.choice(choices)
     card = player['score_pile'].pop(cardname)
     globals(decks[age].appendleft(card)) 
-    print('{player['number']} returned an age {age} card to the deck')
+    print(f'{player['number']} returned an age {age} card to the deck')
     return True    
 
 
