@@ -202,7 +202,7 @@ def achieve(player, achievements):
 def init_game(num_players):
     age1 = deque()
     age1.extend(
-        [
+        (
             archery,
             metalworking,
             oars,
@@ -217,13 +217,13 @@ def init_game(num_players):
             city_states,
             codeoflaws,
             mysticism,
-        ]
+	)
     )
     random.shuffle(age1)
 
     age2 = deque()
     age2.extend(
-        [
+        (
             construction,
             road_building,
             canal_building,
@@ -251,13 +251,13 @@ def init_game(num_players):
             translation,
             education,
             feudalism,
-        ]
+	)
     )
     random.shuffle(age3)
 
     age4 = deque()
     age4.extend(
-        [
+        (
             colonialism,
             gunpowder,
             anatomy,
@@ -268,7 +268,7 @@ def init_game(num_players):
             perspective,
             navigation,
             reformation,
-        ]
+	)
     )
     random.shuffle(age4)
 
@@ -289,8 +289,31 @@ def init_game(num_players):
     )
     random.shuffle(age5)
 
-    achievements = {1: age1.pop(), 2: age2.pop(), 3: age3.pop(), 4: age4.pop(), 5: age5.pop()}
-    decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5}
+    age6 = deque()
+    age6.extend(
+         (
+	     machine_tools, 
+	     canning, 
+	     vaccination,
+	     industrialization, 
+	     metric_system, 
+	     atomic_theory, 
+	     encyclopedia, 
+	     classification, 
+	     democracy
+	 )
+    )   
+    random.shuffle(age6)
+      
+    achievements = {
+	    1: age1.pop(), 
+	    2: age2.pop(), 
+	    3: age3.pop(), 
+	    4: age4.pop(), 
+	    5: age5.pop()
+            6: age6.pop()
+    }
+    decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5, 6: age6}
     players = [create_player() for _ in range(num_players)]
     return decks, achievements, players
 
