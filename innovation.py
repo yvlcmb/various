@@ -234,13 +234,13 @@ def init_game(num_players):
             mathematics,
             monotheism,
             philosophy,
-        ]
+	)
     )
     random.shuffle(age2)
 
     age3 = deque()
     age3.extend(
-        [
+        (
             engineering,
             optics,
             machinery,
@@ -290,30 +290,45 @@ def init_game(num_players):
     random.shuffle(age5)
 
     age6 = deque()
-    age6.extend(
-         (
-	     machine_tools, 
-	     canning, 
-	     vaccination,
-	     industrialization, 
-	     metric_system, 
-	     atomic_theory, 
-	     encyclopedia, 
-	     classification, 
-	     democracy
-	 )
-    )   
+    age6.extend((industrialization, machine_tools, canning, vaccination, classification, 
+		metric_system, atomic_theory, encyclopedia, democracy, emancipation))
     random.shuffle(age6)
-      
+
+
+    age7 = deque() 
+    age7.extend((lighting, publications, railroad, evolution, electricity, bicycle,
+                 sanitation, refrigeration, explosives, combustion))
+    random.shuffle(age7) 
+	
+    age8 = deque()
+    age8.extend((flight, corporations, antibiotics, quantum_theory, mobility,
+		 empiricism, skyscrapers, mass_media, rocketry, socialism))
+    random.shuffle(age8)
+
+    age9 = deque()
+    age9.extend((specialization, services, genetics, computers, satellites, 
+		 collaboration, suburbia, ecology, fission, composites))
+    random.shuffle(age9)
+   
+    age10 = deque()
+    age10.extend((miniaturization, robotics, globalization, stem_cells, databases,
+		  self_service, bioengineering, software, ai, the_internet))
+    random.shuffle(age10)
+	
     achievements = {
 	    1: age1.pop(), 
 	    2: age2.pop(), 
 	    3: age3.pop(), 
 	    4: age4.pop(), 
-	    5: age5.pop()
-            6: age6.pop()
+	    5: age5.pop(),
+            6: age6.pop(),
+	    7: age7.pop(),
+	    8: age8.pop(),
+	    9: age9.pop(),
+	    10: age10.pop(),
     }
-    decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5, 6: age6}
+    decks = {1: age1, 2: age2, 3: age3, 4: age4, 5: age5, 6: age6, 
+	     7: age7, 8: age8, 9: age9, 10: age10}
     players = [create_player() for _ in range(num_players)]
     return decks, achievements, players
 
