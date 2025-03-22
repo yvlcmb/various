@@ -217,7 +217,7 @@ def transfer(player_from, player_to, source_location, target_location, color=Non
     print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
 
 
-def return_card_from_hand(player, card): 
+def return_card_from_hand(player, card) -> bool: 
     if card not in player['hand']: 
         print('card not in hand')
         return False 
@@ -226,9 +226,24 @@ def return_card_from_hand(player, card):
     globals(decks[age].appendleft(card)) 
     print(f'Player {player['number']} returns {card} from their hand')
     return True
-        
 
-def return_card_from_scorepile(player, card):
+
+def return_scored_card_by_age(player, age) -> bool:
+    if not player['score_pile']: 
+        print('{player['number']} has no score pile, so this is an invalid action.')
+        return False 
+    choices = [card for card in player['score_pile'] if card['age'] == age]
+    if age not in [choice['age'] for choice in choices]]: 
+        print('{player['number']} has no scored cards from that age')
+        return False 
+    cardname = random.choice(choices)
+    card = player['score_pile'].pop(cardname)
+    globals(decks[age].appendleft(card)) 
+    print('{player['number']} returned an age {age} card to the deck')
+    return True    
+
+
+def return_many_scored_cards(player, card):
     pass
 
 
@@ -435,8 +450,6 @@ def make_decks():
         10: age10,
     }
     return decks, achievements
-    #players = [create_player(i) for i in range(num_players)]
-    #return decks, achievements, players
 
 
 def init_two_player():
