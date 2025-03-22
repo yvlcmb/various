@@ -92,7 +92,7 @@ def tuck(player, cardname) -> bool:
     return True
 
 
-def draw(player, decks, age) -> bool:
+def draw(player, age) -> bool:
     """draw!
     side effects: mutates player[hand], decks dicts in place
     returns: boolean
@@ -217,9 +217,16 @@ def transfer(player_from, player_to, source_location, target_location, color=Non
     print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
 
 
-def return_card_from_hand(player, card):
-    pass
-
+def return_card_from_hand(player, card): 
+    if card not in player['hand']: 
+        print('card not in hand')
+        return False 
+    _card = player['hand'].pop(card)
+    age = card.get('age')
+    globals(decks[age].appendleft(card)) 
+    print(f'Player {player['number']} returns {card} from their hand')
+    return True
+        
 
 def return_card_from_scorepile(player, card):
     pass
@@ -229,7 +236,7 @@ def return_card_from_board(player, card):
     pass
 
 
-def init_game(num_players):
+def make_decks():
     age1 = deque()
     age1.extend(
         (
@@ -427,19 +434,20 @@ def init_game(num_players):
         9: age9,
         10: age10,
     }
-    players = [create_player(i) for i in range(num_players)]
-    return decks, achievements, players
+    return decks, achievements
+    #players = [create_player(i) for i in range(num_players)]
+    #return decks, achievements, players
 
 
-def set_up():
-    deck, achievements, players = init_game(2)
+def init_two_player():
+    players = [create_player(i) for i in range(2)]
     p1 = players[0]
     p2 = players[1]
-    draw(p1, deck, 1)
-    draw(p2, deck, 1)
-    draw(p1, deck, 1)
-    draw(p2, deck, 1)
-    return players, deck, achievements
+    draw(p1, 1)
+    draw(p2, 1)
+    draw(p1, 1)
+    draw(p2, 1)
+    return p1, p2
 
 
 # cards
@@ -1763,14 +1771,14 @@ the_internet = {
     'dogma_icon': 'clock',
 }
 
+decks, achievements = make_decks() 
 
-def test_setup():
+def _test_setup():
     players, deck, achs = set_up()
     p1, p2 = players
     assert all((p1, p2, deck, achs))
 
-
-def test_meld():
+def _test_meld():
     (
         players,
         _,
@@ -1782,5 +1790,6 @@ def test_meld():
 
 
 if __name__ == '__main__':
-    test_setup()
-    test_meld()
+    p1, p2 = init_two_player() 
+    #test_setup()
+    #test_meld()
