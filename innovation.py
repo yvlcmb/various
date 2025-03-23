@@ -11,7 +11,7 @@ not yet implemented:
 """
 
 import random
-from collections import defaultdict, deque
+from collections import Counter, deque
 
 
 def create_card(name, age, color, icons, dogma_icon) -> dict:
@@ -151,31 +151,28 @@ def achieve(player, achievements):
 
 
 def count_icons(player) -> dict:
-    icon_count = defaultdict(int)
+    icon_count = Counter()
 
     for color, data in player['board'].items():
         cards = data.get('cards')
         splay = data.get('splay')
 
         if not cards:
-            continue  # Skip if no tableau yet 
+            continue  # Skip if no tableau yet
 
         # Count icons from the top card
-        top_card = cards[-1]
-        for icon in top_card['icons']:
-            icon_count[icon] += 1
+        icon_count.update(cards[-1]['icons'])
 
-        # next few lines count the icons of splayed cards:
+        # Count icons from splayed cards
         directions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}
         positions = directions.get(splay)
-        if len(cards) > 1:   # Only iterate if there are at least two cards
-            for card in cards[:-1]:  # Exclude top card
-                for pos in positions:
-                    icon = card['icons'][pos]
-                    if icon:
-                        icon_count[icon] += 1  
 
-    return dict(icon_count) 
+        if len(cards) > 1:   # Only iterate if there are at least two cards
+            for card in cards[:-1]:  # ...but exclude the top card
+                icon_count.update(card['icons'][pos] for pos in positions if card['icons'][pos])
+
+    return icon_count
+
 
 
 def transfer(player_from, player_to, source_location, target_location, color=None):
