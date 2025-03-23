@@ -152,34 +152,32 @@ def achieve(player, achievements):
 
 def count_icons(player) -> dict:
     icon_count = defaultdict(int)
-    board = player.get('board', {})
+    board = player['board']
 
     for color, data in board.items():
         cards = data.get('cards', [])
         splay = data.get('splay', 'none')
 
         if not cards:
-            continue
+            continue  # Skip if no cards are present
 
         # Count icons from the top card
         top_card = cards[-1]
-        for icon in top_card.get('icons', []):
+        for icon in top_card['icons']:
             if icon:
                 icon_count[icon] += 1
 
-        # Define splay positions
+        # next few lines count the icons of splayed cards:
         directions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}
         positions = directions.get(splay, [])
+        if len(cards) > 1:   # Only iterate if there are at least two cards
+            for card in cards[:-1]:  # Exclude top card
+                for pos in positions:
+                    icon = card['icons'][pos]
+                    if icon:
+                        icon_count[icon] += 1  
 
-        # Count icons from splayed cards
-        for card in cards[:-1]:  # Exclude top card
-            for pos in positions:
-                icon = card.get('icons', [])[pos]  # Corrected key usage
-                if icon:
-                    icon_count[icon] += 1  # Fixed incorrect increment
-
-    return dict(icon_count)  # Ensure return is outside the loop
-
+    return dict(icon_count) 
 
 
 def transfer(player_from, player_to, source_location, target_location, color=None):
