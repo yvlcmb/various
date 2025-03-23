@@ -174,7 +174,6 @@ def count_icons(player) -> dict:
     return icon_count
 
 
-
 def transfer(player_from, player_to, source_location, target_location, color=None):
     """
     Transfers a card from one player to another.
