@@ -155,17 +155,16 @@ def count_icons(player) -> dict:
     board = player['board']
 
     for color, data in board.items():
-        cards = data.get('cards', [])
+        cards = data.get('cards')
         splay = data.get('splay', 'none')
 
         if not cards:
-            continue  # Skip if no cards are present
+            continue  # Skip if no tableau yet 
 
         # Count icons from the top card
         top_card = cards[-1]
         for icon in top_card['icons']:
-            if icon:
-                icon_count[icon] += 1
+            icon_count[icon] += 1
 
         # next few lines count the icons of splayed cards:
         directions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}
