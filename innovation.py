@@ -222,7 +222,7 @@ def return_card_from_hand(player, card) -> bool:
         return False 
     _card = player['hand'].pop(card)
     age = _card.get('age')
-    global decks[age].appendleft(_card) 
+    decks[age].appendleft(_card)
     print(f'Player {player['number']} returns {card} from their hand')
     return True
 
@@ -237,7 +237,7 @@ def return_scored_card_by_age(player, age) -> bool:
         return False 
     cardname = random.choice(choices)
     card = player['score_pile'].pop(cardname)
-    global decks[age].appendleft(card)
+    decks[age].appendleft(card)
     print(f'{player['number']} returned an age {age} card to the deck')
     return True    
 
@@ -413,7 +413,7 @@ def make_decks():
         (
             miniaturization,
             robotics,
-            globalization,
+            globalsization,
             stem_cells,
             databases,
             self_service,
@@ -1680,8 +1680,8 @@ robotics = {
     ),
     'dogma_icon': 'factory',
 }
-globalization = {
-    'name': 'Globalization',
+globalsization = {
+    'name': 'globalsization',
     'age': 10,
     'color': 'yellow',
     'icons': ('', 'factory', 'factory', 'factory'),
@@ -1782,8 +1782,10 @@ the_internet = {
     ),
     'dogma_icon': 'clock',
 }
-
+global decks
+global achievements 
 decks, achievements = make_decks() 
+
 
 def _test_setup():
     players, deck, achs = set_up()
