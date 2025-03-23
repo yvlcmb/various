@@ -222,7 +222,7 @@ def return_card_from_hand(player, card) -> bool:
         return False 
     _card = player['hand'].pop(card)
     age = _card.get('age')
-    globals(decks[age].appendleft(_card)) 
+    global decks[age].appendleft(_card) 
     print(f'Player {player['number']} returns {card} from their hand')
     return True
 
@@ -237,7 +237,7 @@ def return_scored_card_by_age(player, age) -> bool:
         return False 
     cardname = random.choice(choices)
     card = player['score_pile'].pop(cardname)
-    globals(decks[age].appendleft(card)) 
+    global decks[age].appendleft(card)
     print(f'{player['number']} returned an age {age} card to the deck')
     return True    
 
