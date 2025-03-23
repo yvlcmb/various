@@ -224,9 +224,9 @@ def return_card_from_hand(player, card) -> bool:
     if card not in player['hand']: 
         print('card not in hand')
         return False 
-    _card = player['hand'].pop(card)
+    _card = player['hand'].pop(_card)
     age = card.get('age')
-    globals(decks[age].appendleft(card)) 
+    globals(decks[age].appendleft(_card)) 
     print(f'Player {player['number']} returns {card} from their hand')
     return True
 
