@@ -233,7 +233,7 @@ def return_scored_card_by_age(player, age) -> bool:
         print('{player['number']} has no score pile, so this is an invalid action.')
         return False 
     choices = [card for card in player['score_pile'] if card['age'] == age]
-    if age not in [choice['age'] for choice in choices]]: 
+    if age not in [choice['age'] for choice in choices]: 
         print('{player['number']} has no scored cards from that age')
         return False 
     cardname = random.choice(choices)
