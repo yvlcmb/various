@@ -230,7 +230,7 @@ def return_card_from_hand(player, card) -> bool:
 
 def return_scored_card_by_age(player, age) -> bool:
     if not player['score_pile']: 
-        print('{player['number']} has no score pile, so this is an invalid action.')
+        print(f'{player['number']} has no score pile, so this is an invalid action.')
         return False 
     choices = [card for card in player['score_pile'] if card['age'] == age]
     if age not in [choice['age'] for choice in choices]: 
