@@ -101,7 +101,7 @@ def draw(player, age) -> bool:
     print('draw!')
     while age <= 10:
         if decks.get(age):
-            card = decks[age].popleft()
+            card = decks[age].pop()
             player['hand'].update({card.get('name'): card})
             print(f"Player {player['number']} drew {card.get('name')}\n")
             return False
