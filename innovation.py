@@ -159,6 +159,16 @@ def count_icons(player) -> Counter:
     return icon_count
 
 
+def transfer_hands(source, target, cardname) -> bool: 
+    if cardname not in source['hand']: 
+        print(f"{card} not in player {source['number']'s hand")
+        return False
+    card = source['hand'].pop(cardname)
+    target['hand'].update({cardname: card})
+    print(f"{source['number'] transfers {card} from their hand to {target['number']}'s hand.")
+    return True 
+
+
 def transfer(player_from, player_to, source_location, target_location, color=None):
     """
     Transfers a card from one player to another.
