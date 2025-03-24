@@ -4,7 +4,6 @@ code smells:
     stateful modifications in place
 
 not yet implemented:
-    achieve action
     dogma action
     end game score calculation
     remaining test functions
