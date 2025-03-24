@@ -139,7 +139,6 @@ def achieve(player, achievements) -> bool:
         print(f'{player['number']} cannot achieve any cards at this time\n')
         return False
 
-from collections import Counter
 
 def count_icons(player) -> Counter:
     icon_count = Counter()
