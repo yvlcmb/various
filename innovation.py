@@ -139,6 +139,7 @@ def achieve(player, achievements) -> bool:
         print(f'{player['number']} cannot achieve any cards at this time\n')
         return False
 
+from collections import Counter
 
 def count_icons(player) -> Counter:
     icon_count = Counter()
@@ -151,20 +152,20 @@ def count_icons(player) -> Counter:
             continue  # Skip empty card stacks
 
         # Determine the valid positions based on splay before processing
-        positions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(splay)
+        positions =  {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(splay)
         if positions is None:
             print(f"Warning: Invalid 'splay' value '{splay}' for color '{color}'")
             continue
 
         # Count icons from the top card (last card in the deque)
-        icon_count.update(icon for icon in card['icons'] if icon)
+        icon_count.update(icon for icon in card[-1]['icons'] if icon)
+            
 
         # Count icons from splayed cards (excluding the top card)
         for card in cards[:-1]:
-                for pos in positions:
-                    if pos < len(card['icons']) and card['icons'][pos]:
-                        icon_count.update([card['icons'][pos]])
-
+            for pos in positions:
+                if pos < len(card['icons']) and card['icons'][pos]:
+                    icon_count.update([card['icons'][pos]])
     return icon_count
 
 
