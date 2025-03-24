@@ -74,7 +74,7 @@ def tuck(player, cardname) -> bool:
     if not cardname in player.get('hand'):
         print(f"{cardname} not found in {player[number]}'s hand\n")
         return False
-    card = player('hand').pop(cardname)
+    card = player['hand'].pop(cardname)
     color = card.get('color')
     print(color)
     player('board')[color]('cards').appendleft(card)
