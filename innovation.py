@@ -78,7 +78,7 @@ def tuck(player, cardname) -> bool:
     color = card.get('color')
     print(color)
     player['board'][color]('cards').appendleft(card)
-    print(f"{player[number]} tucked {card.get('name')} in their {card.get('color')} stack\n")
+    print(f"{player['number']} tucked {card.get('name')} in their {card.get('color')} stack\n")
     return True
 
 
@@ -128,10 +128,10 @@ def achieve(player, achievements) -> bool:
     if score >= (age * 5) and achievements.get(age):
         card = achievements[age].pop()
         player['achievements'].append(card)
-        print(f'{player[number]} achieved age {age}!\n.')
+        print(f'{player['number']} achieved age {age}!\n.')
         return True
     else:
-        print(f'{player[number]} cannot achieve any cards at this time\n')
+        print(f'{player['number']} cannot achieve any cards at this time\n')
         return False
 
 
