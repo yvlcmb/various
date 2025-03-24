@@ -146,7 +146,7 @@ def count_icons(player) -> Counter:
             continue  # Skip if no tableau yet
 
         # Count icons from the top card
-        icon_count.update(cards[-1]['icons'])
+        icon_count.update(icon for icon in cards[-1]['icons'] if icon)  # Exclude non-icon symbols
 
         # Count icons from splayed cards
         directions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}
