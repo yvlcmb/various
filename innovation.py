@@ -101,6 +101,7 @@ def draw(player, age) -> bool:
     return False
 
 
+
 def count_score(player) -> int:
     return sum([card['age'] for card in player['score_pile']])
 
@@ -154,7 +155,10 @@ def count_icons(player) -> Counter:
 
         if len(cards) > 1:   # Only iterate if there are at least two cards
             for card in cards[:-1]:  # ...but exclude the top card
-                icon_count.update(card['icons'][pos] for pos in positions if card['icons'][pos])
+                for pos in positions:
+                    # Check if the position is valid and the icon exists
+                    if pos < len(card['icons']) and card['icons'][pos]:
+                        icon_count.update([card['icons'][pos]])
 
     return icon_count
 
