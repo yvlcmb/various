@@ -86,7 +86,7 @@ def draw(player, age) -> bool:
     """draw!
     side effects: mutates player[hand], decks dicts in place
     returns: boolean
-        True if success, False if failure
+        True if success, False if decks are empty
     """
     print('draw!')
     while age <= 10:
@@ -94,11 +94,11 @@ def draw(player, age) -> bool:
             card = decks[age].pop()
             player['hand'].update({card.get('name'): card})
             print(f"Player {player['number']} drew {card.get('name')}\n")
-            return False
+            return True
         else:
             age += 1
     print('Game over!\n')
-    return True
+    return False
 
 
 def count_score(player) -> int:
