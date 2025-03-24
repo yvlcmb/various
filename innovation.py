@@ -144,23 +144,24 @@ def count_icons(player) -> Counter:
     icon_count = Counter()
 
     for color, data in player['board'].items():
-        cards = data.get('cards')
+        cards = data.get('cards', [])
         splay = data.get('splay')
 
         if not cards:
-            continue  # Skip if no tableau yet
+            continue  # Skip empty card stacks
 
-        # Count icons from the top card
-        icon_count.update(icon for icon in cards[-1]['icons'] if icon)  # Exclude non-icon symbols
+        # Determine the valid positions based on splay before processing
+        positions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(splay)
+        if positions is None:
+            print(f"Warning: Invalid 'splay' value '{splay}' for color '{color}'")
+            continue
 
-        # Count icons from splayed cards
-        directions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}
-        positions = directions.get(splay)
+        # Count icons from the top card (last card in the deque)
+        icon_count.update(icon for icon in card['icons'] if icon)
 
-        if len(cards) > 1:   # Only iterate if there are at least two cards
-            for card in cards[:-1]:  # ...but exclude the top card
+        # Count icons from splayed cards (excluding the top card)
+        for card in cards[:-1]:
                 for pos in positions:
-                    # Check if the position is valid and the icon exists
                     if pos < len(card['icons']) and card['icons'][pos]:
                         icon_count.update([card['icons'][pos]])
 
