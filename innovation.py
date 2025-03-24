@@ -182,46 +182,15 @@ def transfer_topcard(src, tgt, color) -> bool:
     print(f"Player {src['number']} transfers {card} to player {tgt['number']}'s board"})
     return True
 
-def transfer(player_from, player_to, source_location, target_location, color=None):
-    """
-    Transfers a card from one player to another.
 
-    :param player_from: The player who is sending the card.
-    :param player_to: The player who is receiving the card.
-    :param source_location: The location of the card in the source player's hand or board ('hand' or 'board').
-    :param target_location: The location where the card should be placed in the target player's hand or board ('hand' or 'board').
-    :param color: If the card is on the board, specify the color. (Default is None for hand cards)
-    """
-
-    # Ensure valid source and target locations
-    if source_location not in ['hand', 'board'] or target_location not in ['hand', 'board']:
-        raise ValueError("Source and target locations must be 'hand' or 'board'.")
-
-    # Check the source player's location
-    if source_location == 'hand':
-        if not player_from['hand']:
-            raise ValueError("No cards in the source player's hand to transfer.")
-        # Pop the card from the player's hand
-        card = player_from['hand'].pop()
-
-    elif source_location == 'board':
-        if color is None or color not in player_from['board']:
-            raise ValueError(f"No cards found in the {color} pile of the source player's board.")
-        # Pop the card from the player's board (color-specific)
-        card = player_from['board'][color]['cards'].pop()
-
-    # Add the card to the destination player's location
-    if target_location == 'hand':
-        player_to['hand'].append(card)
-    elif target_location == 'board':
-        if color is None:
-            raise ValueError('Must specify a color for the board destination.')
-        if color not in player_to['board']:
-            raise ValueError(f"{color} color not found in the target player's board.")
-        # Append the card to the specified color pile on the destination player's board
-        player_to['board'][color]['cards'].append(card)
-
-    print(f"Card '{card['name']}' transferred from {source_location} to {target_location}.")
+def transfer_scorecard_by_value(src, tgt, val) -> bool: 
+    vals = [crd for crd in src['core_pile'] if crd['age'] == val]
+    if not vals: 
+        return False
+    cardname = random.choice([val['name'] for name in vals])
+    card = src['score_pile'].pop(cardname)
+    tgt['score_pile'].update({cardname: card})
+    return True 
 
 
 def return_card_from_hand(player, card) -> bool: 
