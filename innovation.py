@@ -159,7 +159,7 @@ def count_icons(player) -> Counter:
     return icon_count
 
 
-def transfer_hands(source, target, cardname) -> bool: 
+def transfer_card_in_hands(source, target, cardname) -> bool: 
     if cardname not in source['hand']: 
         print(f"{card} not in player {source['number']}'s hand")
         return False
@@ -168,6 +168,19 @@ def transfer_hands(source, target, cardname) -> bool:
     print(f"{source['number']} transfers {card} from their hand to {target['number']}'s hand.")
     return True 
 
+
+def top_cards(player): 
+    return [cards['cards'][-1] for color, cards in player['board'].iems() if cards['cards']]
+
+
+def transfer_topcard_by_color(src, tgt, color): 
+    if not src['board'][color]: 
+        print(f'{src['number']} does not have a top {color} card'.)
+        return False
+    card = src['board'][color]['cards'].pop()
+    tgt['board'][color].update({card['name']: card})
+    print(f"Player {src['number']} transfers {card} to player {tgt['number']}'s board"})
+    return True
 
 def transfer(player_from, player_to, source_location, target_location, color=None):
     """
