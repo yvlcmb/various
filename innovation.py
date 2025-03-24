@@ -14,16 +14,6 @@ import random
 from collections import Counter, deque
 
 
-def create_card(name, age, color, icons, dogma_icon) -> dict:
-    return {
-        'name': name,
-        'age': age,
-        'color': color,
-        'icons': icons,  # tuple of 4 potential icon positions, one of which may be empty
-        'dogma_icon': dogma_icon,
-    }
-
-
 def create_player(num) -> dict:
     return {
         'number': num + 1, 
