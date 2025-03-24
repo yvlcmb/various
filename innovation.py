@@ -101,6 +101,11 @@ def draw(player, age) -> bool:
     return False
 
 
+def draw_and_score(player, deck) -> int: 
+    if not decks[deck]:
+        return False
+    player['score_pile'].append(decks[deck].pop())
+    return True
 
 def count_score(player) -> int:
     return sum([card['age'] for card in player['score_pile']])
