@@ -199,13 +199,13 @@ def transfer_topcard(src, tgt, color) -> bool:
 
 
 def transfer_scorecard_by_value(src, tgt, val) -> bool: 
-    vals = [crd for crd in src['score_pile'] if crd['age'] == val]
-    if not vals: 
+    vals = [(idx, crd) for idx, crd in enumerate(src['score_pile']) if crd['age'] == val]
+    if not vals:
         return False
-    cardname = random.choice([val['name'] for val in vals])
-    card = src['score_pile'].pop(cardname)
-    tgt['score_pile'].append(card) 
-    return True 
+    idx, card = random.choice(vals)
+    src['score_pile'].pop(idx)
+    tgt['score_pile'].append(card)
+    return True
 
 
 def return_card_from_hand(player, card) -> bool: 
