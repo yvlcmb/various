@@ -43,7 +43,7 @@ def meld(player, card) -> bool:
         return False
     card = player['hand'].pop(card)
     color = card.get('color')
-    player['board'][color]['cards'].appendleft(card)
+    player['board'][color]['cards'].append(card)
     print(f"Player melded {card.get('name')} to their {color} stack\n")
     return True
 
