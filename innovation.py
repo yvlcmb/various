@@ -199,12 +199,12 @@ def transfer_topcard(src, tgt, color) -> bool:
 
 
 def transfer_scorecard_by_value(src, tgt, val) -> bool: 
-    vals = [crd for crd in src['core_pile'] if crd['age'] == val]
+    vals = [crd for crd in src['score_pile'] if crd['age'] == val]
     if not vals: 
         return False
-    cardname = random.choice([val['name'] for name in vals])
+    cardname = random.choice([val['name'] for val in vals])
     card = src['score_pile'].pop(cardname)
-    tgt['score_pile'].update({cardname: card})
+    tgt['score_pile'].append(card) 
     return True 
 
 
