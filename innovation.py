@@ -144,27 +144,24 @@ def count_icons(player) -> Counter:
     icon_count = Counter()
 
     for color, data in player['board'].items():
-        cards = data.get('cards', [])
+        cards = data.get('cards')
         splay = data.get('splay')
 
         if not cards:
             continue  # Skip empty card stacks
 
-        # Determine the valid positions based on splay before processing
-        positions =  {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(splay)
-        if positions is None:
-            print(f"Warning: Invalid 'splay' value '{splay}' for color '{color}'")
-            continue
+        icon_count.update(icon for icon in cards[-1]['icons'] if icon)
 
-        # Count icons from the top card (last card in the deque)
-        icon_count.update(icon for icon in card[-1]['icons'] if icon)
-            
-
-        # Count icons from splayed cards (excluding the top card)
-        for card in cards[:-1]:
-            for pos in positions:
-                if pos < len(card['icons']) and card['icons'][pos]:
-                    icon_count.update([card['icons'][pos]])
+        positions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(splay)
+        if positions: 
+            if len(cards) > 1: 
+                for card in cards: 
+                    if card != cards[-1]:
+                        for pos in positions: 
+                            if pos < len(card['icons']): 
+                                icon = card['icons'][pos]
+                                if icon:
+                                    icon_count.update(card)
     return icon_count
 
 
