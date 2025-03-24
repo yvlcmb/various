@@ -126,22 +126,6 @@ def max_age(player) -> int:
     )
 
 
-def max_age(player) -> int:
-    """find the highest max age on the player's board"""
-    has_cards = sum(
-        [1 for color in player['board'][color]['cards'] for colors in player['board'].keys()]
-    )
-    if not has_cards:
-        return 0
-    return max(
-        [
-            player['board'][color]['cards'][-1]['age']
-            for color in player['board']
-            if player['board'][color]['cards']
-        ]
-    )
-
-
 def achieve(player, achievements):
     """achieve!
     side effects: mutates player[hand], decks dicts in place
