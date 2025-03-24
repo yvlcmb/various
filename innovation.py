@@ -165,15 +165,15 @@ def transfer_card_in_hands(source, target, cardname) -> bool:
         return False
     card = source['hand'].pop(cardname)
     target['hand'].update({cardname: card})
-    print(f"{source['number']} transfers {card} from their hand to {target['number']}'s hand.")
+    print(f"Player {source['number']} transfers {card} from their hand to {target['number']}'s hand.")
     return True 
 
 
-def top_cards(player): 
+def top_cards(player) -> list: 
     return [cards['cards'][-1] for color, cards in player['board'].iems() if cards['cards']]
 
 
-def transfer_topcard_by_color(src, tgt, color): 
+def transfer_topcard_by_color(src, tgt, color) -> bool: 
     if not src['board'][color]: 
         print(f'{src['number']} does not have a top {color} card'.)
         return False
