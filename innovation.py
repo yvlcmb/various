@@ -163,6 +163,14 @@ def count_icons(player) -> Counter:
     return icon_count
 
 
+def score_handcard(player, card) -> bool: 
+    if card not in player['hand']: 
+        return False
+    score = player['hand'].pop(card)
+    player['score_pile'].append(score)
+    return True
+
+
 def transfer_handcard(source, target, cardname) -> bool: 
     if cardname not in source['hand']: 
         print(f"{card} not in player {source['number']}'s hand")
