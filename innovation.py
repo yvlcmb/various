@@ -77,7 +77,7 @@ def tuck(player, cardname) -> bool:
     card = player['hand'].pop(cardname)
     color = card.get('color')
     print(color)
-    player('board')[color]('cards').appendleft(card)
+    player['board'][color]('cards').appendleft(card)
     print(f"{player[number]} tucked {card.get('name')} in their {card.get('color')} stack\n")
     return True
 
