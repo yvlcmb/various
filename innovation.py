@@ -135,7 +135,7 @@ def achieve(player, achievements):
         return False
 
 
-def count_icons(player) -> dict:
+def count_icons(player) -> Counter:
     icon_count = Counter()
 
     for color, data in player['board'].items():
