@@ -116,7 +116,7 @@ def max_age(player) -> int:
     )
 
 
-def achieve(player, achievements):
+def achieve(player, achievements) -> bool:
     """achieve!
     side effects: mutates player[hand], decks dicts in place
     returns: boolean
@@ -126,7 +126,7 @@ def achieve(player, achievements):
     score = count_score(player)
     age = max_age(player)
     if score >= (age * 5) and achievements.get(age):
-        card = achievements.pop(age)
+        card = achievements[age].pop()
         player['achievements'].append(card)
         print(f'{player[number]} achieved age {age}!\n.')
         return True
