@@ -202,7 +202,7 @@ def hand(player) -> dict:
     '''helper function to quickly see what is in hand'''
     data = {color: [] for color in ('red', 'green', 'blue', 'yellow', 'purple')} 
     for card in player['hand'].items(): 
-        data[card][1]['color'].append(card[0])
+        data[card[1]['color']].append(card[0])
     return data
 
 
