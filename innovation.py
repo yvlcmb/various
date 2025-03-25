@@ -223,6 +223,12 @@ def score_opponent_topcard(src, tgt, color) -> bool:
     src['score_pile'].append(swipe)
     print(f"Player {src['number']} scored {swipe['name']} from Player {tgt['number']}'s board!")
     return True
+    
+
+def show_dogmas(plyr) -> dict:
+    '''helper function to show available dogma actions'''
+    cards = top_cards(plyr)
+    return {card['color']: card['dogma_action'] for card in cards}
 
 
 def compare(p1, p2) -> dict:
