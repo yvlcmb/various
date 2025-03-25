@@ -206,6 +206,19 @@ def hand(player) -> dict:
     return data
 
 
+def score_opponent_topcard(src, tgt, color) -> bool: 
+    '''score an opponent's top card, good for engineering, skyscrapers, etc.'''
+    topcard = top_cards(tgt)
+    match = [card for card in topcards if card['color'] == color]
+    if not match: 
+        print(f'Player {tgt['number']} has no top cards of that color')
+        return False 
+    swipe = tgt['board'][color]['cards'].pop()
+    src['score_pile'].append(swipe)
+    print(f"Player {src['number']} scored {swipe['name']} from Player {tgt['number']}'s board!")
+    return True
+
+
 def compare(p1, p2) -> dict:
     '''helper function to compare two player's positions'''
     p1 = {'score': count_score(p1), 
