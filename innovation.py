@@ -106,6 +106,7 @@ def draw_and_score(player, deck) -> int:
     player['score_pile'].append(decks[deck].pop())
     return True
 
+
 def count_score(player) -> int:
     return sum([card['age'] for card in player['score_pile']])
 
@@ -162,7 +163,7 @@ def count_icons(player) -> Counter:
                     if pos < len(card['icons']) and card['icons'][pos]
                 ]
                 icon_count.update(visible_icons)
-
+                
     return icon_count
 
 
