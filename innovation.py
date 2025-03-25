@@ -154,7 +154,7 @@ def count_icons(player) -> Counter:
         icon_count.update(top_card_icons)
 
         # Handle splayed cards if present
-        splay_positions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(data.get('splay'))
+        splay_positions = {'left': [3], 'right': [0, 1], 'up': [1, 2, 3]}.get(data.get('splay'))
         if splay_positions and len(cards) > 1:
              # count the rest of the icons skipping the top card 
              # but first must cast the deque to a list b/c deques can't slice
