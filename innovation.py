@@ -146,7 +146,7 @@ def count_icons(player) -> Counter:
 
     for color, data in player['board'].items():
         cards = data.get('cards')
-        if not cards:  # Early return for empty stacks
+        if not cards:  
             continue
 
         # Count icons from top card
@@ -156,7 +156,9 @@ def count_icons(player) -> Counter:
         # Handle splayed cards if present
         splay_positions = {'left': [2], 'right': [0, 1], 'up': [1, 2, 3]}.get(data.get('splay'))
         if splay_positions and len(cards) > 1:
-            for card in cards[:-1]:  # Skip top card
+             # count the rest of the icons skipping the top card 
+             # but first must cast the deque to a list b/c deques can't slice
+            for card in list(cards)[:-1]: 
                 visible_icons = [
                     card['icons'][pos] 
                     for pos in splay_positions 
