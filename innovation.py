@@ -11,6 +11,7 @@ not yet implemented:
 
 import random
 from collections import Counter, deque
+from pprint import pprint
 
 
 def create_player(num) -> dict:
@@ -217,7 +218,7 @@ def compare(p1, p2) -> dict:
           'icon_count': count_icons(p2), 
           'hand_size': len(p2['hand']), 
           'max_age': get_age(p2)}
-    return {'player 1': p1, 'player 2': p2} 
+    return pprint({'player 1': p1, 'player 2': p2})
 
 
 def transfer_scorecard_by_value(src, tgt, val) -> bool: 
