@@ -13,6 +13,7 @@ import random
 from collections import Counter, deque
 from pprint import pprint
 
+COLORS = tuple(create_player(0)['board'].keys())
 
 def create_player(num) -> dict:
     return {
@@ -205,6 +206,12 @@ def hand(player) -> dict:
         data[card[1]['color']].append(card[0])
     return data
 
+def count_cards(plyr) -> dict: 
+    '''helper function to count cards'''
+    return Counter({
+        color: len(cards['cards']) 
+        for color, cards in plyr['board'].items()
+    })
 
 def score_opponent_topcard(src, tgt, color) -> bool: 
     '''score an opponent's top card, good for engineering, skyscrapers, etc.'''
@@ -219,17 +226,19 @@ def score_opponent_topcard(src, tgt, color) -> bool:
 
 
 def compare(p1, p2) -> dict:
-    '''helper function to compare two player's positions'''
+    '''helper function to compare two player's positions at any given game state'''
     p1 = {'score': count_score(p1), 
           'achievements': len(p1['achievements']), 
           'icon_count': count_icons(p1), 
           'hand_size': len(p1['hand']), 
-          'max_age': get_age(p1)}
+          'max_age': get_age(p1), 
+          'stacks': dict(count_cards(p1)})
     p2 = {'score': count_score(p2), 
           'achievements': len(p2['achievements']), 
           'icon_count': count_icons(p2), 
           'hand_size': len(p2['hand']), 
-          'max_age': get_age(p2)}
+          'max_age': get_age(p2), 
+          'stacks': dict(count_cards(p2)})
     return pprint({'player 1': p1, 'player 2': p2})
 
 
