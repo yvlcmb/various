@@ -205,6 +205,21 @@ def hand(player) -> dict:
     return data
 
 
+def compare(p1, p2) -> dict:
+    '''helper function to compare two player's positions'''
+    p1 = {'score': count_score(p1), 
+          'achievements': len(p1['achievements']), 
+          'icon_count': count_icons(p1), 
+          'hand_size': len(p1['hand']), 
+          'max_age': get_age(p1)}
+    p2 = {'score': count_score(p2), 
+          'achievements': len(p2['achievements']), 
+          'icon_count': count_icons(p2), 
+          'hand_size': len(p2['hand']), 
+          'max_age': get_age(p2)}
+    return {'player 1': p1, 'player 2': p2} 
+
+
 def transfer_scorecard_by_value(src, tgt, val) -> bool: 
     vals = [(idx, crd) for idx, crd in enumerate(src['score_pile']) if crd['age'] == val]
     if not vals:
