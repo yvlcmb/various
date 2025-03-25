@@ -228,7 +228,7 @@ def score_opponent_topcard(src, tgt, color) -> bool:
 def show_dogmas(plyr) -> dict:
     '''helper function to show available dogma actions'''
     cards = top_cards(plyr)
-    return {card['color']: card['dogma_action'] for card in cards}
+    return {card['color']: card['dogma_effects'] for card in cards}
 
 
 def compare(p1, p2) -> dict:
