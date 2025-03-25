@@ -111,8 +111,8 @@ def count_score(player) -> int:
     return sum([card['age'] for card in player['score_pile']])
 
 
-def age(player, func=max) -> int:
-    """Find the minimum or maximum age on the player's board."""
+def get_age(player, func=max) -> int:
+    """Find the age on the player's board, defaults to max, can be used with min."""
     func = func or max
     non_empty_colors = [
         color for color in player['board'] if player['board'][color]['cards']
@@ -123,7 +123,7 @@ def age(player, func=max) -> int:
     )
 
 
-def achieve(player, achievements) -> bool:
+def achieve(player, age) -> bool:
     """achieve!
     side effects: mutates player[hand], decks dicts in place
     returns: boolean
@@ -131,14 +131,14 @@ def achieve(player, achievements) -> bool:
     """
     print('achieve!')
     score = count_score(player)
-    age = age(player, min)
-    if score >= (age * 5) and achievements.get(age):
-        card = achievements[age].pop()
+    max_age = get_age(player)
+    if all((score >= (age * 5), achievements.get(age), max_age >= age)):
+        card = achievements.pop(age)
         player['achievements'].append(card)
-        print(f'{player['number']} achieved age {age}!\n.')
+        print(f'Player {player['number']} achieved age {age}!\n.')
         return True
     else:
-        print(f'{player['number']} cannot achieve any cards at this time\n')
+        print(f'Player {player['number']} cannot achieve any cards at this time\n')
         return False
 
 
