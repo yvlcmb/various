@@ -159,12 +159,7 @@ def count_icons(player) -> Counter:
              # count the rest of the icons skipping the top card 
              # but first must cast the deque to a list b/c deques can't slice
             for card in list(cards)[:-1]: 
-                visible_icons = [
-                    card['icons'][pos] 
-                    for pos in splay_positions 
-                    if pos < len(card['icons']) and card['icons'][pos]
-                ]
-                icon_count.update(visible_icons)
+                icon_count.update([card['icons'][pos] for pos in splay_positions])
                 
     return icon_count
 
