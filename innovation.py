@@ -208,8 +208,7 @@ def hand(player) -> dict:
 
 def score_opponent_topcard(src, tgt, color) -> bool: 
     '''score an opponent's top card, good for engineering, skyscrapers, etc.'''
-    topcard = top_cards(tgt)
-    match = [card for card in topcards if card['color'] == color]
+    match = [card for card in top_cards(tgt) if card['color'] == color]
     if not match: 
         print(f'Player {tgt['number']} has no top cards of that color')
         return False 
