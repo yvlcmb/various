@@ -111,12 +111,13 @@ def count_score(player) -> int:
     return sum([card['age'] for card in player['score_pile']])
 
 
-def max_age(player) -> int:
-    """Find the highest max age on the player's board."""
+def age(player, _max: True) -> int:
+    """Find the minimum or maximum age on the player's board."""
+    fx = (min, max)[_max]
     non_empty_colors = [
         color for color in player['board'] if player['board'][color]['cards']
     ]
-    return max(
+    return fx(
         (player['board'][color]['cards'][-1]['age'] for color in non_empty_colors),
         default=0
     )
@@ -130,7 +131,7 @@ def achieve(player, achievements) -> bool:
     """
     print('achieve!')
     score = count_score(player)
-    age = max_age(player)
+    age = age(player, _max=False)
     if score >= (age * 5) and achievements.get(age):
         card = achievements[age].pop()
         player['achievements'].append(card)
@@ -1783,7 +1784,7 @@ the_internet = {
 global decks
 global achievements 
 decks, achievements = make_decks() 
-
+specials = ('World', 'Wonder', 'Universe', 'Monument', 'Empire')
 
 def _test_setup():
     players, deck, achs = set_up()
