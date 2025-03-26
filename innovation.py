@@ -295,8 +295,12 @@ def return_many_scored_cards(player, card):
     pass
 
 
-def return_card_from_board(player, card):
-    pass
+def return_topcard(player, color) -> bool: 
+    if not color in [card['color'] for card in top_cards(player)]: 
+        return False 
+    card = player['board'][color]['cards'].pop() 
+    decks[card['age']].appendleft(card) 
+    return True 
 
 
 def make_decks():
