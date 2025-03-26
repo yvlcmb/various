@@ -281,8 +281,7 @@ def return_scored_card_by_age(player, age) -> bool:
     if not choices:
         print(f"Player {player['number']} has no scored cards from that age")
         return False
-    index = random.choice(choices)
-    card = player['score_pile'].pop(index)
+    card = player['score_pile'].pop(random.choice(choices))
     decks[age].appendleft(card)
     print(f"Player {player['number']} returned an age {age} card to the deck")
     return True
