@@ -685,7 +685,8 @@ mysticism = {
     'color': 'purple',
     'icons': ('', 'castle', 'castle', 'castle'),
     'dogma_effects': ''.join(
-        ('Draw a 1. If it is the same color of any card on your board, meld it. ' 'Draw a 1',)
+        ('Draw a 1. If it is the same color of any card on your board, meld it. ',
+         'Draw a 1',)
     ),
     'dogma_icon': 'castle',
 }
