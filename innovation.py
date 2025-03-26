@@ -47,7 +47,7 @@ def meld(player, card) -> bool:
     card = player['hand'].pop(card)
     color = card.get('color')
     player['board'][color]['cards'].append(card)
-    print(f"Player melded {card.get('name')} to their {color} stack\n")
+    print(f"Player {player['number']} melded {card.get('name')} to their {color} stack\n")
     return True
 
 
@@ -75,13 +75,13 @@ def tuck(player, cardname) -> bool:
     """
     print('tuck!')
     if not cardname in player.get('hand'):
-        print(f"{cardname} not found in {player[number]}'s hand\n")
+        print(f"{cardname} not found in Player {player['number']}'s hand\n")
         return False
     card = player['hand'].pop(cardname)
     color = card.get('color')
     print(color)
     player['board'][color]('cards').appendleft(card)
-    print(f"{player['number']} tucked {card.get('name')} in their {card.get('color')} stack\n")
+    print(f"Player {player['number']} tucked {card.get('name')} in their {card.get('color')} stack\n")
     return True
 
 
@@ -275,16 +275,16 @@ def return_card_from_hand(player, card) -> bool:
 
 def return_scored_card_by_age(player, age) -> bool:
     if not player['score_pile']:
-        print(f"{player['number']} has no score pile, so this is an invalid action.")
+        print(f"Player {player['number']} has no cards in their score pile.")
         return False
-    choices = [card for card in player['score_pile'] if card['age'] == age]
-    if age not in [choice['age'] for choice in choices]:
-        print(f"{player['number']} has no scored cards from that age")
+    choices = [i for i, d in enumerate(player['score_pile']) if d['age'] == age] 
+    if not choices:
+        print(f"Player {player['number']} has no scored cards from that age")
         return False
-    cardname = random.choice(choices)
-    card = player['score_pile'].pop(cardname)
+    index = random.choice(choices)
+    card = player['score_pile'].pop(index)
     decks[age].appendleft(card)
-    print(f"{player['number']} returned an age {age} card to the deck")
+    print(f"Player {player['number']} returned an age {age} card to the deck")
     return True
 
 
