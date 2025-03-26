@@ -7,6 +7,10 @@ not yet implemented:
     dogma action
     end game score calculation
     remaining test functions
+
+some naming conventions for functions:
+   transfer_* functions are interactions between two players
+   return_* functions are interactions between a player and the draw deck 
 """
 
 import random
