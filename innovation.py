@@ -16,7 +16,7 @@ from pprint import pprint
 
 def create_player(num) -> dict:
     return {
-        'number': num + 1, 
+        'number': num + 1,
         'hand': {},
         'board': {
             'red': {'cards': deque(), 'splay': 'none'},
@@ -29,7 +29,9 @@ def create_player(num) -> dict:
         'achievements': [],
     }
 
+
 COLORS = tuple(create_player(0)['board'].keys())
+
 
 def meld(player, card) -> bool:
     """meld!
@@ -102,7 +104,7 @@ def draw(player, age) -> bool:
     return False
 
 
-def draw_and_score(player, deck) -> int: 
+def draw_and_score(player, deck) -> int:
     if not decks[deck]:
         return False
     player['score_pile'].append(decks[deck].pop())
@@ -116,12 +118,9 @@ def count_score(player) -> int:
 def get_age(player, func=max) -> int:
     """Find the age on the player's board, defaults to max, can be used with min."""
     func = func or max
-    non_empty_colors = [
-        color for color in player['board'] if player['board'][color]['cards']
-    ]
+    non_empty_colors = [color for color in player['board'] if player['board'][color]['cards']]
     return func(
-        (player['board'][color]['cards'][-1]['age'] for color in non_empty_colors),
-        default=0
+        (player['board'][color]['cards'][-1]['age'] for color in non_empty_colors), default=0
     )
 
 
@@ -137,10 +136,10 @@ def achieve(player, age) -> bool:
     if all((score >= (age * 5), achievements.get(age), max_age >= age)):
         card = achievements.pop(age)
         player['achievements'].append(card)
-        print(f'Player {player['number']} achieved age {age}!\n.')
+        print(f"Player {player['number']} achieved age {age}!\n")
         return True
     else:
-        print(f'Player {player['number']} cannot achieve any cards at this time\n')
+        print(f"Player {player['number']} cannot achieve any cards at this time\n")
         return False
 
 
@@ -149,7 +148,7 @@ def count_icons(player) -> Counter:
 
     for color, data in player['board'].items():
         cards = data.get('cards')
-        if not cards:  
+        if not cards:
             continue
 
         # Count icons from top card
@@ -159,39 +158,41 @@ def count_icons(player) -> Counter:
         # Handle splayed cards if present
         splay_positions = {'left': [3], 'right': [0, 1], 'up': [1, 2, 3]}.get(data.get('splay'))
         if splay_positions and len(cards) > 1:
-             # count the rest of the icons skipping the top card 
-             # but first must cast the deque to a list b/c deques can't slice
-            for card in list(cards)[:-1]: 
+            # count the rest of the icons skipping the top card
+            # but first must cast the deque to a list b/c deques can't slice
+            for card in list(cards)[:-1]:
                 icon_count.update([card['icons'][pos] for pos in splay_positions])
-                
+
     return icon_count
 
 
-def score_handcard(player, card) -> bool: 
-    if card not in player['hand']: 
+def score_handcard(player, card) -> bool:
+    if card not in player['hand']:
         return False
     score = player['hand'].pop(card)
     player['score_pile'].append(score)
     return True
 
 
-def transfer_handcard(source, target, cardname) -> bool: 
-    if cardname not in source['hand']: 
+def transfer_handcard(source, target, cardname) -> bool:
+    if cardname not in source['hand']:
         print(f"{card} not in player {source['number']}'s hand")
         return False
     card = source['hand'].pop(cardname)
     target['hand'].update({cardname: card})
-    print(f"Player {source['number']} transfers {card} from their hand to {target['number']}'s hand.")
-    return True 
+    print(
+        f"Player {source['number']} transfers {card} from their hand to {target['number']}'s hand."
+    )
+    return True
 
 
-def top_cards(player) -> list: 
+def top_cards(player) -> list:
     return [cards['cards'][-1] for color, cards in player['board'].items() if cards['cards']]
 
 
-def transfer_topcard(src, tgt, color) -> bool: 
-    if not src['board'][color]: 
-        print(f'Player {src['number']} does not have a top {color} card.')
+def transfer_topcard(src, tgt, color) -> bool:
+    if not src['board'][color]:
+        print(f"Player {src['number']} does not have a top {color} card.")
         return False
     card = src['board'][color]['cards'].pop()
     tgt['board'][color].update({card['name']: card})
@@ -199,56 +200,59 @@ def transfer_topcard(src, tgt, color) -> bool:
     return True
 
 
-def hand(player) -> dict: 
-    '''helper function to quickly see what is in hand'''
-    data = {color: [] for color in COLORS} 
-    for card in player['hand'].items(): 
+def hand(player) -> dict:
+    """helper function to quickly see what is in hand"""
+    data = {color: [] for color in COLORS}
+    for card in player['hand'].items():
         data[card[1]['color']].append(card[0])
     return data
 
-def count_cards(plyr) -> dict: 
-    '''helper function to count cards'''
-    return Counter({
-        color: len(cards['cards']) 
-        for color, cards in plyr['board'].items()
-    })
 
-def score_opponent_topcard(src, tgt, color) -> bool: 
-    '''score an opponent's top card, good for engineering, skyscrapers, etc.'''
+def count_cards(plyr) -> dict:
+    """helper function to count cards"""
+    return Counter({color: len(cards['cards']) for color, cards in plyr['board'].items()})
+
+
+def score_opponent_topcard(src, tgt, color) -> bool:
+    """score an opponent's top card, good for engineering, skyscrapers, etc."""
     match = [card for card in top_cards(tgt) if card['color'] == color]
-    if not match: 
-        print(f'Player {tgt['number']} has no top cards of that color')
-        return False 
+    if not match:
+        print(f"Player {tgt['number']} has no top cards of that color")
+        return False
     swipe = tgt['board'][color]['cards'].pop()
     src['score_pile'].append(swipe)
     print(f"Player {src['number']} scored {swipe['name']} from Player {tgt['number']}'s board!")
     return True
-    
+
 
 def show_dogmas(plyr) -> dict:
-    '''helper function to show available dogma actions'''
+    """helper function to show available dogma actions"""
     cards = top_cards(plyr)
     return {card['color']: card['dogma_effects'] for card in cards}
 
 
 def compare(p1, p2) -> dict:
-    '''helper function to compare two player's positions at any given game state'''
-    p1 = {'score': count_score(p1), 
-          'achievements': len(p1['achievements']), 
-          'icon_count': count_icons(p1), 
-          'hand_size': len(p1['hand']), 
-          'max_age': get_age(p1), 
-          'stacks': dict(count_cards(p1))}
-    p2 = {'score': count_score(p2), 
-          'achievements': len(p2['achievements']), 
-          'icon_count': count_icons(p2), 
-          'hand_size': len(p2['hand']), 
-          'max_age': get_age(p2), 
-          'stacks': dict(count_cards(p2))}
+    """helper function to compare two player's positions at any given game state"""
+    p1 = {
+        'score': count_score(p1),
+        'achievements': len(p1['achievements']),
+        'icon_count': count_icons(p1),
+        'hand_size': len(p1['hand']),
+        'max_age': get_age(p1),
+        'stacks': dict(count_cards(p1)),
+    }
+    p2 = {
+        'score': count_score(p2),
+        'achievements': len(p2['achievements']),
+        'icon_count': count_icons(p2),
+        'hand_size': len(p2['hand']),
+        'max_age': get_age(p2),
+        'stacks': dict(count_cards(p2)),
+    }
     return pprint({'player 1': p1, 'player 2': p2})
 
 
-def transfer_scorecard_by_value(src, tgt, val) -> bool: 
+def transfer_scorecard_by_value(src, tgt, val) -> bool:
     vals = [(idx, crd) for idx, crd in enumerate(src['score_pile']) if crd['age'] == val]
     if not vals:
         return False
@@ -258,30 +262,30 @@ def transfer_scorecard_by_value(src, tgt, val) -> bool:
     return True
 
 
-def return_card_from_hand(player, card) -> bool: 
-    if card not in player['hand']: 
+def return_card_from_hand(player, card) -> bool:
+    if card not in player['hand']:
         print('card not in hand')
-        return False 
+        return False
     _card = player['hand'].pop(card)
     age = _card.get('age')
     decks[age].appendleft(_card)
-    print(f'Player {player['number']} returns {card} from their hand')
+    print(f"Player {player['number']} returns {card} from their hand")
     return True
 
 
 def return_scored_card_by_age(player, age) -> bool:
-    if not player['score_pile']: 
-        print(f'{player['number']} has no score pile, so this is an invalid action.')
-        return False 
+    if not player['score_pile']:
+        print(f"{player['number']} has no score pile, so this is an invalid action.")
+        return False
     choices = [card for card in player['score_pile'] if card['age'] == age]
-    if age not in [choice['age'] for choice in choices]: 
-        print(f'{player['number']} has no scored cards from that age')
-        return False 
+    if age not in [choice['age'] for choice in choices]:
+        print(f"{player['number']} has no scored cards from that age")
+        return False
     cardname = random.choice(choices)
     card = player['score_pile'].pop(cardname)
     decks[age].appendleft(card)
-    print(f'{player['number']} returned an age {age} card to the deck')
-    return True    
+    print(f"{player['number']} returned an age {age} card to the deck")
+    return True
 
 
 def return_many_scored_cards(player, card):
@@ -1825,14 +1829,16 @@ the_internet = {
     'dogma_icon': 'clock',
 }
 global decks
-global achievements 
-decks, achievements = make_decks() 
+global achievements
+decks, achievements = make_decks()
 specials = ('World', 'Wonder', 'Universe', 'Monument', 'Empire')
+
 
 def _test_setup():
     players, deck, achs = set_up()
     p1, p2 = players
     assert all((p1, p2, deck, achs))
+
 
 def _test_meld():
     (
@@ -1846,6 +1852,6 @@ def _test_meld():
 
 
 if __name__ == '__main__':
-    p1, p2 = init_two_player() 
-    #test_setup()
-    #test_meld()
+    p1, p2 = init_two_player()
+    # test_setup()
+    # test_meld()
