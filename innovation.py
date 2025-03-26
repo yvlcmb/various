@@ -13,7 +13,6 @@ import random
 from collections import Counter, deque
 from pprint import pprint
 
-COLORS = tuple(create_player(0)['board'].keys())
 
 def create_player(num) -> dict:
     return {
@@ -30,6 +29,7 @@ def create_player(num) -> dict:
         'achievements': [],
     }
 
+COLORS = tuple(create_player(0)['board'].keys())
 
 def meld(player, card) -> bool:
     """meld!
@@ -191,11 +191,11 @@ def top_cards(player) -> list:
 
 def transfer_topcard(src, tgt, color) -> bool: 
     if not src['board'][color]: 
-        print(f'{src['number']} does not have a top {color} card'.)
+        print(f'Player {src['number']} does not have a top {color} card.')
         return False
     card = src['board'][color]['cards'].pop()
     tgt['board'][color].update({card['name']: card})
-    print(f"Player {src['number']} transfers {card} to player {tgt['number']}'s board"})
+    print(f"Player {src['number']} transfers {card} to player {tgt['number']}'s board")
     return True
 
 
@@ -238,13 +238,13 @@ def compare(p1, p2) -> dict:
           'icon_count': count_icons(p1), 
           'hand_size': len(p1['hand']), 
           'max_age': get_age(p1), 
-          'stacks': dict(count_cards(p1)})
+          'stacks': dict(count_cards(p1))}
     p2 = {'score': count_score(p2), 
           'achievements': len(p2['achievements']), 
           'icon_count': count_icons(p2), 
           'hand_size': len(p2['hand']), 
           'max_age': get_age(p2), 
-          'stacks': dict(count_cards(p2)})
+          'stacks': dict(count_cards(p2))}
     return pprint({'player 1': p1, 'player 2': p2})
 
 
