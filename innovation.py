@@ -103,7 +103,9 @@ def draw(player, age) -> bool:
             print(f"Player {player['number']} drew {card.get('name')}\n")
             return True
         else:
+            print(f"The age {age} deck is empty.")
             age += 1
+            print(f"Drawing from age {age} deck.") 
     print('Game over!\n')
     return False
 
@@ -232,7 +234,7 @@ def score_opponent_topcard(attacker, victim, color) -> bool:
 def show_dogmas(plyr) -> dict:
     """helper function to show available dogma actions"""
     cards = top_cards(plyr)
-    return {card['color']: card['dogma_effects'] for card in cards}
+    return {card['color']: card['name'] + ': ' + card['dogma_effects'] for card in cards}
 
 
 def compare(p1, p2) -> dict:
