@@ -217,15 +217,15 @@ def count_cards(plyr) -> dict:
     return Counter({color: len(cards['cards']) for color, cards in plyr['board'].items()})
 
 
-def score_opponent_topcard(src, tgt, color) -> bool:
-    """score an opponent's top card, good for engineering, skyscrapers, etc."""
-    match = [card for card in top_cards(tgt) if card['color'] == color]
+def score_opponent_topcard(attacker, victim, color) -> bool:
+    """score an opponent's top card, good for engineering, gunpowder, skyscrapers, etc."""
+    match = [card for card in top_cards(victim) if card['color'] == color]
     if not match:
-        print(f"Player {tgt['number']} has no top cards of that color")
+        print(f"Player {victim['number']} has no top cards of that color")
         return False
-    swipe = tgt['board'][color]['cards'].pop()
-    src['score_pile'].append(swipe)
-    print(f"Player {src['number']} scored {swipe['name']} from Player {tgt['number']}'s board!")
+    swipe = victim['board'][color]['cards'].pop()
+    attacker['score_pile'].append(swipe)
+    print(f"Player {attacker['number']} scored {swipe['name']} from Player {victim['number']}'s board!")
     return True
 
 
@@ -466,7 +466,7 @@ def make_decks():
         (
             miniaturization,
             robotics,
-            globalsization,
+            globalization,
             stem_cells,
             databases,
             self_service,
@@ -1734,8 +1734,8 @@ robotics = {
     ),
     'dogma_icon': 'factory',
 }
-globalsization = {
-    'name': 'globalsization',
+globalization = {
+    'name': 'globalization',
     'age': 10,
     'color': 'yellow',
     'icons': ('', 'factory', 'factory', 'factory'),
