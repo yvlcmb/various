@@ -237,6 +237,11 @@ def show_dogmas(plyr) -> dict:
     return {card['color']: card['name'] + ': ' + card['dogma_effects'] for card in cards}
 
 
+def show_stacks(plyr) -> dict: 
+    """show the length and splay direction of each stack on 
+    a player's board"""
+    return {color: (len(plyr['board'][color]['cards']), plyr['board'][color]['splay']) for color in COLORS}
+
 def compare(p1, p2) -> dict:
     """helper function to compare two player's positions at any given game state"""
     p1 = {
@@ -246,6 +251,7 @@ def compare(p1, p2) -> dict:
         'hand_size': len(p1['hand']),
         'max_age': get_age(p1),
         'stacks': dict(count_cards(p1)),
+        'splays': {color: plyr['board'][color]['splay'] for color in COLORS},
     }
     p2 = {
         'score': count_score(p2),
@@ -254,6 +260,7 @@ def compare(p1, p2) -> dict:
         'hand_size': len(p2['hand']),
         'max_age': get_age(p2),
         'stacks': dict(count_cards(p2)),
+        'splays': {color: plyr['board'][color]['splay'] for color in COLORS},
     }
     return pprint({'player 1': p1, 'player 2': p2})
 
